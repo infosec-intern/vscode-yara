@@ -12,20 +12,36 @@
 	<key>patterns</key>
 	<array>
 		<dict>
+			<!-- block and line comments -->
 			<key>include</key>
 			<string>#comment</string>
+			<!-- true/false -->
 			<key>include</key>
 			<string>#constant</string>
+			<!-- general sections of the document -->
+			<key>include</key>
+			<string>#entity</key>
+			<!-- miscellaneous -->
 			<key>include</key>
 			<string>#keyword</string>
+			<!-- words that start with '$' -->
 			<key>include</key>
 			<string>#variable</string>
+			<!-- YARA meta keywords -->
 			<key>include</key>
 			<string>#meta</string>
+			<!-- strings, hex, regex -->
 			<key>include</key>
 			<string>#strings</string>
+			<!-- invalid/deprecated -->
+			<key>include</key>
+			<string>#invalid</string>
+			<!-- if/else, etc. -->
+<!--
+			Can be covered by keyword.control, keyword.operator, etc. instead
 			<key>include</key>
 			<string>#conditions</string>
+-->
 		</dict>
 	</array>
 </dict>
