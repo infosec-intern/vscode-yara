@@ -15,33 +15,41 @@
 			<!-- block and line comments -->
 			<key>include</key>
 			<string>#comment</string>
+		</dict>
+		<dict>
 			<!-- true/false -->
 			<key>include</key>
 			<string>#constant</string>
+		</dict>
+		<dict>
 			<!-- general sections of the document -->
 			<key>include</key>
 			<string>#entity</key>
+		</dict>
+		<dict>
 			<!-- miscellaneous -->
 			<key>include</key>
 			<string>#keyword</string>
+		</dict>
+		<dict>
 			<!-- words that start with '$' -->
 			<key>include</key>
 			<string>#variable</string>
+		</dict>
+		<dict>
 			<!-- YARA meta keywords -->
 			<key>include</key>
 			<string>#meta</string>
+		</dict>
+		<dict>
 			<!-- strings, hex, regex -->
 			<key>include</key>
 			<string>#strings</string>
+		</dict>
+		<dict>
 			<!-- invalid/deprecated -->
 			<key>include</key>
 			<string>#invalid</string>
-			<!-- if/else, etc. -->
-<!--
-			Can be covered by keyword.control, keyword.operator, etc. instead
-			<key>include</key>
-			<string>#conditions</string>
--->
 		</dict>
 	</array>
 	<key>repository</key>

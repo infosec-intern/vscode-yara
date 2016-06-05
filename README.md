@@ -6,4 +6,6 @@ Syntax Highlighting: https://gist.github.com/tylerhalfpop/eeabc765e9befad9b80a
 
 TextMate Docs: http://manual.macromates.com/en/language_grammars
 
-Example Code: https://github.com/mmcgrana/textmate-clojure/blob/master/Syntaxes/Clojure.tmLanguage
+Example Code: 
+	https://github.com/mmcgrana/textmate-clojure/blob/master/Syntaxes/Clojure.tmLanguage
+	https://github.com/textmate/python.tmbundle/blob/master/Syntaxes/Python.tmLanguage
