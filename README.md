@@ -2,10 +2,12 @@
 Syntax Highlighting for the YARA pattern matching language
 
 ## References
-Syntax Highlighting: https://gist.github.com/tylerhalfpop/eeabc765e9befad9b80a
+Syntax Reference:<br>
+<nbsp>https://gist.github.com/tylerhalfpop/eeabc765e9befad9b80a
 
-TextMate Docs: http://manual.macromates.com/en/language_grammars
+TextMate Docs:<br>
+<nbsp>http://manual.macromates.com/en/language_grammars
 
-Example Code: 
-	https://github.com/mmcgrana/textmate-clojure/blob/master/Syntaxes/Clojure.tmLanguage
-	https://github.com/textmate/python.tmbundle/blob/master/Syntaxes/Python.tmLanguage
+Example Code:<br>
+<nbsp>https://github.com/mmcgrana/textmate-clojure/blob/master/Syntaxes/Clojure.tmLanguage
+<nbsp>https://github.com/textmate/python.tmbundle/blob/master/Syntaxes/Python.tmLanguage
