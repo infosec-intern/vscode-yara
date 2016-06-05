@@ -62,14 +62,15 @@
 			<array>
 				<dict>
 					<key>name</key>
-					<string>comment.line</string>
+					<string>comment.line.source.yara</string>
 					<!-- match everything on a line after '//' -->
 					<key>match</key>
 					<string>(\/\/).*\n</string>
 				</dict>
 				<dict>
+					<!-- does not currently work -->
 					<key>name</key>
-					<string>comment.block</string>
+					<string>comment.block.source.yara</string>
 					<!-- match everything between (and including) /* */ -->
 					<key>match</key>
 					<string>\/\*.*\*\/</string>
@@ -82,9 +83,9 @@
 			<array>
 				<dict>
 					<key>name</key>
-					<string>constant.language.boolean</string>
+					<string>constant.language.boolean.source.yara</string>
 					<key>match</key>
-					<string>(true|false)</string>
+					<string>(true(\s)?|false(\s)?)</string>
 				</dict>
 			</array>
 		</dict>
@@ -93,6 +94,15 @@
 		</dict>
 		<key>keyword</key>
 		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>name</key>
+					<string>keyword.operator.logical.source.yara</string>
+					<key>match</key>
+					<string>( and | or | not )</string>
+				</dict>
+			</array>
 		</dict>
 		<key>variable</key>
 		<dict>
@@ -106,25 +116,25 @@
 			<array>
 				<dict>
 					<key>name</key>
-					<string>string.single</string>
+					<string>string.single.source.yara</string>
 					<key>match</key>
 					<string></string>
 				</dict>
 				<dict>
 					<key>name</key>
-					<string>string.double</string>
+					<string>string.double.source.yara</string>
 					<key>match</key>
 					<string></string>
 				</dict>
 				<dict>
 					<key>name</key>
-					<string>string.regexp</string>
+					<string>string.regexp.source.yara</string>
 					<key>match</key>
 					<string></string>
 				</dict>
 				<dict>
 					<key>name</key>
-					<string>string.hex</string>
+					<string>string.hex.source.yara</string>
 					<key>match</key>
 					<string></string>
 				</dict>
