@@ -44,5 +44,28 @@
 -->
 		</dict>
 	</array>
+	<key>smartTypingPairs</key>
+	<array>
+		<array>
+			<string>"</string>
+			<string>"</string>
+		</array>
+		<array>
+			<string>(</string>
+			<string>)</string>
+		</array>
+		<array>
+			<string>{</string>
+			<string>}</string>
+		</array>
+		<array>
+			<string>[</string>
+			<string>]</string>
+		</array>
+		<array>
+			<string>/*</string>
+			<string>*/</string>
+		</array>
+	</array>
 </dict>
 </plist>
