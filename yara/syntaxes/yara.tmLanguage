@@ -9,6 +9,8 @@
 	</array>
 	<key>name</key>
 	<string>YARA</string>
+	<key>scopeName</key>
+	<string>source.yara</string>
 	<key>patterns</key>
 	<array>
 		<dict>
