@@ -44,7 +44,7 @@
 		<dict>
 			<!-- strings, hex, regex -->
 			<key>include</key>
-			<string>#strings</string>
+			<string>#string</string>
 		</dict>
 		<dict>
 			<!-- invalid/deprecated -->
@@ -56,9 +56,35 @@
 	<dict>
 		<key>comment</key>
 		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>name</key>
+					<string>comment.line</string>
+					<!-- match everything on a line after '//' -->
+					<key>match</key>
+					<string>(\/\/).*\n</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>comment.block</string>
+					<!-- match everything between (and including) /* */ -->
+					<key>match</key>
+					<string>\/\*.*\*\/</string>
+				</dict>
+			</array>
 		</dict>
 		<key>constant</key>
 		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>name</key>
+					<string>constant.language.boolean</string>
+					<key>match</key>
+					<string>(true|false)</string>
+				</dict>
+			</array>
 		</dict>
 		<key>entity</key>
 		<dict>
@@ -72,8 +98,35 @@
 		<key>meta</key>
 		<dict>
 		</dict>
-		<key>strings</key>
+		<key>string</key>
 		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>name</key>
+					<string>string.single</string>
+					<key>match</key>
+					<string></string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>string.double</string>
+					<key>match</key>
+					<string></string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>string.regexp</string>
+					<key>match</key>
+					<string></string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>string.hex</string>
+					<key>match</key>
+					<string></string>
+				</dict>
+			</array>
 		</dict>
 		<key>invalid</key>
 		<dict>
