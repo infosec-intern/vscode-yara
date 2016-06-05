@@ -1,0 +1,26 @@
+{
+    "name": "yara",
+    "displayName": "yara-syntax",
+    "description": "Syntax Highlighting for the YARA pattern matching language",
+    "version": "0.0.1",
+    "publisher": "infosec-intern",
+    "engines": {
+        "vscode": "^1.0.0"
+    },
+    "categories": [
+        "Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "yara",
+            "aliases": ["yara-syntax", "yara"],
+            "extensions": [".yara",".yar"],
+            "configuration": "./yara.configuration.json"
+        }],
+        "grammars": [{
+            "language": "yara",
+            "scopeName": "text.xml.ant",
+            "path": "./syntaxes/yara.tmLanguage"
+        }]
+    }
+}
