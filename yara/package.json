@@ -1,6 +1,6 @@
 {
     "name": "yara",
-    "displayName": "yara-syntax",
+    "displayName": "yara",
     "description": "Syntax Highlighting for the YARA pattern matching language",
     "version": "0.0.1",
     "publisher": "infosec-intern",
@@ -13,13 +13,13 @@
     "contributes": {
         "languages": [{
             "id": "yara",
-            "aliases": ["yara-syntax", "yara"],
+            "aliases": ["yara-syntax", "yaralang", "yara"],
             "extensions": [".yara",".yar"],
             "configuration": "./yara.configuration.json"
         }],
         "grammars": [{
             "language": "yara",
-            "scopeName": "text.xml.ant",
+            "scopeName": "source.yara",
             "path": "./syntaxes/yara.tmLanguage"
         }]
     }
