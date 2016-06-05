@@ -134,7 +134,36 @@
 		<dict>
 		</dict>
 	</dict>
+	<!-- define pairs of characters so that the second character gets
+	automatically inserted when you type the first character -->
 	<key>smartTypingPairs</key>
+	<array>
+		<array>
+			<string>'</string>
+			<string>'</string>
+		</array>
+		<array>
+			<string>"</string>
+			<string>"</string>
+		</array>
+		<array>
+			<string>(</string>
+			<string>)</string>
+		</array>
+		<array>
+			<string>{</string>
+			<string>}</string>
+		</array>
+		<array>
+			<string>[</string>
+			<string>]</string>
+		</array>
+		<array>
+			<string>/*</string>
+			<string>*/</string>
+		</array>
+	</array>
+	<key>highlightPairs</key>
 	<array>
 		<array>
 			<string>'</string>
