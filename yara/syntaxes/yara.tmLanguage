@@ -44,6 +44,33 @@
 -->
 		</dict>
 	</array>
+	<key>repository</key>
+	<dict>
+		<key>comment</key>
+		<dict>
+		</dict>
+		<key>constant</key>
+		<dict>
+		</dict>
+		<key>entity</key>
+		<dict>
+		</dict>
+		<key>keyword</key>
+		<dict>
+		</dict>
+		<key>variable</key>
+		<dict>
+		</dict>
+		<key>meta</key>
+		<dict>
+		</dict>
+		<key>strings</key>
+		<dict>
+		</dict>
+		<key>invalid</key>
+		<dict>
+		</dict>
+	</dict>
 	<key>smartTypingPairs</key>
 	<array>
 		<array>
