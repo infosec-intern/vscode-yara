@@ -4,6 +4,14 @@
 // Test single-line comment
 rule WildcardExample
 {
+    meta: // Useful meta information examples to add
+ 	    description = "Test"
+        author = "Test""
+        reference = "http://www.infosec-intern.com"
+        os = "mswindows"
+        filetype = "pe"
+        maltype = "trojan"
+        date = "2016-06"
     strings:
        $true = true
        $false = false
