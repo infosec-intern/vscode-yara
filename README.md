@@ -14,3 +14,5 @@ http://manual.macromates.com/en/language_grammars
 Example Code:<br>
 https://github.com/mmcgrana/textmate-clojure/blob/master/Syntaxes/Clojure.tmLanguage
 https://github.com/textmate/python.tmbundle/blob/master/Syntaxes/Python.tmLanguage
+https://github.com/nyx0/YaraSyntax/blob/master/yara.tmLanguage
+https://github.com/blacktop/language-yara
