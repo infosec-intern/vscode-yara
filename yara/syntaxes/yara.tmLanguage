@@ -68,12 +68,11 @@
 					<string>(\/\/).*\n</string>
 				</dict>
 				<dict>
-					<!-- does not currently work -->
 					<key>name</key>
 					<string>comment.block.source.yara</string>
 					<!-- match everything between (and including) /* */ -->
 					<key>match</key>
-					<string>\/\*.*\*\/</string>
+					<string>(/\*|\*/)</string>
 				</dict>
 			</array>
 		</dict>
@@ -85,7 +84,7 @@
 					<key>name</key>
 					<string>constant.language.boolean.source.yara</string>
 					<key>match</key>
-					<string>(true(\s)?|false(\s)?)</string>
+					<string>([^\S](\s)*true[^\S](\s)*|false(\s)?)</string>
 				</dict>
 			</array>
 		</dict>
@@ -101,6 +100,12 @@
 					<string>keyword.operator.logical.source.yara</string>
 					<key>match</key>
 					<string>( and | or | not )</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>keyword.other.source.yara</string>
+					<key>match</key>
+					<string>(^(\s)*global |^(\s)*rule |^(\s)*condition:$|^(\s)*strings:$|^(\s)*meta:$)</string>
 				</dict>
 			</array>
 		</dict>
@@ -118,13 +123,13 @@
 					<key>name</key>
 					<string>string.single.source.yara</string>
 					<key>match</key>
-					<string></string>
+					<string>\'.*\'</string>
 				</dict>
 				<dict>
 					<key>name</key>
 					<string>string.double.source.yara</string>
 					<key>match</key>
-					<string></string>
+					<string>\".*\"</string>
 				</dict>
 				<dict>
 					<key>name</key>
@@ -136,7 +141,7 @@
 					<key>name</key>
 					<string>string.hex.source.yara</string>
 					<key>match</key>
-					<string></string>
+					<string>\s[0-9A-Fa-f]{2}\s</string>
 				</dict>
 			</array>
 		</dict>
