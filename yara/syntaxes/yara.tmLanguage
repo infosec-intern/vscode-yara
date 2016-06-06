@@ -75,10 +75,8 @@
 					<key>name</key>
 					<string>comment.line.source.yara</string>
 					<!-- match everything on a line after '//' -->
-					<key>begin</key>
-					<string>//</string>
-					<key>end</key>
-					<string>\n</string>
+					<key>match</key>
+					<string>//.*\n</string>
 				</dict>
 				<dict>
 					<key>name</key>
@@ -121,7 +119,7 @@
 					<string>keyword.other.source.yara</string>
 					<!-- match YARA-specific keywords -->
 					<key>match</key>
-					<string>((\s)*rule |^(\s)*condition:(\s)*$|^(\s)*strings:(\s)*$|^(\s)*meta:(\s)*$)</string>
+					<string>((\s)*rule |^(\s)*condition:(\s)*$|^(\s)*strings:(\s)*$|^(\s)*meta:(\s)*)</string>
 				</dict>
 			</array>
 		</dict>
@@ -140,6 +138,15 @@
 		</dict>
 		<key>meta</key>
 		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>name</key>
+					<string>meta.source.yara</string>
+					<key>match</key>
+					<string></string>
+				</dict>
+			</array>
 		</dict>
 		<key>string</key>
 		<dict>
