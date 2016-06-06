@@ -68,8 +68,9 @@
 				<dict>
 					<key>name</key>
 					<string>storage.modifier.yara</string>
+					<!-- match 'global' YARA statements - can be preceded with whitespace -->
 					<key>match</key>
-					<string>^(\s)*global </string>
+					<string>^\bglobal\b</string>
 				</dict>
 			</array>
 		</dict>
@@ -101,10 +102,17 @@
 			<array>
 				<dict>
 					<key>name</key>
-					<string>constant.language.boolean.yara</string>
+					<string>constant.language.boolean.true.yara</string>
+					<!-- match 'true', but not 'strue' or 'trues' -->
 					<key>match</key>
-					<string>(true|false)</string>
+					<string>\btrue\b</string>
 				</dict>
+				<dict>
+					<key>name</key>
+					<string>constant.language.boolean.false.yara</string>
+					<!-- match 'false', but not 'sfalse' or 'falses' -->
+					<key>match</key>
+					<string>\bfalse\b</string>
 			</array>
 		</dict>
 		<key>entity</key>
