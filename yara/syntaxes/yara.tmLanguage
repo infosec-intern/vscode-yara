@@ -71,8 +71,10 @@
 					<key>name</key>
 					<string>comment.block.source.yara</string>
 					<!-- match everything between (and including) /* */ -->
-					<key>match</key>
-					<string>(/\*|\*/)</string>
+					<key>begin</key>
+					<string>/\*</string>
+					<key>end</key>
+					<string>\*/</string>
 				</dict>
 			</array>
 		</dict>
