@@ -49,6 +49,11 @@
 			<string>#string</string>
 		</dict>
 		<dict>
+			<!-- global -->
+			<key>include</key>
+			<string>#storage</string>
+		</dict>
+		<dict>
 			<!-- invalid/deprecated -->
 			<key>include</key>
 			<string>#invalid</string>
@@ -60,6 +65,12 @@
 		<dict>
 			<key>patterns</key>
 			<array>
+				<dict>
+					<key>name</key>
+					<string>storage.modifier.source.yara</string>
+					<key>match</key>
+					<string>^(\s)*global </string>
+				</dict>
 				<dict>
 					<key>name</key>
 					<string>comment.line.source.yara</string>
@@ -110,7 +121,7 @@
 					<string>keyword.other.source.yara</string>
 					<!-- match YARA-specific keywords -->
 					<key>match</key>
-					<string>(^(\s)*global |^(\s)*rule |^(\s)*condition:(\s)*$|^(\s)*strings:(\s)*$|^(\s)*meta:(\s)*$)</string>
+					<string>((\s)*rule |^(\s)*condition:(\s)*$|^(\s)*strings:(\s)*$|^(\s)*meta:(\s)*$)</string>
 				</dict>
 			</array>
 		</dict>
