@@ -12,6 +12,7 @@ rule WildcardExample
         filetype = "pe"
         maltype = "trojan"
         date = "2016-06"
+        1 not 2 or 3 and 4
     strings:
        $true = true
        $false = false
