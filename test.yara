@@ -23,5 +23,8 @@ rule WildcardExample
 
     condition:
        $hex_string
-       2 or all of them
+       all of them
+       17 or any of them
+       17 or none of them
+       17 of ($false)
 }
