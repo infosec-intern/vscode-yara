@@ -109,7 +109,7 @@
 					<key>name</key>
 					<string>keyword.other.source.yara</string>
 					<key>match</key>
-					<string>(^(\s)*global |^(\s)*rule |^(\s)*condition:$|^(\s)*strings:$|^(\s)*meta:$)</string>
+					<string>(^(\s)*global |^(\s)*rule |^(\s)*condition:(\s)*$|^(\s)*strings:(\s)*$|^(\s)*meta:(\s)*$)</string>
 				</dict>
 			</array>
 		</dict>
