@@ -61,26 +61,32 @@
 	</array>
 	<key>repository</key>
 	<dict>
+		<key>storage</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>name</key>
+					<string>storage.modifier.yara</string>
+					<key>match</key>
+					<string>^(\s)*global </string>
+				</dict>
+			</array>
+		</dict>
 		<key>comment</key>
 		<dict>
 			<key>patterns</key>
 			<array>
 				<dict>
 					<key>name</key>
-					<string>storage.modifier.source.yara</string>
-					<key>match</key>
-					<string>^(\s)*global </string>
-				</dict>
-				<dict>
-					<key>name</key>
-					<string>comment.line.source.yara</string>
+					<string>comment.line.yara</string>
 					<!-- match everything on a line after '//' -->
 					<key>match</key>
 					<string>//.*\n</string>
 				</dict>
 				<dict>
 					<key>name</key>
-					<string>comment.block.source.yara</string>
+					<string>comment.block.yara</string>
 					<!-- match everything between (and including) /* */ -->
 					<key>begin</key>
 					<string>/\*</string>
@@ -95,7 +101,7 @@
 			<array>
 				<dict>
 					<key>name</key>
-					<string>constant.language.boolean.source.yara</string>
+					<string>constant.language.boolean.yara</string>
 					<key>match</key>
 					<string>(true|false)</string>
 				</dict>
@@ -110,16 +116,45 @@
 			<array>
 				<dict>
 					<key>name</key>
-					<string>keyword.operator.logical.source.yara</string>
+					<string>keyword.operator.logical.and.yara</string>
 					<key>match</key>
-					<string>( and | or | not )</string>
+					<string> and </string>
 				</dict>
 				<dict>
 					<key>name</key>
-					<string>keyword.other.source.yara</string>
-					<!-- match YARA-specific keywords -->
+					<string>keyword.operator.logical.or.yara</string>
 					<key>match</key>
-					<string>((\s)*rule |^(\s)*condition:(\s)*$|^(\s)*strings:(\s)*$|^(\s)*meta:(\s)*)</string>
+					<string> or </string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>keyword.operator.logical.not.yara</string>
+					<key>match</key>
+					<string> not </string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>keyword.other.rule.yara</string>
+					<key>match</key>
+					<string>(\s)*rule </string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>keyword.other.condition.yara</string>
+					<key>match</key>
+					<string>^(\s)*condition:(\s)*$</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>keyword.other.strings.yara</string>
+					<key>match</key>
+					<string>^(\s)*strings:(\s)*$</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>keyword.other.meta.yara</string>
+					<key>match</key>
+					<string>^(\s)*meta:(\s)*</string>
 				</dict>
 			</array>
 		</dict>
@@ -154,28 +189,28 @@
 			<array>
 				<dict>
 					<key>name</key>
-					<string>string.single.source.yara</string>
+					<string>string.single.yara</string>
 					<!-- match all characters between a pair of single quotes -->
 					<key>match</key>
 					<string>\'.*\'</string>
 				</dict>
 				<dict>
 					<key>name</key>
-					<string>string.double.source.yara</string>
+					<string>string.double.yara</string>
 					<!-- match all characters between a pair of double quotes -->
 					<key>match</key>
 					<string>\".*\"</string>
 				</dict>
 				<dict>
 					<key>name</key>
-					<string>string.regexp.source.yara</string>
+					<string>string.regexp.yara</string>
 					<!-- ??? -->
 					<key>match</key>
 					<string></string>
 				</dict>
 				<dict>
 					<key>name</key>
-					<string>string.hex.source.yara</string>
+					<string>string.hex.yara</string>
 					<!-- match pairs of hex values with surrounding spaces : NOT VERY GOOD -->
 					<key>match</key>
 					<string>\s[0-9A-Fa-f]{2}\s</string>
