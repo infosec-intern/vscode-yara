@@ -64,8 +64,10 @@
 					<key>name</key>
 					<string>comment.line.source.yara</string>
 					<!-- match everything on a line after '//' -->
-					<key>match</key>
-					<string>(\/\/).*\n</string>
+					<key>begin</key>
+					<string>//</string>
+					<key>end</key>
+					<string>\n</string>
 				</dict>
 				<dict>
 					<key>name</key>
