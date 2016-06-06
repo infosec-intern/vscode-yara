@@ -12,15 +12,16 @@ rule WildcardExample
         filetype = "pe"
         maltype = "trojan"
         date = "2016-06"
-        1 not 2 or 3 and 4
+
     strings:
        $true = true
        $false = false
        $hex_string = { E2 34 ?? C8 A? FB }
        $sstring = 'single string'
        $dstring = "double string"
-       sfalse falses strue trues
+       $reg_ex = /md5: [0-9a-zA-Z]{32}/
 
     condition:
        $hex_string
+       2 or all of them
 }
