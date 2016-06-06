@@ -108,6 +108,7 @@
 				<dict>
 					<key>name</key>
 					<string>keyword.other.source.yara</string>
+					<!-- match YARA-specific keywords -->
 					<key>match</key>
 					<string>(^(\s)*global |^(\s)*rule |^(\s)*condition:(\s)*$|^(\s)*strings:(\s)*$|^(\s)*meta:(\s)*$)</string>
 				</dict>
@@ -119,7 +120,8 @@
 			<array>
 				<dict>
 					<key>name</key>
-					<string>variable.other.source.yara</string>
+					<string>variable.parameter.source.yara</string>
+					<!-- match a string of non-space characters beginning with '$' -->
 					<key>match</key>
 					<string>\$\S+</string>
 				</dict>
@@ -135,24 +137,28 @@
 				<dict>
 					<key>name</key>
 					<string>string.single.source.yara</string>
+					<!-- match all characters between a pair of single quotes -->
 					<key>match</key>
 					<string>\'.*\'</string>
 				</dict>
 				<dict>
 					<key>name</key>
 					<string>string.double.source.yara</string>
+					<!-- match all characters between a pair of double quotes -->
 					<key>match</key>
 					<string>\".*\"</string>
 				</dict>
 				<dict>
 					<key>name</key>
 					<string>string.regexp.source.yara</string>
+					<!-- ??? -->
 					<key>match</key>
 					<string></string>
 				</dict>
 				<dict>
 					<key>name</key>
 					<string>string.hex.source.yara</string>
+					<!-- match pairs of hex values with surrounding spaces : NOT VERY GOOD -->
 					<key>match</key>
 					<string>\s[0-9A-Fa-f]{2}\s</string>
 				</dict>
