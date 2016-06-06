@@ -115,6 +115,15 @@
 		</dict>
 		<key>variable</key>
 		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>name</key>
+					<string>variable.other.source.yara</string>
+					<key>match</key>
+					<string>\$\S+</string>
+				</dict>
+			</array>
 		</dict>
 		<key>meta</key>
 		<dict>
