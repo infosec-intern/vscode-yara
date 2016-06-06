@@ -172,6 +172,12 @@
 					<key>match</key>
 					<string>^(\s)*meta:(\s)*</string>
 				</dict>
+				<dict>
+					<key>name</key>
+					<string>keyword.other.ofthem.yara</string>
+					<key>match</key>
+					<string>\b((all|any|for any|[0-9]+) or )?(all|any|for any|[0-9]+) of (them|\(.*\))\b</string>
+				</dict>
 			</array>
 		</dict>
 		<key>variable</key>
@@ -182,7 +188,7 @@
 					<key>name</key>
 					<string>variable.parameter.source.yara</string>
 					<key>match</key>
-					<string>\$\S+</string>
+					<string>\$\S+\b</string>
 				</dict>
 			</array>
 		</dict>
