@@ -229,8 +229,12 @@
 				<dict>
 					<key>name</key>
 					<string>string.hex.yara</string>
+					<key>begin</key>
+					<string>{</string>
 					<key>match</key>
-					<string>\{.+\}\n$</string>
+					<string>[a-fA-F0-9]</string>
+					<key>end</key>
+					<string>}</string>
 				</dict>
 			</array>
 		</dict>
