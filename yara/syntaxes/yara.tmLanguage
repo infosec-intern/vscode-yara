@@ -13,235 +13,168 @@
 	<string>source.yara</string>
 	<key>patterns</key>
 	<array>
+		<!-- Comment blocks : Single-line and blocks -->
+		<!-- single line -->
 		<dict>
-			<!-- block and line comments -->
-			<key>include</key>
-			<string>#comment</string>
+			<key>name</key>
+			<string>comment.line.yara</string>
+			<key>match</key>
+			<string>//.*\n</string>
+		</dict>
+		<!-- block -->
+		<dict>
+			<key>name</key>
+			<string>comment.block.yara</string>
+			<key>begin</key>
+			<string>/\*</string>
+			<key>end</key>
+			<string>\*/</string>
+		</dict>
+		<!-- Constants : BOOL, Ints, etc. -->
+		<!-- true -->
+		<dict>
+			<key>name</key>
+			<string>constant.language.boolean.true.yara</string>
+			<key>match</key>
+			<string>\btrue\b</string>
+		</dict>
+		<!-- false -->
+		<dict>
+			<key>name</key>
+			<string>constant.language.boolean.false.yara</string>
+			<key>match</key>
+			<string>\bfalse\b</string>
+		</dict>
+		<!-- 0xHEX -->
+		<dict>
+			<key>name</key>
+			<string>constant.numeric.hex.yara</string>
+			<key>match</key>
+			<string>\b0x[0-9A-Fa-f]+\b</string>
+		</dict>
+		<!-- Keywords : Specific to YARA -->
+		<!-- and -->
+		<dict>
+			<key>name</key>
+			<string>keyword.operator.logical.and.yara</string>
+			<key>match</key>
+			<string>\band\b</string>
+		</dict>
+		<!-- or -->
+		<dict>
+			<key>name</key>
+			<string>keyword.operator.logical.or.yara</string>
+			<key>match</key>
+			<string>\bor\b</string>
+		</dict>
+		<!-- not -->
+		<dict>
+			<key>name</key>
+			<string>keyword.operator.logical.not.yara</string>
+			<key>match</key>
+			<string>\bnot\b</string>
+		</dict>
+		<!-- condition: -->
+		<dict>
+			<key>name</key>
+			<string>keyword.other.condition.yara</string>
+			<key>match</key>
+			<string>\bcondition:\n$</string>
+		</dict>
+		<!-- strings: -->
+		<dict>
+			<key>name</key>
+			<string>keyword.other.strings.yara</string>
+			<key>match</key>
+			<string>\bstrings:\n$</string>
+		</dict>
+		<!-- meta: -->
+		<dict>
+			<key>name</key>
+			<string>keyword.other.meta.yara</string>
+			<key>match</key>
+			<string>\bmeta:\n$</string>
+		</dict>
+		<!-- all of them -->
+		<dict>
+			<key>name</key>
+			<string>keyword.other.ofthem.yara</string>
+			<key>match</key>
+			<string>\b((all|any|for any|[0-9]+) or )?(all|any|for any|[0-9]+) of (them|\(.*\))\b</string>
+		</dict>
+		<!-- Variables : Any word that starts with '$' -->
+		<dict>
+			<key>name</key>
+			<string>variable.parameter.source.yara</string>
+			<key>match</key>
+			<string>\$\S+\b</string>
+		</dict>
+		<!-- Metadata -->
+		<!--
+		<dict>
+			<key>name</key>
+			<string>meta.source.yara</string>
+			<key>begin</key>
+			<string>\bmeta:\b</string>
+			<key>end</key>
+			<string>(\bstrings:\b|\bcondition:\b)</string>
+		</dict>
+		-->
+		<!-- Strings : Normal strings and hex strings -->
+		<!-- single quotes -->
+		<dict>
+			<key>name</key>
+			<string>string.single.yara</string>
+			<key>match</key>
+			<string>\'.*\'</string>
+		</dict>
+		<!-- double quotes -->
+		<dict>
+			<key>name</key>
+			<string>string.double.yara</string>
+			<key>match</key>
+			<string>\".*\"</string>
+		</dict>
+		<!-- regexp -->
+		<dict>
+			<key>name</key>
+			<string>string.regexp.yara</string>
+			<key>match</key>
+			<string>/.*/</string>
+		</dict>
+		<!-- hex -->
+		<!--
+		<dict>
+			<key>name</key>
+			<string>string.hex.yara</string>
+			<key>begin</key>
+			<string>{</string>
+			<key>match</key>
+			<string>[a-fA-F0-9]</string>
+			<key>end</key>
+			<string>}</string>
+		</dict>
+		-->
+		<!-- Storage strings : mostly data types -->
+		<dict>
+			<key>name</key>
+			<string>storage.modifier.global.yara</string>
+			<key>match</key>
+			<string>\bglobal\b</string>
 		</dict>
 		<dict>
-			<!-- true/false -->
-			<key>include</key>
-			<string>#constant</string>
+			<key>name</key>
+			<string>storage.modifier.private.yara</string>
+			<key>match</key>
+			<string>\bprivate\b</string>
 		</dict>
 		<dict>
-			<!-- general sections of the document -->
-			<key>include</key>
-			<string>#entity</key>
-		</dict>
-		<dict>
-			<!-- miscellaneous -->
-			<key>include</key>
-			<string>#keyword</string>
-		</dict>
-		<dict>
-			<!-- words that start with '$' -->
-			<key>include</key>
-			<string>#variable</string>
-		</dict>
-		<dict>
-			<!-- YARA meta keywords -->
-			<key>include</key>
-			<string>#meta</string>
-		</dict>
-		<dict>
-			<!-- strings, hex, regex -->
-			<key>include</key>
-			<string>#string</string>
-		</dict>
-		<dict>
-			<!-- mostly data types -->
-			<key>include</key>
-			<string>#storage</string>
-		</dict>
-		<dict>
-			<!-- invalid/deprecated -->
-			<key>include</key>
-			<string>#invalid</string>
+			<key>name</key>
+			<string>storage.type.rule.yara</string>
+			<key>match</key>
+			<string>\brule\b</string>
 		</dict>
 	</array>
-	<key>repository</key>
-	<dict>
-		<key>storage</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>name</key>
-					<string>storage.modifier.global.yara</string>
-					<key>match</key>
-					<string>\bglobal\b</string>
-				</dict>
-				<dict>
-					<key>name</key>
-					<string>storage.modifier.private.yara</string>
-					<key>match</key>
-					<string>\bprivate\b</string>
-				</dict>
-				<dict>
-					<key>name</key>
-					<string>storage.type.rule.yara</string>
-					<key>match</key>
-					<string>\brule\b</string>
-				</dict>
-			</array>
-		</dict>
-		<key>comment</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>name</key>
-					<string>comment.line.yara</string>
-					<key>match</key>
-					<string>//.*\n</string>
-				</dict>
-				<dict>
-					<key>name</key>
-					<string>comment.block.yara</string>
-					<key>begin</key>
-					<string>/\*</string>
-					<key>end</key>
-					<string>\*/</string>
-				</dict>
-			</array>
-		</dict>
-		<key>constant</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>name</key>
-					<string>constant.language.boolean.true.yara</string>
-					<key>match</key>
-					<string>\btrue\b</string>
-				</dict>
-				<dict>
-					<key>name</key>
-					<string>constant.language.boolean.false.yara</string>
-					<key>match</key>
-					<string>\bfalse\b</string>
-				</dict>
-				<dict>
-					<key>name</key>
-					<string>constant.numeric.hex.yara</string>
-					<key>match</key>
-					<string>\b0x[0-9A-Fa-f]+\b</string>
-				</dict>
-			</array>
-		</dict>
-		<key>entity</key>
-		<dict>
-		</dict>
-		<key>keyword</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>name</key>
-					<string>keyword.operator.logical.and.yara</string>
-					<key>match</key>
-					<string>\band\b</string>
-				</dict>
-				<dict>
-					<key>name</key>
-					<string>keyword.operator.logical.or.yara</string>
-					<key>match</key>
-					<string>\bor\b</string>
-				</dict>
-				<dict>
-					<key>name</key>
-					<string>keyword.operator.logical.not.yara</string>
-					<key>match</key>
-					<string>\bnot\b</string>
-				</dict>
-				<dict>
-					<key>name</key>
-					<string>keyword.other.condition.yara</string>
-					<key>match</key>
-					<string>^(\s)*condition:(\s)*</string>
-				</dict>
-				<dict>
-					<key>name</key>
-					<string>keyword.other.strings.yara</string>
-					<key>match</key>
-					<string>^(\s)*strings:(\s)*</string>
-				</dict>
-				<dict>
-					<key>name</key>
-					<string>keyword.other.meta.yara</string>
-					<key>match</key>
-					<string>^(\s)*meta:(\s)*</string>
-				</dict>
-				<dict>
-					<key>name</key>
-					<string>keyword.other.ofthem.yara</string>
-					<key>match</key>
-					<string>\b((all|any|for any|[0-9]+) or )?(all|any|for any|[0-9]+) of (them|\(.*\))\b</string>
-				</dict>
-			</array>
-		</dict>
-		<key>variable</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>name</key>
-					<string>variable.parameter.source.yara</string>
-					<key>match</key>
-					<string>\$\S+\b</string>
-				</dict>
-			</array>
-		</dict>
-		<key>meta</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>name</key>
-					<string>meta.source.yara</string>
-					<key>match</key>
-					<string></string>
-				</dict>
-			</array>
-		</dict>
-		<key>string</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>name</key>
-					<string>string.single.yara</string>
-					<key>match</key>
-					<string>\'.*\'</string>
-				</dict>
-				<dict>
-					<key>name</key>
-					<string>string.double.yara</string>
-					<key>match</key>
-					<string>\".*\"</string>
-				</dict>
-				<dict>
-					<key>name</key>
-					<string>string.regexp.yara</string>
-					<key>match</key>
-					<string>/.*/</string>
-				</dict>
-				<dict>
-					<key>name</key>
-					<string>string.hex.yara</string>
-					<key>begin</key>
-					<string>{</string>
-					<key>match</key>
-					<string>[a-fA-F0-9]</string>
-					<key>end</key>
-					<string>}</string>
-				</dict>
-			</array>
-		</dict>
-		<key>invalid</key>
-		<dict>
-		</dict>
-	</dict>
 	<!-- define pairs of characters so that the second character gets
 	automatically inserted when you type the first character -->
 	<key>smartTypingPairs</key>
