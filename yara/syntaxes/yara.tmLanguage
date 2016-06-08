@@ -148,29 +148,26 @@
 			<key>match</key>
 			<string>/.*/</string>
 		</dict>
-		<!-- wildcards (?) -->
-		<dict>
-			<key>contentName</key>
-			<string>string.regexp.wildcard.yara</string>
-			<key>begin</key>
-			<string>A</string>
-			<key>end</key>
-			<string>\s</string>
-			<key>match</key>
-			<string>\?</string>
 		<!-- hex -->
 		<!--
 		<dict>
 			<key>name</key>
 			<string>string.hex.yara</string>
+			<key>match</key>
+			<string>\{[A-F]\}</string>
+		</dict>
+		-->
+		<!-- hex wildcards -->
+		<dict>
+			<key>name</key>
+			<string>string.regexp.wildcard.yara</string>
 			<key>begin</key>
 			<string>{</string>
 			<key>match</key>
-			<string>[a-fA-F0-9]</string>
+			<string>\?</string>
 			<key>end</key>
 			<string>}</string>
 		</dict>
-		-->
 		<!-- Storage strings : mostly data types -->
 		<dict>
 			<key>name</key>
