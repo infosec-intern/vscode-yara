@@ -52,6 +52,13 @@
 			<key>match</key>
 			<string>\b0x[0-9A-Fa-f]+\b</string>
 		</dict>
+		<!-- Decimals -->
+		<dict>
+			<key>name</key>
+			<string>constant.numeric.decimal.yara</string>
+			<key>match</key>
+			<string>\b[0-9]+\b</string>
+		</dict>
 		<!-- Keywords : Specific to YARA -->
 		<!-- and -->
 		<dict>
@@ -99,7 +106,7 @@
 			<key>name</key>
 			<string>keyword.other.yara</string>
 			<key>match</key>
-			<string>(\ball\b|\bor\b|\bfor\b|\bany\b|\bof\b|\bthem\b|\bnone\b)</string>
+			<string>(\ball\b|\bfor\b|\bany\b|\bof\b| or |\bthem\b|\bnone\b)</string>
 		</dict>
 		<!-- Variables : Any word that starts with '$' -->
 		<dict>
@@ -141,6 +148,16 @@
 			<key>match</key>
 			<string>/.*/</string>
 		</dict>
+		<!-- wildcards (?) -->
+		<dict>
+			<key>contentName</key>
+			<string>string.regexp.wildcard.yara</string>
+			<key>begin</key>
+			<string>A</string>
+			<key>end</key>
+			<string>\s</string>
+			<key>match</key>
+			<string>\?</string>
 		<!-- hex -->
 		<!--
 		<dict>
