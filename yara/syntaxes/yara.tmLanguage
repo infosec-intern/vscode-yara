@@ -140,19 +140,19 @@
 					<key>name</key>
 					<string>keyword.operator.logical.and.yara</string>
 					<key>match</key>
-					<string> and </string>
+					<string>\band\b</string>
 				</dict>
 				<dict>
 					<key>name</key>
 					<string>keyword.operator.logical.or.yara</string>
 					<key>match</key>
-					<string> or </string>
+					<string>\bor\b</string>
 				</dict>
 				<dict>
 					<key>name</key>
 					<string>keyword.operator.logical.not.yara</string>
 					<key>match</key>
-					<string> not </string>
+					<string>\bnot\b</string>
 				</dict>
 				<dict>
 					<key>name</key>
@@ -226,14 +226,12 @@
 					<key>match</key>
 					<string>/.*/</string>
 				</dict>
-				<!--
 				<dict>
 					<key>name</key>
 					<string>string.hex.yara</string>
 					<key>match</key>
-					<string>\s[0-9A-Fa-f]{2}\s</string>
+					<string>\{.+\}\n$</string>
 				</dict>
-				-->
 			</array>
 		</dict>
 		<key>invalid</key>
