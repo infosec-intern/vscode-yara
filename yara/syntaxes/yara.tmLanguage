@@ -95,12 +95,11 @@
 			<key>match</key>
 			<string>\bmeta:\n$</string>
 		</dict>
-		<!-- all of them -->
 		<dict>
 			<key>name</key>
-			<string>keyword.other.ofthem.yara</string>
+			<string>keyword.other.yara</string>
 			<key>match</key>
-			<string>\b((all|any|for any|[0-9]+) or )?(all|any|for any|[0-9]+) of (them|\(.*\))\b</string>
+			<string>(\ball\b|\bor\b|\bfor\b|\bany\b|\bof\b|\bthem\b|\bnone\b)</string>
 		</dict>
 		<!-- Variables : Any word that starts with '$' -->
 		<dict>
