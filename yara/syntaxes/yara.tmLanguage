@@ -31,26 +31,19 @@
 			<string>\*/</string>
 		</dict>
 		<!-- Constants : BOOL, Ints, etc. -->
-		<!-- true -->
+		<!-- BOOLEAN-->
 		<dict>
 			<key>name</key>
 			<string>constant.language.boolean.true.yara</string>
 			<key>match</key>
-			<string>\btrue\b</string>
-		</dict>
-		<!-- false -->
-		<dict>
-			<key>name</key>
-			<string>constant.language.boolean.false.yara</string>
-			<key>match</key>
-			<string>\bfalse\b</string>
+			<string>(\btrue\b|\bfalse\b)</string>
 		</dict>
 		<!-- 0xHEX -->
 		<dict>
 			<key>name</key>
 			<string>constant.numeric.hex.yara</string>
 			<key>match</key>
-			<string>\b0x[0-9A-Fa-f]+\b</string>
+			<string>\b0(x|X)[0-9A-Fa-f]+\b</string>
 		</dict>
 		<!-- Decimals -->
 		<dict>
@@ -127,12 +120,12 @@
 		</dict>
 		-->
 		<!-- Strings : Normal strings and hex strings -->
-		<!-- single quotes -->
+		<!-- single quotes, remove possible contractions -->
 		<dict>
 			<key>name</key>
 			<string>string.single.yara</string>
 			<key>match</key>
-			<string>\'.*\'</string>
+			<string>(?i)(\'.*[^(n|t|e|i|o|u|y)]\'[^(t|s|d|l|v|m|r)])(?-i)</string>
 		</dict>
 		<!-- double quotes -->
 		<dict>
@@ -149,14 +142,16 @@
 			<string>/.*/</string>
 		</dict>
 		<!-- hex -->
-		<!--
 		<dict>
 			<key>name</key>
 			<string>string.hex.yara</string>
+			<key>begin</key>
+			<string>\{</string>
+			<key>end</key>
+			<string>\}</string>
 			<key>match</key>
-			<string>\{[A-F]\}</string>
+			<string>[A-Fa-f0-9]</string>
 		</dict>
-		-->
 		<!-- hex wildcards -->
 		<dict>
 			<key>name</key>
