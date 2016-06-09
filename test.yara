@@ -18,6 +18,8 @@ rule WildcardExample
        $false = false
        $hex_string = { E2 34 ?? C8 A? FB }
        $sstring = 'single string'
+       $failstring = don't or won't
+       $capfailstring = DON'T OR WON'T
        $dstring = "double string"
        $reg_ex = /md5: [0-9a-zA-Z]{32}/
 
