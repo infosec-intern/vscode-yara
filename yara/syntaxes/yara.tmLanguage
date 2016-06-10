@@ -53,19 +53,12 @@
 			<string>\b[0-9]+\b</string>
 		</dict>
 		<!-- Keywords : Specific to YARA -->
-		<!-- relational -->
+		<!-- # -->
 		<dict>
 			<key>name</key>
-			<string>keyword.operator.relational.yara</string>
+			<string>keyword.other.number.yara</string>
 			<key>match</key>
-			<string>(\<=?|\>=?|==|\!=)</string>
-		</dict>
-		<!-- bitwise -->
-		<dict>
-			<key>name</key>
-			<string>keyword.operator.bitwise.yara</string>
-			<key>match</key>
-			<string>(\&|\||\>\>|\<\<|~|\^)</string>
+			<string>\#</string>
 		</dict>
 		<!-- all -->
 		<dict>
@@ -94,6 +87,13 @@
 			<string>keyword.other.at.yara</string>
 			<key>match</key>
 			<string>\bat\b</string>
+		</dict>
+		<!-- bitwise -->
+		<dict>
+			<key>name</key>
+			<string>keyword.operator.bitwise.yara</string>
+			<key>match</key>
+			<string>(\&|\||\>\>|\<\<|~|\^)</string>
 		</dict>
 		<!-- condition: -->
 		<dict>
@@ -171,6 +171,13 @@
 			<string>keyword.operator.logical.or.yara</string>
 			<key>match</key>
 			<string>\bor\b</string>
+		</dict>
+		<!-- relational -->
+		<dict>
+			<key>name</key>
+			<string>keyword.operator.relational.yara</string>
+			<key>match</key>
+			<string>(\<=?|\>=?|==|\!=)</string>
 		</dict>
 		<!-- rule -->
 		<dict>
