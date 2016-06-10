@@ -185,12 +185,6 @@
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>storage.type.condition.yara</string>
-			<key>match</key>
-			<string>\bcondition\b</string>
-		</dict>
-		<dict>
-			<key>name</key>
 			<string>storage.type.contains.yara</string>
 			<key>match</key>
 			<string>\bcontains\b</string>
@@ -287,12 +281,6 @@
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>storage.type.meta.yara</string>
-			<key>match</key>
-			<string>\bmeta\b</string>
-		</dict>
-		<dict>
-			<key>name</key>
 			<string>storage.type.nocase.yara</string>
 			<key>match</key>
 			<string>\bnocase\b</string>
@@ -308,12 +296,6 @@
 			<string>storage.type.private.yara</string>
 			<key>match</key>
 			<string>\bprivate\b</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>storage.type.strings.yara</string>
-			<key>match</key>
-			<string>\bstrings\b</string>
 		</dict>
 		<dict>
 			<key>name</key>
