@@ -193,7 +193,7 @@
 			<key>name</key>
 			<string>variable.parameter.source.yara</string>
 			<key>match</key>
-			<string>\$[a-zA-Z0-9_]+\b</string>
+			<string>\$[a-zA-Z0-9_]+</string>
 		</dict>
 		<!-- Strings : Normal strings and hex strings -->
 		<!-- single quotes, remove possible contractions -->
@@ -230,9 +230,10 @@
 			<string>[A-Fa-f0-9]</string>
 			-->
 			<key>match</key>
-			<string>\{[0-9a-fA-F\s\?]+\}</string>
+			<string>{[0-9a-fA-F\s\?\-\[\]\(\)[^\.]]+}</string>
 		</dict>
 		<!-- hex wildcards -->
+		<!-- unfortunately useless at the moment -->
 		<dict>
 			<key>name</key>
 			<string>string.regexp.wildcard.yara</string>
@@ -262,14 +263,14 @@
 		<!-- filesize -->
 		<dict>
 			<key>name</key>
-			<string>storage.type.filesize.yara</string>
+			<string>storage.modifier.filesize.yara</string>
 			<key>match</key>
 			<string>\bfilesize\b</string>
 		</dict>
 		<!-- fullword -->
 		<dict>
 			<key>name</key>
-			<string>storage.type.fullword.yara</string>
+			<string>storage.modifier.fullword.yara</string>
 			<key>match</key>
 			<string>\bfullword\b</string>
 		</dict>
