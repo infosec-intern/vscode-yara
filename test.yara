@@ -28,5 +28,5 @@ rule WildcardExample
        all of them
        17 or any of them
        17 or none of them
-       17 of ($false)
+       filesize < 200MB
 }
