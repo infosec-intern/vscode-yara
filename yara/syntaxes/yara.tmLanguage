@@ -53,6 +53,13 @@
 			<string>\b[0-9]+\b</string>
 		</dict>
 		<!-- Keywords : Specific to YARA -->
+		<!-- all -->
+		<dict>
+			<key>name</key>
+			<string>keyword.other.all.yara</string>
+			<key>match</key>
+			<string>\ball\b</string>
+		</dict>
 		<!-- and -->
 		<dict>
 			<key>name</key>
@@ -60,19 +67,19 @@
 			<key>match</key>
 			<string>\band\b</string>
 		</dict>
-		<!-- or -->
+		<!-- any -->
 		<dict>
 			<key>name</key>
-			<string>keyword.operator.logical.or.yara</string>
+			<string>keyword.other.any.yara</string>
 			<key>match</key>
-			<string>\bor\b</string>
+			<string>\bany\b</string>
 		</dict>
-		<!-- not -->
+		<!-- at -->
 		<dict>
 			<key>name</key>
-			<string>keyword.operator.logical.not.yara</string>
+			<string>keyword.other.at.yara</string>
 			<key>match</key>
-			<string>\bnot\b</string>
+			<string>\bat\b</string>
 		</dict>
 		<!-- condition: -->
 		<dict>
@@ -81,12 +88,47 @@
 			<key>match</key>
 			<string>\bcondition:\n$</string>
 		</dict>
-		<!-- strings: -->
+		<!-- contains -->
 		<dict>
 			<key>name</key>
-			<string>keyword.other.strings.yara</string>
+			<string>keyword.other.contains.yara</string>
 			<key>match</key>
-			<string>\bstrings:\n$</string>
+			<string>\bcontains\b</string>
+		</dict>
+		<!-- for -->
+		<dict>
+			<key>name</key>
+			<string>keyword.other.for.yara</string>
+			<key>match</key>
+			<string>\bfor\b</string>
+		</dict>
+		<!-- import -->
+		<dict>
+			<key>name</key>
+			<string>keyword.other.import.yara</string>
+			<key>match</key>
+			<string>\bimport\b</string>
+		</dict>
+		<!-- in -->
+		<dict>
+			<key>name</key>
+			<string>keyword.other.in.yara</string>
+			<key>match</key>
+			<string>\bin\b</string>
+		</dict>
+		<!-- include -->
+		<dict>
+			<key>name</key>
+			<string>keyword.other.include.yara</string>
+			<key>match</key>
+			<string>\binclude\b</string>
+		</dict>
+		<!-- matches -->
+		<dict>
+			<key>name</key>
+			<string>keyword.other.matches.yara</string>
+			<key>match</key>
+			<string>\bmatches\b</string>
 		</dict>
 		<!-- meta: -->
 		<dict>
@@ -95,6 +137,34 @@
 			<key>match</key>
 			<string>\bmeta:\n$</string>
 		</dict>
+		<!-- nocase -->
+		<dict>
+			<key>name</key>
+			<string>keyword.other.nocase.yara</string>
+			<key>match</key>
+			<string>\bnocase\b</string>
+		</dict>
+		<!-- not -->
+		<dict>
+			<key>name</key>
+			<string>keyword.operator.logical.not.yara</string>
+			<key>match</key>
+			<string>\bnot\b</string>
+		</dict>
+		<!-- of -->
+		<dict>
+			<key>name</key>
+			<string>keyword.other.of.yara</string>
+			<key>match</key>
+			<string>\bof\b</string>
+		</dict>
+		<!-- or -->
+		<dict>
+			<key>name</key>
+			<string>keyword.operator.logical.or.yara</string>
+			<key>match</key>
+			<string>\bor\b</string>
+		</dict>
 		<!-- rule -->
 		<dict>
 			<key>name</key>
@@ -102,12 +172,19 @@
 			<key>match</key>
 			<string>\brule\b</string>
 		</dict>
-		<!-- all -->
+		<!-- strings: -->
 		<dict>
 			<key>name</key>
-			<string>keyword.other.all.yara</string>
+			<string>keyword.other.strings.yara</string>
 			<key>match</key>
-			<string>\ball\b</string>
+			<string>\bstrings:\n$</string>
+		</dict>
+		<!-- them -->
+		<dict>
+			<key>name</key>
+			<string>keyword.other.them.yara</string>
+			<key>match</key>
+			<string>\bthem\b</string>
 		</dict>
 		<!-- Variables : Any word that starts with '$' -->
 		<dict>
@@ -165,185 +242,139 @@
 			<string>}</string>
 		</dict>
 		<!-- Storage strings : mostly data types -->
-		<dict>
-			<key>name</key>
-			<string>storage.type.any.yara</string>
-			<key>match</key>
-			<string>\bany\b</string>
-		</dict>
+		<!-- ascii -->
 		<dict>
 			<key>name</key>
 			<string>storage.type.ascii.yara</string>
 			<key>match</key>
 			<string>\bascii\b</string>
 		</dict>
-		<dict>
-			<key>name</key>
-			<string>storage.type.at.yara</string>
-			<key>match</key>
-			<string>\bat\b</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>storage.type.contains.yara</string>
-			<key>match</key>
-			<string>\bcontains\b</string>
-		</dict>
+		<!-- entrypoint -->
+		<!-- not sure what to classify this as -->
 		<dict>
 			<key>name</key>
 			<string>storage.type.entrypoint.yara</string>
 			<key>match</key>
 			<string>\bentrypoint\b</string>
 		</dict>
+		<!-- filesize -->
 		<dict>
 			<key>name</key>
 			<string>storage.type.filesize.yara</string>
 			<key>match</key>
 			<string>\bfilesize\b</string>
 		</dict>
+		<!-- fullword -->
 		<dict>
 			<key>name</key>
 			<string>storage.type.fullword.yara</string>
 			<key>match</key>
 			<string>\bfullword\b</string>
 		</dict>
+		<!-- global -->
 		<dict>
 			<key>name</key>
-			<string>storage.type.for.yara</string>
-			<key>match</key>
-			<string>\bfor\b</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>storage.type.global.yara</string>
+			<string>storage.modifier.global.yara</string>
 			<key>match</key>
 			<string>\bglobal\b</string>
 		</dict>
-		<dict>
-			<key>name</key>
-			<string>storage.type.in.yara</string>
-			<key>match</key>
-			<string>\bin\b</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>storage.type.import.yara</string>
-			<key>match</key>
-			<string>\bimport\b</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>storage.type.include.yara</string>
-			<key>match</key>
-			<string>\binclude\b</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>storage.type.matches.yara</string>
-			<key>match</key>
-			<string>\bmatches\b</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>storage.type.nocase.yara</string>
-			<key>match</key>
-			<string>\bnocase\b</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>storage.type.of.yara</string>
-			<key>match</key>
-			<string>\bof\b</string>
-		</dict>
+		<!-- private -->
 		<dict>
 			<key>name</key>
 			<string>storage.modifier.private.yara</string>
 			<key>match</key>
 			<string>\bprivate\b</string>
 		</dict>
+		<!-- wide -->
 		<dict>
 			<key>name</key>
-			<string>storage.type.them.yara</string>
+			<string>storage.modifier.wide.yara</string>
 			<key>match</key>
-			<string>\bthem\b</string>
+			<string>\bwide\b</string>
 		</dict>
+		<!-- int8 -->
 		<dict>
 			<key>name</key>
 			<string>storage.type.int.8.yara</string>
 			<key>match</key>
 			<string>\bint8\b</string>
 		</dict>
+		<!-- int16 -->
 		<dict>
 			<key>name</key>
 			<string>storage.type.int.16.yara</string>
 			<key>match</key>
 			<string>\bint16\b</string>
 		</dict>
+		<!-- int32 -->
 		<dict>
 			<key>name</key>
 			<string>storage.type.int.32.yara</string>
 			<key>match</key>
 			<string>\bint32\b</string>
 		</dict>
+		<!-- int8be -->
 		<dict>
 			<key>name</key>
 			<string>storage.type.intbe.8.yara</string>
 			<key>match</key>
 			<string>\bint8be\b</string>
 		</dict>
+		<!-- int16be -->
 		<dict>
 			<key>name</key>
 			<string>storage.type.intbe.16.yara</string>
 			<key>match</key>
 			<string>\bint16be\b</string>
 		</dict>
+		<!-- int32be -->
 		<dict>
 			<key>name</key>
 			<string>storage.type.intbe.32.yara</string>
 			<key>match</key>
 			<string>\bint32be\b</string>
 		</dict>
+		<!-- uint8 -->
 		<dict>
 			<key>name</key>
 			<string>storage.type.uint.8.yara</string>
 			<key>match</key>
 			<string>\buint8\b</string>
 		</dict>
+		<!-- uint16 -->
 		<dict>
 			<key>name</key>
 			<string>storage.type.uint.16.yara</string>
 			<key>match</key>
 			<string>\buint16\b</string>
 		</dict>
+		<!-- uint32 -->
 		<dict>
 			<key>name</key>
 			<string>storage.type.uint.32.yara</string>
 			<key>match</key>
 			<string>\buint32\b</string>
 		</dict>
+		<!-- uint8be -->
 		<dict>
 			<key>name</key>
 			<string>storage.type.uintbe.8.yara</string>
 			<key>match</key>
 			<string>\buint8be\b</string>
 		</dict>
+		<!-- uint16be -->
 		<dict>
 			<key>name</key>
 			<string>storage.type.uintbe.16.yara</string>
 			<key>match</key>
 			<string>\buint16be\b</string>
 		</dict>
+		<!-- uint32be -->
 		<dict>
 			<key>name</key>
 			<string>storage.type.uintbe.32.yara</string>
 			<key>match</key>
 			<string>\buint32be\b</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>storage.type.wide.yara</string>
-			<key>match</key>
-			<string>\bwide\b</string>
 		</dict>
 	</array>
 	<!-- define pairs of characters so that the second character gets
