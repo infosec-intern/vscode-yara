@@ -215,14 +215,6 @@
 		<dict>
 			<key>name</key>
 			<string>string.hex.yara</string>
-			<!--
-			<key>begin</key>
-			<string>\{</string>
-			<key>end</key>
-			<string>\}</string>
-			<key>match</key>
-			<string>[A-Fa-f0-9]</string>
-			-->
 			<key>match</key>
 			<string>{[0-9a-fA-F\s\?\-\[\]\(\)[^\.]]+}</string>
 		</dict>
