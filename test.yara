@@ -4,8 +4,9 @@
 // Test single-line comment
 rule WildcardExample
 {
-    meta: // Useful meta information examples to add
- 	    description = "Test"
+    meta:
+        // Useful meta information examples to add
+        description = "Test"
         author = "Test"
         reference = "http://www.infosec-intern.com"
         os = "mswindows"
