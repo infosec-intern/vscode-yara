@@ -17,7 +17,7 @@
 		<!-- single line -->
 		<dict>
 			<key>name</key>
-			<string>comment.line.yara</string>
+			<string>comment.line.double-slash.yara</string>
 			<key>match</key>
 			<string>//.*\n</string>
 		</dict>
@@ -95,11 +95,19 @@
 			<key>match</key>
 			<string>\bmeta:\n$</string>
 		</dict>
+		<!-- rule -->
 		<dict>
 			<key>name</key>
-			<string>keyword.other.yara</string>
+			<string>keyword.other.rule.yara</string>
 			<key>match</key>
-			<string>(\ball\b|\bfor\b|\bany\b|\bof\b| or |\bthem\b|\bnone\b)</string>
+			<string>\brule\b</string>
+		</dict>
+		<!-- all -->
+		<dict>
+			<key>name</key>
+			<string>keyword.other.all.yara</string>
+			<key>match</key>
+			<string>\ball\b</string>
 		</dict>
 		<!-- Variables : Any word that starts with '$' -->
 		<dict>
@@ -108,17 +116,6 @@
 			<key>match</key>
 			<string>\$\S+\b</string>
 		</dict>
-		<!-- Metadata -->
-		<!--
-		<dict>
-			<key>name</key>
-			<string>meta.source.yara</string>
-			<key>begin</key>
-			<string>\bmeta:\b</string>
-			<key>end</key>
-			<string>(\bstrings:\b|\bcondition:\b)</string>
-		</dict>
-		-->
 		<!-- Strings : Normal strings and hex strings -->
 		<!-- single quotes, remove possible contractions -->
 		<dict>
@@ -145,12 +142,16 @@
 		<dict>
 			<key>name</key>
 			<string>string.hex.yara</string>
+			<!--
 			<key>begin</key>
 			<string>\{</string>
 			<key>end</key>
 			<string>\}</string>
 			<key>match</key>
 			<string>[A-Fa-f0-9]</string>
+			-->
+			<key>match</key>
+			<string>\{[0-9a-fA-F\s\?]+\}</string>
 		</dict>
 		<!-- hex wildcards -->
 		<dict>
@@ -166,21 +167,201 @@
 		<!-- Storage strings : mostly data types -->
 		<dict>
 			<key>name</key>
-			<string>storage.modifier.global.yara</string>
+			<string>storage.type.any.yara</string>
+			<key>match</key>
+			<string>\bany\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.ascii.yara</string>
+			<key>match</key>
+			<string>\bascii\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.at.yara</string>
+			<key>match</key>
+			<string>\bat\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.condition.yara</string>
+			<key>match</key>
+			<string>\bcondition\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.contains.yara</string>
+			<key>match</key>
+			<string>\bcontains\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.entrypoint.yara</string>
+			<key>match</key>
+			<string>\bentrypoint\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.filesize.yara</string>
+			<key>match</key>
+			<string>\bfilesize\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.fullword.yara</string>
+			<key>match</key>
+			<string>\bfullword\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.for.yara</string>
+			<key>match</key>
+			<string>\bfor\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.global.yara</string>
 			<key>match</key>
 			<string>\bglobal\b</string>
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>storage.modifier.private.yara</string>
+			<string>storage.type.in.yara</string>
+			<key>match</key>
+			<string>\bin\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.import.yara</string>
+			<key>match</key>
+			<string>\bimport\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.include.yara</string>
+			<key>match</key>
+			<string>\binclude\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.int8.yara</string>
+			<key>match</key>
+			<string>\bint8\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.int16.yara</string>
+			<key>match</key>
+			<string>\bint16\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.int32.yara</string>
+			<key>match</key>
+			<string>\bint32\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.int8be.yara</string>
+			<key>match</key>
+			<string>\bint8be\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.int16be.yara</string>
+			<key>match</key>
+			<string>\bint16be\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.int32be.yara</string>
+			<key>match</key>
+			<string>\bint32be\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.matches.yara</string>
+			<key>match</key>
+			<string>\bmatches\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.meta.yara</string>
+			<key>match</key>
+			<string>\bmeta\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.nocase.yara</string>
+			<key>match</key>
+			<string>\bnocase\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.of.yara</string>
+			<key>match</key>
+			<string>\bof\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.private.yara</string>
 			<key>match</key>
 			<string>\bprivate\b</string>
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>storage.type.rule.yara</string>
+			<string>storage.type.strings.yara</string>
 			<key>match</key>
-			<string>\brule\b</string>
+			<string>\bstrings\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.them.yara</string>
+			<key>match</key>
+			<string>\bthem\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.uint8.yara</string>
+			<key>match</key>
+			<string>\buint8\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.uint16.yara</string>
+			<key>match</key>
+			<string>\buint16\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.uint32.yara</string>
+			<key>match</key>
+			<string>\buint32\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.uint8be.yara</string>
+			<key>match</key>
+			<string>\buint8be\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.uint16be.yara</string>
+			<key>match</key>
+			<string>\buint16be\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.uint32be.yara</string>
+			<key>match</key>
+			<string>\buint32be\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.wide.yara</string>
+			<key>match</key>
+			<string>\bwide\b</string>
 		</dict>
 	</array>
 	<!-- define pairs of characters so that the second character gets
