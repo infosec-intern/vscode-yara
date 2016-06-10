@@ -137,13 +137,6 @@
 			<key>match</key>
 			<string>\bmeta:\b</string>
 		</dict>
-		<!-- nocase -->
-		<dict>
-			<key>name</key>
-			<string>keyword.other.nocase.yara</string>
-			<key>match</key>
-			<string>\bnocase\b</string>
-		</dict>
 		<!-- not -->
 		<dict>
 			<key>name</key>
@@ -197,6 +190,7 @@
 		</dict>
 		<!-- Strings : Normal strings and hex strings -->
 		<!-- single quotes, remove possible contractions -->
+		<!-- may not be allowed in YARA anyway -->
 		<dict>
 			<key>name</key>
 			<string>string.single.yara</string>
@@ -280,6 +274,13 @@
 			<string>storage.modifier.global.yara</string>
 			<key>match</key>
 			<string>\bglobal\b</string>
+		</dict>
+		<!-- nocase -->
+		<dict>
+			<key>name</key>
+			<string>storage.modifier.nocase.yara</string>
+			<key>match</key>
+			<string>\bnocase\b</string>
 		</dict>
 		<!-- private -->
 		<dict>
