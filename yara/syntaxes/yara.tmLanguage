@@ -135,7 +135,7 @@
 			<key>name</key>
 			<string>keyword.other.meta.yara</string>
 			<key>match</key>
-			<string>\bmeta:\n$</string>
+			<string>\bmeta:\b</string>
 		</dict>
 		<!-- nocase -->
 		<dict>
@@ -187,11 +187,13 @@
 			<string>\bthem\b</string>
 		</dict>
 		<!-- Variables : Any word that starts with '$' -->
+		<!-- Each string has an identifier consisting in a $ character
+		followed by a sequence of alphanumeric characters and underscores -->
 		<dict>
 			<key>name</key>
 			<string>variable.parameter.source.yara</string>
 			<key>match</key>
-			<string>\$\S+\b</string>
+			<string>\$[a-zA-Z0-9_]+\b</string>
 		</dict>
 		<!-- Strings : Normal strings and hex strings -->
 		<!-- single quotes, remove possible contractions -->
