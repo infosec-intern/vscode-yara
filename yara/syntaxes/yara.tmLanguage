@@ -305,37 +305,37 @@
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>storage.type.uint8.yara</string>
+			<string>storage.type.uint.8.yara</string>
 			<key>match</key>
 			<string>\buint8\b</string>
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>storage.type.uint16.yara</string>
+			<string>storage.type.uint.16.yara</string>
 			<key>match</key>
 			<string>\buint16\b</string>
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>storage.type.uint32.yara</string>
+			<string>storage.type.uint.32.yara</string>
 			<key>match</key>
 			<string>\buint32\b</string>
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>storage.type.uint8be.yara</string>
+			<string>storage.type.uintbe.8.yara</string>
 			<key>match</key>
 			<string>\buint8be\b</string>
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>storage.type.uint16be.yara</string>
+			<string>storage.type.uintbe.16.yara</string>
 			<key>match</key>
 			<string>\buint16be\b</string>
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>storage.type.uint32be.yara</string>
+			<string>storage.type.uintbe.32.yara</string>
 			<key>match</key>
 			<string>\buint32be\b</string>
 		</dict>
