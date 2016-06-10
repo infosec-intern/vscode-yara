@@ -50,7 +50,7 @@
 			<key>name</key>
 			<string>constant.numeric.decimal.yara</string>
 			<key>match</key>
-			<string>\b[0-9]+\b</string>
+			<string>\b[0-9]+</string>
 		</dict>
 		<!-- Keywords : Specific to YARA -->
 		<!-- # -->
@@ -95,6 +95,13 @@
 			<key>match</key>
 			<string>(\&|\||\>\>|\<\<|~|\^)</string>
 		</dict>
+		<!-- bytes -->
+		<dict>
+			<key>name</key>
+			<string>keyword.other.bytes.yara</string>
+			<key>match</key>
+			<string>(MB|KB)</string>
+		</dict>
 		<!-- condition: -->
 		<dict>
 			<key>name</key>
@@ -108,6 +115,13 @@
 			<string>keyword.other.contains.yara</string>
 			<key>match</key>
 			<string>\bcontains\b</string>
+		</dict>
+		<!-- filesize -->
+		<dict>
+			<key>name</key>
+			<string>keyword.other.filesize.yara</string>
+			<key>match</key>
+			<string>\bfilesize\b</string>
 		</dict>
 		<!-- for -->
 		<dict>
@@ -266,13 +280,6 @@
 			<string>storage.type.entrypoint.yara</string>
 			<key>match</key>
 			<string>\bentrypoint\b</string>
-		</dict>
-		<!-- filesize -->
-		<dict>
-			<key>name</key>
-			<string>storage.modifier.filesize.yara</string>
-			<key>match</key>
-			<string>\bfilesize\b</string>
 		</dict>
 		<!-- fullword -->
 		<dict>
