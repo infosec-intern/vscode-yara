@@ -239,42 +239,6 @@
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>storage.type.int8.yara</string>
-			<key>match</key>
-			<string>\bint8\b</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>storage.type.int16.yara</string>
-			<key>match</key>
-			<string>\bint16\b</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>storage.type.int32.yara</string>
-			<key>match</key>
-			<string>\bint32\b</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>storage.type.int8be.yara</string>
-			<key>match</key>
-			<string>\bint8be\b</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>storage.type.int16be.yara</string>
-			<key>match</key>
-			<string>\bint16be\b</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>storage.type.int32be.yara</string>
-			<key>match</key>
-			<string>\bint32be\b</string>
-		</dict>
-		<dict>
-			<key>name</key>
 			<string>storage.type.matches.yara</string>
 			<key>match</key>
 			<string>\bmatches\b</string>
@@ -293,7 +257,7 @@
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>storage.type.private.yara</string>
+			<string>storage.modifier.private.yara</string>
 			<key>match</key>
 			<string>\bprivate\b</string>
 		</dict>
@@ -302,6 +266,42 @@
 			<string>storage.type.them.yara</string>
 			<key>match</key>
 			<string>\bthem\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.int.8.yara</string>
+			<key>match</key>
+			<string>\bint8\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.int.16.yara</string>
+			<key>match</key>
+			<string>\bint16\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.int.32.yara</string>
+			<key>match</key>
+			<string>\bint32\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.intbe.8.yara</string>
+			<key>match</key>
+			<string>\bint8be\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.intbe.16.yara</string>
+			<key>match</key>
+			<string>\bint16be\b</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>storage.type.intbe.32.yara</string>
+			<key>match</key>
+			<string>\bint32be\b</string>
 		</dict>
 		<dict>
 			<key>name</key>
