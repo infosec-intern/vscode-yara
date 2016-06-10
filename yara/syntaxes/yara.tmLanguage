@@ -53,6 +53,20 @@
 			<string>\b[0-9]+\b</string>
 		</dict>
 		<!-- Keywords : Specific to YARA -->
+		<!-- relational -->
+		<dict>
+			<key>name</key>
+			<string>keyword.operator.relational.yara</string>
+			<key>match</key>
+			<string>(\<=?|\>=?|==|\!=)</string>
+		</dict>
+		<!-- bitwise -->
+		<dict>
+			<key>name</key>
+			<string>keyword.operator.bitwise.yara</string>
+			<key>match</key>
+			<string>(\&|\||\>\>|\<\<|~|\^)</string>
+		</dict>
 		<!-- all -->
 		<dict>
 			<key>name</key>
