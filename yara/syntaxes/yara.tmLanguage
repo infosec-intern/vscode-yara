@@ -106,8 +106,10 @@
 		<dict>
 			<key>name</key>
 			<string>keyword.other.condition.yara</string>
+			<key>end</key>
+			<string>:</string>
 			<key>match</key>
-			<string>\bcondition:\b</string>
+			<string>\bcondition\b</string>
 		</dict>
 		<!-- contains -->
 		<dict>
@@ -162,8 +164,10 @@
 		<dict>
 			<key>name</key>
 			<string>keyword.other.meta.yara</string>
+			<key>end</key>
+			<string>:</string>
 			<key>match</key>
-			<string>\bmeta:\b</string>
+			<string>\bmeta\b</string>
 		</dict>
 		<!-- none -->
 		<dict>
@@ -211,8 +215,10 @@
 		<dict>
 			<key>name</key>
 			<string>keyword.other.strings.yara</string>
+			<key>end</key>
+			<string>:</string>
 			<key>match</key>
-			<string>\bstrings:\n$</string>
+			<string>\bstrings\b</string>
 		</dict>
 		<!-- them -->
 		<dict>
@@ -235,14 +241,14 @@
 		<!-- may not be allowed in YARA anyway -->
 		<dict>
 			<key>name</key>
-			<string>string.single.yara</string>
+			<string>string.quoted.single.yara</string>
 			<key>match</key>
 			<string>(?i)(\'.*[^(n|t|e|i|o|u|y)]\'[^(t|s|d|l|v|m|r)])(?-i)</string>
 		</dict>
 		<!-- double quotes -->
 		<dict>
 			<key>name</key>
-			<string>string.double.yara</string>
+			<string>string.quoted.double.yara</string>
 			<key>match</key>
 			<string>\".*\"</string>
 		</dict>
