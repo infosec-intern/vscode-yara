@@ -20,7 +20,7 @@ rule WildcardExample
         $hex_string = { E2 34 ?? C8 A? FB [2-4] }
         $hex_string2 = { F4 23 ( 62 B4 | 56 ) 45 }
         $sstring = 'single string'
-        $dstring = "double string"
+        $dstring = "double string" wide nocase fullword
         $reg_ex = /md5: [0-9a-zA-Z]{32}/
 
     condition:
