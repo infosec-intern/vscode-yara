@@ -273,139 +273,47 @@
 			<string>}</string>
 		</dict>
 		<!-- Storage strings : mostly data types -->
-		<!-- ascii -->
+		<!-- Data Types - Other -->
 		<dict>
 			<key>name</key>
-			<string>storage.type.ascii.yara</string>
+			<string>storage.type.other.yara</string>
 			<key>match</key>
-			<string>\bascii\b</string>
+			<string>(\bascii\b|\bentrypoint\b)</string>
 		</dict>
-		<!-- entrypoint -->
-		<!-- not sure what to classify this as -->
+		<!-- Data Type Modifiers -->
 		<dict>
 			<key>name</key>
-			<string>storage.type.entrypoint.yara</string>
+			<string>storage.modifier.yara</string>
 			<key>match</key>
-			<string>\bentrypoint\b</string>
+			<string>(\bfullword\b|\bglobal\b|\bnocase\b|\bprivate\b|\bwide\b)</string>
 		</dict>
-		<!-- fullword -->
+		<!-- Data Types - Integer -->
 		<dict>
 			<key>name</key>
-			<string>storage.modifier.fullword.yara</string>
+			<string>storage.type.int.yara</string>
 			<key>match</key>
-			<string>\bfullword\b</string>
+			<string>(\bint8\b|\bint16\b|\bint32\b)</string>
 		</dict>
-		<!-- global -->
+		<!-- Data Types - Integer BE (not sure what BE is for) -->
 		<dict>
 			<key>name</key>
-			<string>storage.modifier.global.yara</string>
+			<string>storage.type.intbe.yara</string>
 			<key>match</key>
-			<string>\bglobal\b</string>
+			<string>(\bint8be\b|\bint16be\b|\bint32be\b)</string>
 		</dict>
-		<!-- nocase -->
+		<!-- Data Types - Unsigned Integer -->
 		<dict>
 			<key>name</key>
-			<string>storage.modifier.nocase.yara</string>
+			<string>storage.type.uint.yara</string>
 			<key>match</key>
-			<string>\bnocase\b</string>
+			<string>(\buint8\b|\buint16\b|\buint32\b)</string>
 		</dict>
-		<!-- private -->
+		<!-- Data Types - Unsigned Integer BE -->
 		<dict>
 			<key>name</key>
-			<string>storage.modifier.private.yara</string>
+			<string>storage.type.uintbe.yara</string>
 			<key>match</key>
-			<string>\bprivate\b</string>
-		</dict>
-		<!-- wide -->
-		<dict>
-			<key>name</key>
-			<string>storage.modifier.wide.yara</string>
-			<key>match</key>
-			<string>\bwide\b</string>
-		</dict>
-		<!-- int8 -->
-		<dict>
-			<key>name</key>
-			<string>storage.type.int.8.yara</string>
-			<key>match</key>
-			<string>\bint8\b</string>
-		</dict>
-		<!-- int16 -->
-		<dict>
-			<key>name</key>
-			<string>storage.type.int.16.yara</string>
-			<key>match</key>
-			<string>\bint16\b</string>
-		</dict>
-		<!-- int32 -->
-		<dict>
-			<key>name</key>
-			<string>storage.type.int.32.yara</string>
-			<key>match</key>
-			<string>\bint32\b</string>
-		</dict>
-		<!-- int8be -->
-		<dict>
-			<key>name</key>
-			<string>storage.type.intbe.8.yara</string>
-			<key>match</key>
-			<string>\bint8be\b</string>
-		</dict>
-		<!-- int16be -->
-		<dict>
-			<key>name</key>
-			<string>storage.type.intbe.16.yara</string>
-			<key>match</key>
-			<string>\bint16be\b</string>
-		</dict>
-		<!-- int32be -->
-		<dict>
-			<key>name</key>
-			<string>storage.type.intbe.32.yara</string>
-			<key>match</key>
-			<string>\bint32be\b</string>
-		</dict>
-		<!-- uint8 -->
-		<dict>
-			<key>name</key>
-			<string>storage.type.uint.8.yara</string>
-			<key>match</key>
-			<string>\buint8\b</string>
-		</dict>
-		<!-- uint16 -->
-		<dict>
-			<key>name</key>
-			<string>storage.type.uint.16.yara</string>
-			<key>match</key>
-			<string>\buint16\b</string>
-		</dict>
-		<!-- uint32 -->
-		<dict>
-			<key>name</key>
-			<string>storage.type.uint.32.yara</string>
-			<key>match</key>
-			<string>\buint32\b</string>
-		</dict>
-		<!-- uint8be -->
-		<dict>
-			<key>name</key>
-			<string>storage.type.uintbe.8.yara</string>
-			<key>match</key>
-			<string>\buint8be\b</string>
-		</dict>
-		<!-- uint16be -->
-		<dict>
-			<key>name</key>
-			<string>storage.type.uintbe.16.yara</string>
-			<key>match</key>
-			<string>\buint16be\b</string>
-		</dict>
-		<!-- uint32be -->
-		<dict>
-			<key>name</key>
-			<string>storage.type.uintbe.32.yara</string>
-			<key>match</key>
-			<string>\buint32be\b</string>
+			<string>(\buint8be\b|\buint16be\b|\buint32be\b)</string>
 		</dict>
 	</array>
 	<!-- define pairs of characters so that the second character gets
