@@ -172,7 +172,7 @@
 		<!-- none -->
 		<dict>
 			<key>name</key>
-			<string>keyword.operator.logical.not.yara</string>
+			<string>keyword.operator.logical.none.yara</string>
 			<key>match</key>
 			<string>\bnone\b</string>
 		</dict>
