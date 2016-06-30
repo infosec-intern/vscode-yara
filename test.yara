@@ -25,11 +25,10 @@ rule WildcardExample
         $reg_ex = /md5: [0-9a-zA-Z]{32}/
 
     condition:
-       $hex_string
-       all of them
-       17 or any of them
-       17 or none of them
-       filesize < 200MB
-       #dstring == 8
-       @dstring[1]
+        $hex_string
+        for any of ($a,$b,$c) : ( $ )
+        17 or none of them
+        filesize < 200MB
+        #dstring == 8
+        @dstring[1]
 }
