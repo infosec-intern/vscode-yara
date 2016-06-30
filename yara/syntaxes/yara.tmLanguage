@@ -50,7 +50,7 @@
 			<key>name</key>
 			<string>constant.numeric.decimal.yara</string>
 			<key>match</key>
-			<string>\b[0-9]+(\b|MB|KB)</string>
+			<string>\b[0-9]+(MB|KB)?\b</string>
 		</dict>
 		<!-- Keywords : Specific to YARA -->
 		<!-- # -->
@@ -94,13 +94,6 @@
 			<string>keyword.operator.bitwise.yara</string>
 			<key>match</key>
 			<string>(\&|\||\>\>|\<\<|~|\^)</string>
-		</dict>
-		<!-- bytes -->
-		<dict>
-			<key>name</key>
-			<string>constant.numeric.bytes.yara</string>
-			<key>match</key>
-			<string>(MB|KB)</string>
 		</dict>
 		<!-- condition: -->
 		<dict>
