@@ -288,7 +288,7 @@
 			<key>match</key>
 			<string>(\bint8\b|\bint16\b|\bint32\b)</string>
 		</dict>
-		<!-- Data Types - Integer BE (not sure what BE is for) -->
+		<!-- Data Types - Integer Big Endian -->
 		<dict>
 			<key>name</key>
 			<string>storage.type.intbe.yara</string>
@@ -302,7 +302,7 @@
 			<key>match</key>
 			<string>(\buint8\b|\buint16\b|\buint32\b)</string>
 		</dict>
-		<!-- Data Types - Unsigned Integer BE -->
+		<!-- Data Types - Unsigned Integer Big Endian -->
 		<dict>
 			<key>name</key>
 			<string>storage.type.uintbe.yara</string>
@@ -314,12 +314,12 @@
 	automatically inserted when you type the first character -->
 	<key>smartTypingPairs</key>
 	<array>
-	<!--
+		<!--
 		<array>
 			<string>'</string>
 			<string>'</string>
 		</array>
-	-->
+		-->
 		<array>
 			<string>"</string>
 			<string>"</string>
@@ -343,12 +343,12 @@
 	</array>
 	<key>highlightPairs</key>
 	<array>
-	<!--
+		<!--
 		<array>
 			<string>'</string>
 			<string>'</string>
 		</array>
-	-->
+		-->
 		<array>
 			<string>"</string>
 			<string>"</string>
