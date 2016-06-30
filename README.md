@@ -6,8 +6,7 @@ Copy the 'yara' directory into your $HOME/.vscode/extensions folder and restart 
 
 ## References
 Syntax Reference:<br>
-YARA : https://gist.github.com/tylerhalfpop/eeabc765e9befad9b80a
-Contractions : http://grammar.about.com/od/words/a/EnglishContractions.htm
+YARA : https://yara.readthedocs.io/
 
 TextMate Docs:<br>
 http://manual.macromates.com/en/language_grammars
