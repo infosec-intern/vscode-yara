@@ -104,13 +104,6 @@
 			<key>match</key>
 			<string>\bcontains\b</string>
 		</dict>
-		<!-- entrypoint -->
-		<dict>
-			<key>name</key>
-			<string>keyword.other.entrypoint.yara</string>
-			<key>match</key>
-			<string>\bentrypoint\b</string>
-		</dict>
 		<!-- filesize -->
 		<dict>
 			<key>name</key>
