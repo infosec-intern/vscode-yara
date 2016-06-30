@@ -31,4 +31,5 @@ rule WildcardExample
        17 or none of them
        filesize < 200MB
        #dstring == 8
+       @dstring[1]
 }
