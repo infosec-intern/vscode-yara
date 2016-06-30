@@ -1,4 +1,4 @@
-import pe
+import "pe"
 /*
    Test multi-line comment
 */
