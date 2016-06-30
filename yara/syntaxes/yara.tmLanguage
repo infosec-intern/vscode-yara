@@ -70,7 +70,7 @@
 		<!-- and -->
 		<dict>
 			<key>name</key>
-			<string>keyword.operator.logical.and.yara</string>
+			<string>keyword.other.logical.and.yara</string>
 			<key>match</key>
 			<string>\band\b</string>
 		</dict>
@@ -172,7 +172,7 @@
 		<!-- not -->
 		<dict>
 			<key>name</key>
-			<string>keyword.operator.logical.not.yara</string>
+			<string>keyword.other.logical.not.yara</string>
 			<key>match</key>
 			<string>\bnot\b</string>
 		</dict>
@@ -186,7 +186,7 @@
 		<!-- or -->
 		<dict>
 			<key>name</key>
-			<string>keyword.operator.logical.or.yara</string>
+			<string>keyword.other.logical.or.yara</string>
 			<key>match</key>
 			<string>\bor\b</string>
 		</dict>
