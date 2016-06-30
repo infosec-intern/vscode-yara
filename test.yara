@@ -30,4 +30,5 @@ rule WildcardExample
        17 or any of them
        17 or none of them
        filesize < 200MB
+       #dstring == 8
 }

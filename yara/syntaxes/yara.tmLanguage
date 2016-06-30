@@ -53,13 +53,6 @@
 			<string>\b[0-9]+(MB|KB)?\b</string>
 		</dict>
 		<!-- Keywords : Specific to YARA -->
-		<!-- # -->
-		<dict>
-			<key>name</key>
-			<string>keyword.other.number.yara</string>
-			<key>match</key>
-			<string>\#</string>
-		</dict>
 		<!-- all -->
 		<dict>
 			<key>name</key>
@@ -227,7 +220,7 @@
 			<key>name</key>
 			<string>variable.parameter.source.yara</string>
 			<key>match</key>
-			<string>\$[a-zA-Z0-9_]+</string>
+			<string>(\$|\#)[a-zA-Z0-9_]+</string>
 		</dict>
 		<!-- Strings : Normal strings and hex strings -->
 		<!-- single quotes, remove possible contractions -->
