@@ -50,7 +50,7 @@
 			<key>name</key>
 			<string>constant.numeric.decimal.yara</string>
 			<key>match</key>
-			<string>\b[0-9]+</string>
+			<string>\b[0-9]+\b</string>
 		</dict>
 		<!-- Keywords : Specific to YARA -->
 		<!-- # -->
