@@ -4,6 +4,9 @@ Syntax Highlighting for the YARA pattern matching language
 ## Installation
 Copy the 'yara' directory into your $HOME/.vscode/extensions folder and restart Visual Studio Code
 
+## Examples
+![Img as of 29 June 2016](./images/29062016.PNG)
+
 ## References
 Syntax Reference:<br>
 YARA : https://yara.readthedocs.io/
