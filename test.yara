@@ -1,3 +1,4 @@
+import pe
 /*
    Test multi-line comment
 */
