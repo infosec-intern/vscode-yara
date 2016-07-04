@@ -8,7 +8,7 @@ Copy the 'yara' directory into your $HOME/.vscode/extensions folder and restart 
 ![Img as of 29 June 2016](./images/29062016.PNG)
 
 ## References
-Syntax Reference:<br>
+#### Syntax Reference:<br>
 YARA : https://yara.readthedocs.io/
 
 #### TextMate Docs:<br>
