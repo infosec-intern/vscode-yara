@@ -11,13 +11,13 @@ Copy the 'yara' directory into your $HOME/.vscode/extensions folder and restart 
 Syntax Reference:<br>
 YARA : https://yara.readthedocs.io/
 
-TextMate Docs:<br>
+#### TextMate Docs:<br>
 http://manual.macromates.com/en/language_grammars
 
-Regular Expressions:<br>
+#### Regular Expressions:<br>
 http://www.regular-expressions.info/modifiers.html
 
-Example Code:<br>
+#### Example Code:<br>
 https://github.com/mmcgrana/textmate-clojure/blob/master/Syntaxes/Clojure.tmLanguage
 https://github.com/textmate/python.tmbundle/blob/master/Syntaxes/Python.tmLanguage
 https://github.com/nyx0/YaraSyntax/blob/master/yara.tmLanguage
