@@ -14,6 +14,9 @@ YARA : https://yara.readthedocs.io/
 TextMate Docs:<br>
 http://manual.macromates.com/en/language_grammars
 
+Regular Expressions:<br>
+http://www.regular-expressions.info/modifiers.html
+
 Example Code:<br>
 https://github.com/mmcgrana/textmate-clojure/blob/master/Syntaxes/Clojure.tmLanguage
 https://github.com/textmate/python.tmbundle/blob/master/Syntaxes/Python.tmLanguage
