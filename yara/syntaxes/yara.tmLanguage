@@ -223,16 +223,6 @@
 			<string>(\$|\#|\@)[a-zA-Z0-9_]*</string>
 		</dict>
 		<!-- Strings : Normal strings and hex strings -->
-		<!-- single quotes, remove possible contractions -->
-		<!-- may not be allowed in YARA anyway -->
-		<!--
-		<dict>
-			<key>name</key>
-			<string>string.quoted.single.yara</string>
-			<key>match</key>
-			<string>(?i)(\'.*[^(n|t|e|i|o|u|y)]\'[^(t|s|d|l|v|m|r)])(?-i)</string>
-		</dict>
-		-->
 		<!-- double quotes -->
 		<dict>
 			<key>name</key>
@@ -310,12 +300,6 @@
 	automatically inserted when you type the first character -->
 	<key>smartTypingPairs</key>
 	<array>
-		<!--
-		<array>
-			<string>'</string>
-			<string>'</string>
-		</array>
-		-->
 		<array>
 			<string>"</string>
 			<string>"</string>
@@ -339,12 +323,6 @@
 	</array>
 	<key>highlightPairs</key>
 	<array>
-		<!--
-		<array>
-			<string>'</string>
-			<string>'</string>
-		</array>
-		-->
 		<array>
 			<string>"</string>
 			<string>"</string>
