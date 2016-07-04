@@ -4,6 +4,11 @@ Syntax Highlighting for the YARA pattern matching language
 ## Installation
 Copy the 'yara' directory into your $HOME/.vscode/extensions folder and restart Visual Studio Code
 
+## Problems?
+If you encounter an issue with the syntax, feel free to create an issue/pull request!
+Alternatively, check out some of the YARA syntaxes for Sublime and Textmate (i.e. those in the <b>Example Code</b> section below).
+They use the same syntax engine as VSCode and should work the same way
+
 ## Examples
 ![Img as of 29 June 2016](./images/29062016.PNG)
 
