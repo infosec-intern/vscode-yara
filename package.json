@@ -27,12 +27,12 @@
             "id": "yara",
             "aliases": ["yara", "yara-syntax", "yaralang", "yara", "YARA", "Yara"],
             "extensions": [".yara",".yar"],
-            "configuration": "./yara.configuration.json"
+            "configuration": "yara/yara.configuration.json"
         }],
         "grammars": [{
             "language": "yara",
             "scopeName": "source.yara",
-            "path": "./syntaxes/yara.tmLanguage"
+            "path": "yara/syntaxes/yara.tmLanguage"
         }]
     }
 }
