@@ -1,7 +1,7 @@
+![YARA Logo](./images/logo.png)
+
 # textmate-yara
 Syntax Highlighting for the YARA pattern matching language
-
-![YARA Logo](./images/logo.png)
 
 ## Installation
 Copy the 'yara' directory into your $HOME/.vscode/extensions folder and restart Visual Studio Code
