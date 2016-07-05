@@ -3,7 +3,19 @@
     "displayName": "YARA Syntax Colorizer",
     "description": "Syntax Highlighting for the YARA pattern matching language",
     "version": "0.0.1",
+    "icon": "images/logo.png",
+    "galleryBanner": {
+        "theme": "dark"
+    },
     "publisher": "infosec-intern",
+    "license": "MIT License - full doc in LICENSE.md",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/infosec-intern/textmate-yara"
+    },
+    "bugs": {
+        "url": "https://github.com/infosec-intern/textmate-yara/issues"
+    },
     "engines": {
         "vscode": "^1.0.0"
     },
@@ -13,7 +25,7 @@
     "contributes": {
         "languages": [{
             "id": "yara",
-            "aliases": ["yara-syntax", "yaralang", "yara"],
+            "aliases": ["yara", "yara-syntax", "yaralang", "yara", "YARA", "Yara"],
             "extensions": [".yara",".yar"],
             "configuration": "./yara.configuration.json"
         }],
