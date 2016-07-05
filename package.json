@@ -2,7 +2,7 @@
     "name": "yara",
     "displayName": "YARA Syntax Colorizer",
     "description": "Syntax Highlighting for the YARA pattern matching language",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "icon": "images/logo.png",
     "galleryBanner": {
         "theme": "dark"
