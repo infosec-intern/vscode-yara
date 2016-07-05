@@ -1,5 +1,6 @@
 # textmate-yara
 Syntax Highlighting for the YARA pattern matching language
+
 ![YARA Logo](./images/logo.png)
 
 ## Installation
