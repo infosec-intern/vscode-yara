@@ -1,4 +1,4 @@
-![YARA Logo](./images/logo.png)
+![Source - https://raw.githubusercontent.com/blacktop/docker-yara/master/logo.png](./images/logo.png)
 
 # textmate-yara
 Syntax Highlighting for the YARA pattern matching language
