@@ -1,6 +1,6 @@
 {
     "name": "yara",
-    "displayName": "yara",
+    "displayName": "YARA Syntax Colorizer",
     "description": "Syntax Highlighting for the YARA pattern matching language",
     "version": "0.0.1",
     "publisher": "infosec-intern",
