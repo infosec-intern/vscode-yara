@@ -5,6 +5,7 @@
     "version": "1.0.0",
     "icon": "images/logo.png",
     "galleryBanner": {
+        "color": "#A4A4A4",
         "theme": "dark"
     },
     "publisher": "infosec-intern",

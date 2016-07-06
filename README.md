@@ -4,7 +4,8 @@
 Syntax Highlighting for the YARA pattern matching language
 
 ## Installation
-Copy the 'yara' directory into your $HOME/.vscode/extensions folder and restart Visual Studio Code
+* Manual: Copy the 'yara' directory into your $HOME/.vscode/extensions folder and restart Visual Studio Code
+* Auto: Run `ext install yara` in Visual Studio Code
 
 ## Problems?
 If you encounter an issue with the syntax, feel free to create an issue/pull request!
