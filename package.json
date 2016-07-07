@@ -21,7 +21,8 @@
         "vscode": "^1.0.0"
     },
     "categories": [
-        "Languages"
+        "Languages",
+        "Snippets"
     ],
     "contributes": {
         "languages": [
@@ -31,7 +32,6 @@
                     "yara",
                     "yara-syntax",
                     "yaralang",
-                    "yara",
                     "YARA",
                     "Yara"
                 ],
@@ -47,6 +47,12 @@
                 "language": "yara",
                 "scopeName": "source.yara",
                 "path": "yara/syntaxes/yara.tmLanguage"
+            }
+        ],
+        "snippets": [
+            {
+                "language": "yara",
+                "path": "yara/snippets/yara.json"
             }
         ]
     }
