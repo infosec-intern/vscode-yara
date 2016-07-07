@@ -2,7 +2,7 @@
     "name": "yara",
     "displayName": "YARA Syntax Colorizer",
     "description": "Syntax Highlighting for the YARA pattern matching language",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "icon": "images/logo.png",
     "galleryBanner": {
         "color": "#A4A4A4",
@@ -24,16 +24,30 @@
         "Languages"
     ],
     "contributes": {
-        "languages": [{
-            "id": "yara",
-            "aliases": ["yara", "yara-syntax", "yaralang", "yara", "YARA", "Yara"],
-            "extensions": [".yara",".yar"],
-            "configuration": "yara/yara.configuration.json"
-        }],
-        "grammars": [{
-            "language": "yara",
-            "scopeName": "source.yara",
-            "path": "yara/syntaxes/yara.tmLanguage"
-        }]
+        "languages": [
+            {
+                "id": "yara",
+                "aliases": [
+                    "yara",
+                    "yara-syntax",
+                    "yaralang",
+                    "yara",
+                    "YARA",
+                    "Yara"
+                ],
+                "extensions": [
+                    ".yara",
+                    ".yar"
+                ],
+                "configuration": "yara/yara.configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "yara",
+                "scopeName": "source.yara",
+                "path": "yara/syntaxes/yara.tmLanguage"
+            }
+        ]
     }
 }
