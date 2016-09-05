@@ -42,8 +42,10 @@
 		<dict>
 			<key>name</key>
 			<string>constant.numeric.hex.yara</string>
-			<key>match</key>
-			<string>\b0(x|X)[0-9A-Fa-f]+\b</string>
+			<key>begin</key>
+			<string>= {</string>
+			<key>end</key>
+			<string>}</string>
 		</dict>
 		<!-- Decimals -->
 		<dict>
