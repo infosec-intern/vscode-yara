@@ -42,10 +42,8 @@
 		<dict>
 			<key>name</key>
 			<string>constant.numeric.hex.yara</string>
-			<key>begin</key>
-			<string>= {</string>
-			<key>end</key>
-			<string>}</string>
+			<key>match</key>
+			<string>\b0x[a-fA-F0-9]+\b</string>
 		</dict>
 		<!-- Decimals -->
 		<dict>
@@ -241,10 +239,12 @@
 		</dict>
 		<!-- hex -->
 		<dict>
-			<key>name</key>
+			<key>contentName</key>
 			<string>string.hex.yara</string>
-			<key>match</key>
-			<string>{[^\.]+}</string>
+			<key>begin</key>
+			<string>= {</string>
+			<key>end</key>
+			<string>}</string>
 		</dict>
 		<!-- hex wildcards -->
 		<!-- unfortunately useless at the moment -->
