@@ -1,14 +1,20 @@
 ![Source - https://raw.githubusercontent.com/blacktop/docker-yara/master/logo.png](./images/logo.png)
 
 # textmate-yara
-Syntax Highlighting for the YARA pattern matching language
+Syntax Highlighting and Snippets support for the YARA pattern matching language
+
+Currently, Snippets support includes:
+* A new file skeleton (or `rule:` skeleton)
+* `import` statement completion
+* `strings:` section skeleton
+* `meta:` section skeleton
 
 ## Installation
 * Manual: Copy the 'yara' directory into your $HOME/.vscode/extensions folder and restart Visual Studio Code
 * Auto: Run `ext install yara` in Visual Studio Code
 
 ## Problems?
-If you encounter an issue with the syntax, feel free to create an issue/pull request!
+If you encounter an issue with the syntax, feel free to create an issue or pull request!
 Alternatively, check out some of the YARA syntaxes for Sublime and Textmate (i.e. those in the <b>Example Code</b> section below).
 They use the same syntax engine as VSCode and should work the same way
 
@@ -17,7 +23,7 @@ They use the same syntax engine as VSCode and should work the same way
 
 ## References
 #### Syntax Reference:<br>
-YARA : https://yara.readthedocs.io/
+https://yara.readthedocs.io/
 
 #### TextMate Docs:<br>
 http://manual.macromates.com/en/language_grammars
