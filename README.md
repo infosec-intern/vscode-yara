@@ -12,8 +12,8 @@ If you encounter an issue with the syntax, feel free to create an issue/pull req
 Alternatively, check out some of the YARA syntaxes for Sublime and Textmate (i.e. those in the <b>Example Code</b> section below).
 They use the same syntax engine as VSCode and should work the same way
 
-## Examples
-![Img as of 29 June 2016](./images/29062016.PNG)
+## Screenshot
+![Image as of 04 Sept 2016](./images/04092016.PNG)
 
 ## References
 #### Syntax Reference:<br>
@@ -26,7 +26,7 @@ http://manual.macromates.com/en/language_grammars
 http://www.regular-expressions.info/modifiers.html
 
 #### Example Code:<br>
-https://github.com/mmcgrana/textmate-clojure/blob/master/Syntaxes/Clojure.tmLanguage
-https://github.com/textmate/python.tmbundle/blob/master/Syntaxes/Python.tmLanguage
-https://github.com/nyx0/YaraSyntax/blob/master/yara.tmLanguage
+https://github.com/mmcgrana/textmate-clojure/blob/master/Syntaxes/Clojure.tmLanguage <br>
+https://github.com/textmate/python.tmbundle/blob/master/Syntaxes/Python.tmLanguage <br>
+https://github.com/nyx0/YaraSyntax/blob/master/yara.tmLanguage <br>
 https://github.com/blacktop/language-yara
