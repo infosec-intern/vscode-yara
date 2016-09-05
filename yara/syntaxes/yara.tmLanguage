@@ -248,12 +248,14 @@
 		</dict>
 		<!-- hex wildcards -->
 		<!-- unfortunately useless at the moment -->
+<!--
 		<dict>
 			<key>name</key>
 			<string>string.regexp.wildcard.yara</string>
 			<key>match</key>
 			<string>\?</string>
 		</dict>
+-->
 		<!-- Storage strings : mostly data types -->
 		<!-- Data Types - Other -->
 		<dict>
