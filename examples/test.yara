@@ -1,15 +1,15 @@
 import "pe"
 /*
-   Test multi-line comment
+    Test multi-line comment
 */
-// Test single-line comment
-rule WildcardExample
+
+rule SyntaxExample
 {
     meta:
         // Useful meta information examples to add
         description = "Test"
         author = "Test"
-        reference = "http://www.infosec-intern.com"
+        reference = "https://infosec-intern.github.io"
         os = "mswindows"
         filetype = "pe"
         maltype = "trojan"
@@ -30,4 +30,14 @@ rule WildcardExample
         filesize < 200MB
         #dstring == 8
         @dstring[1]
+}
+
+rule RuleReferenceExample
+{
+    meta:
+        description = "Rule Reference Example"
+        author = "Test"
+        reference = "https://infosec-intern.github.io"
+    condition:
+        WildcardExample and "test"
 }
