@@ -7,18 +7,25 @@ import * as vscode from "vscode";
 
 class YaraDefinitionProvider implements vscode.DefinitionProvider {
     public provideDefinition(doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken): Thenable<vscode.Location> {
-        const filename = doc.fileName;
+        // only look for definitions in the current document ... at first
+        const filename = vscode.Uri.file(doc.fileName);
+        // grab the character range for the current symbol to define
         const range = doc.getWordRangeAtPosition(pos);
+        // grab the actual symbol to define
         const symbol = doc.getText(range);
+        // assume the symbol isn't defined anywhere
+        let results = new vscode.Location(filename, range);
         return null;
     }
 }
 
 class YaraReferenceProvider implements vscode.ReferenceProvider {
     public provideReferences(doc: vscode.TextDocument, pos: vscode.Position, options: { includeDeclaration: boolean }, token: vscode.CancellationToken): Thenable<vscode.Location[]> {
-        const filename = doc.fileName;
+        const filename = vscode.Uri.file(doc.fileName);
         const range = doc.getWordRangeAtPosition(pos);
         const symbol = doc.getText(range);
+        // assume the symbol isn't defined anywhere
+        let results = new vscode.Location(filename, range);
         return null;
     }
 }
