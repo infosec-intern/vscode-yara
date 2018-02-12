@@ -55,5 +55,9 @@
                 "path": "yara/snippets/yara.json"
             }
         ]
-    }
+    },
+    "main": "out/yara/src/extension",
+    "activationEvents": [
+        "onLanguage:yara"
+    ]
 }
