@@ -9,9 +9,13 @@ Currently, Snippets support includes:
 * `strings:` section skeleton
 * `meta:` section skeleton
 
-## Installation
-* Manual: Copy the 'yara' directory into your $HOME/.vscode/extensions folder and restart Visual Studio Code
-* Auto: Run `ext install yara` in Visual Studio Code
+## Features
+
+### Definition Provider and Peeking
+![Find All References](./images/peek_rules.PNG)
+
+### Reference Provider
+![Find All References](./images/references.PNG)
 
 ## Problems?
 If you encounter an issue with the syntax, feel free to create an issue or pull request!
