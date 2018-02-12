@@ -40,10 +40,31 @@ class YaraDefinitionProvider implements vscode.DefinitionProvider {
 
 class YaraReferenceProvider implements vscode.ReferenceProvider {
     public provideReferences(doc: vscode.TextDocument, pos: vscode.Position, options: { includeDeclaration: boolean }, token: vscode.CancellationToken): Thenable<vscode.Location[]> {
-        const range: vscode.Range = doc.getWordRangeAtPosition(pos);
-        const symbol: string = doc.getText(range);
-        console.log(`Providing references for symbol '${symbol}'`);
-        return null;
+        return new Promise((resolve, reject) => {
+            let references: vscode.Location[] = new Array<vscode.Location>();
+            const fileUri: vscode.Uri = vscode.Uri.file(doc.fileName);
+            const range: vscode.Range = doc.getWordRangeAtPosition(pos);
+            const symbol: string = doc.getText(range);
+            console.log(`Providing references for symbol '${symbol}'`);
+            let lines: string[] = doc.getText().split("\n");
+            let lineNo = 0;
+            lines.forEach(line => {
+                let character: number = line.indexOf(symbol);
+                if (character != -1) {
+                    console.log(`Found ${symbol} on line ${lineNo} at character ${character}`);
+                    console.log(line);
+                    let refPosition: vscode.Position = new vscode.Position(lineNo, character);
+                    references.push(new vscode.Location(fileUri, refPosition));
+                }
+                lineNo++;
+            });
+            if (references != null) {
+                resolve(references);
+            }
+            else {
+                reject();
+            }
+        });
     }
 }
 
