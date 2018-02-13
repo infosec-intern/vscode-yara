@@ -12,9 +12,14 @@ Currently, Snippets support includes:
 ## Features
 
 ### Definition Provider and Peeking
-![Find All References](./images/peek_rules.PNG)
+Allows peeking and Ctrl+clicking to jump to a rule definition.
+This only applies to rule names at the moment, but variables are in the works
+
+![Go To Definition](./images/peek_rules.PNG)
 
 ### Reference Provider
+Shows the locations of a given symbol (rule name, variable, constant, etc.)
+
 ![Find All References](./images/references.PNG)
 
 ## Problems?
