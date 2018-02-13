@@ -59,5 +59,11 @@
     "main": "out/yara/src/extension",
     "activationEvents": [
         "onLanguage:yara"
-    ]
+    ],
+    "scripts": {
+        "vscode:prepublish": "tsc -p ./",
+        "compile": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "mocha"
+    }
 }
