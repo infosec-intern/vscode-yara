@@ -25,24 +25,18 @@ suite("YARA: Provider", function () {
             if (result instanceof vscode.Location) {
                 let resultWordRange: vscode.Range = doc.getWordRangeAtPosition(result.range.start);
                 let resultWord: string = doc.getText(resultWordRange);
-                if (resultWord == "SyntaxExample") {
-                    done();
-                }
+                if (resultWord == "SyntaxExample") { done(); }
             }
             else if (result instanceof Array) {
                 let resultWordRange: vscode.Range = doc.getWordRangeAtPosition(result[0].range.start);
                 let resultWord: string = doc.getText(resultWordRange);
-                if (resultWord == "SyntaxExample") {
-                    done();
-                }
+                if (resultWord == "SyntaxExample") { done(); }
             }
             else if (result instanceof Promise) {
                 result.then(function (definition) {
                     let resultWordRange: vscode.Range = doc.getWordRangeAtPosition(definition.range.start);
                     let resultWord: string = doc.getText(resultWordRange);
-                    if (resultWord == "SyntaxExample") {
-                        done();
-                    }
+                    if (resultWord == "SyntaxExample") { done(); }
                 });
             }
         });
@@ -56,9 +50,26 @@ suite("YARA: Provider", function () {
             let pos: vscode.Position = new vscode.Position(21, 11);
             let ctx: vscode.ReferenceContext = null;
             let tokenSource: vscode.CancellationTokenSource = new vscode.CancellationTokenSource();
-            let references = refProvider.provideReferences(doc, pos, ctx, tokenSource.token);
-            console.log(`references: ${JSON.stringify(references)}`);
-            done();
+            let results = refProvider.provideReferences(doc, pos, ctx, tokenSource.token);
+            let passed: boolean = true;
+            if (results instanceof Array) {
+                results.forEach(reference => {
+                    let refWordRange: vscode.Range = doc.getWordRangeAtPosition(reference.range.start);
+                    let refWord: string = doc.getText(refWordRange);
+                    if (refWord != "dstring") { passed = false; }
+                });
+                done();
+            }
+            else if (results instanceof Promise) {
+                results.then(function(references) {
+                    references.forEach(reference => {
+                        let refWordRange: vscode.Range = doc.getWordRangeAtPosition(reference.range.start);
+                        let refWord: string = doc.getText(refWordRange);
+                        if (refWord != "dstring") { passed = false; }
+                    });
+                    if (passed) { done(); }
+                });
+            }
         });
     });
 });
