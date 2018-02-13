@@ -1,7 +1,5 @@
 "use strict";
 
-import * as proc from "child_process";
-import * as path from "path";
 import * as vscode from "vscode";
 
 
