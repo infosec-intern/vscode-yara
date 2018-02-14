@@ -47,27 +47,36 @@ suite("YARA: Provider", function () {
         vscode.workspace.openTextDocument(filepath).then(function (doc) {
             let refProvider: vscode.ReferenceProvider = new yara.YaraReferenceProvider();
             // $dstring: Line 22, Col 11
-            let pos: vscode.Position = new vscode.Position(21, 11);
+            let pos: vscode.Position = new vscode.Position(21, 12);
+            console.log(`search: ${doc.getText(doc.getWordRangeAtPosition(pos))}`);
             let ctx: vscode.ReferenceContext = null;
             let tokenSource: vscode.CancellationTokenSource = new vscode.CancellationTokenSource();
             let results = refProvider.provideReferences(doc, pos, ctx, tokenSource.token);
             let passed: boolean = true;
-            if (results instanceof Array) {
+            if (results instanceof Array && results.length == 3) {
                 results.forEach(reference => {
                     let refWordRange: vscode.Range = doc.getWordRangeAtPosition(reference.range.start);
                     let refWord: string = doc.getText(refWordRange);
                     if (refWord != "dstring") { passed = false; }
                 });
-                done();
+                if (passed) { done(); }
             }
             else if (results instanceof Promise) {
                 results.then(function(references) {
-                    references.forEach(reference => {
-                        let refWordRange: vscode.Range = doc.getWordRangeAtPosition(reference.range.start);
-                        let refWord: string = doc.getText(refWordRange);
-                        if (refWord != "dstring") { passed = false; }
-                    });
-                    if (passed) { done(); }
+                    if (references.length != 3) {
+                        passed = false;
+                    }
+                    else {
+                        console.log("references is of appropriate length");
+                        references.forEach(function(reference) {
+                            console.log(`refWord: ${JSON.stringify(reference.range)}`);
+                            let refWordRange: vscode.Range = doc.getWordRangeAtPosition(reference.range.start);
+                            console.log(`refWordRange: ${JSON.stringify(refWordRange)}`);
+                            let refWord: string = doc.getText(refWordRange);
+                            if (refWord != "dstring") { passed = false; }
+                        });
+                        if (passed) { done(); }
+                    }
                 });
             }
         });
