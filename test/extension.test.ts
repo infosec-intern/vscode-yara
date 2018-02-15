@@ -47,8 +47,8 @@ suite("YARA: Provider", function () {
         vscode.workspace.openTextDocument(filepath).then(function (doc) {
             let refProvider: vscode.ReferenceProvider = new yara.YaraReferenceProvider();
             // $dstring: Line 22, Col 11
-            let pos: vscode.Position = new vscode.Position(21, 12);
-            console.log(`search: ${doc.getText(doc.getWordRangeAtPosition(pos))}`);
+            let pos: vscode.Position = new vscode.Position(21, 11);
+            // console.log(`search term: ${doc.getText(doc.getWordRangeAtPosition(pos))}`);
             let ctx: vscode.ReferenceContext = null;
             let tokenSource: vscode.CancellationTokenSource = new vscode.CancellationTokenSource();
             let results = refProvider.provideReferences(doc, pos, ctx, tokenSource.token);
@@ -67,11 +67,8 @@ suite("YARA: Provider", function () {
                         passed = false;
                     }
                     else {
-                        console.log("references is of appropriate length");
-                        references.forEach(function(reference) {
-                            console.log(`refWord: ${JSON.stringify(reference.range)}`);
-                            let refWordRange: vscode.Range = doc.getWordRangeAtPosition(reference.range.start);
-                            console.log(`refWordRange: ${JSON.stringify(refWordRange)}`);
+                        references.forEach(reference => {
+                            let refWordRange = doc.getWordRangeAtPosition(reference.range.start);
                             let refWord: string = doc.getText(refWordRange);
                             if (refWord != "dstring") { passed = false; }
                         });
