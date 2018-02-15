@@ -56,7 +56,8 @@ export class YaraReferenceProvider implements vscode.ReferenceProvider {
                     let character: number = line.search(`[\$#@!]${symbol}[^a-zA-Z0-9_]`);
                     if (character != -1) {
                         // console.log(`Found ${symbol} on line ${lineNo} at character ${character}`);
-                        let refPosition: vscode.Position = new vscode.Position(lineNo, character);
+                        // have to readjust the character index
+                        let refPosition: vscode.Position = new vscode.Position(lineNo, character+1);
                         references.push(new vscode.Location(fileUri, refPosition));
                     }
                     lineNo++;
