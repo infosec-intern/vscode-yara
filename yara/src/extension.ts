@@ -3,6 +3,9 @@
 import * as vscode from "vscode";
 
 
+// variables have a few possible first characters - use these to identify vars vs. rules
+const varFirstChar = new Set(["$", "#", "@", "!"]);
+
 export class YaraDefinitionProvider implements vscode.DefinitionProvider {
     public provideDefinition(doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken): Thenable<vscode.Location> {
         return new Promise((resolve, reject) => {
@@ -11,21 +14,45 @@ export class YaraDefinitionProvider implements vscode.DefinitionProvider {
             const range: vscode.Range = doc.getWordRangeAtPosition(pos);
             const symbol: string = doc.getText(range);
             // console.log(`Providing definition for symbol '${symbol}'`);
-            let lines: string[] = doc.getText().split("\n");
-            let lineNo = 0;
-            lines.forEach(line => {
-                let character: number = line.indexOf(symbol);
-                // line numbers are offset by one in output - need to adjust
-                // only supporting definitions for rules
-                if (character != -1 && (lineNo+1) != pos.line && line.startsWith("rule")) {
-                    // console.log(`Found ${symbol} on line ${lineNo} at character ${character}`);
-                    let defPosition: vscode.Position = new vscode.Position(lineNo, character);
-                    definition = new vscode.Location(fileUri, defPosition);
-                    // Definition found. Break out of forEach
-                    return;
-                }
-                lineNo++;
-            });
+            let possibleVarStart: vscode.Position = new vscode.Position(range.start.line, range.start.character-1);
+            let possibleVarRange: vscode.Range = new vscode.Range(possibleVarStart, range.end);
+            let possibleVar: string = doc.getText(possibleVarRange);
+            if (varFirstChar.has(possibleVar.charAt(0))) {
+                console.log(`Variable detected: ${possibleVar}`);
+                let lines: string[] = doc.getText().split("\n");
+                let lineNo = 0;
+                lines.forEach(line => {
+                    let character: number = line.indexOf("rule ");
+                    if (character != -1 && lineNo < pos.line) {
+                        console.log(`[${lineNo}] ${line}`);
+                        // let character: number = line.indexOf(`\$${symbol} = `);
+                        // if (character != -1) {
+                        //     console.log(`Found ${symbol} on line ${lineNo} at character ${character}`);
+                        //     let defPosition: vscode.Position = new vscode.Position(lineNo, character);
+                        //     definition = new vscode.Location(fileUri, defPosition);
+                        //     // Definition found. Break out of forEach
+                        return;
+                    }
+                    lineNo++;
+                });
+            }
+            else {
+                let lines: string[] = doc.getText().split("\n");
+                let lineNo = 0;
+                lines.forEach(line => {
+                    let character: number = line.indexOf(symbol);
+                    // line numbers are offset by one in output - need to adjust
+                    // only supporting definitions for rules
+                    if (character != -1 && (lineNo+1) != pos.line && line.startsWith("rule")) {
+                        // console.log(`Found ${symbol} on line ${lineNo} at character ${character}`);
+                        let defPosition: vscode.Position = new vscode.Position(lineNo, character);
+                        definition = new vscode.Location(fileUri, defPosition);
+                        // Definition found. Break out of forEach
+                        return;
+                    }
+                    lineNo++;
+                });
+            }
             if (definition != null) {
                 resolve(definition);
             }
@@ -39,7 +66,6 @@ export class YaraDefinitionProvider implements vscode.DefinitionProvider {
 export class YaraReferenceProvider implements vscode.ReferenceProvider {
     public provideReferences(doc: vscode.TextDocument, pos: vscode.Position, options: { includeDeclaration: boolean }, token: vscode.CancellationToken): Thenable<vscode.Location[]> {
         return new Promise((resolve, reject) => {
-            const varFirstChar = new Set(["$", "#", "@", "!"]);
             const fileUri: vscode.Uri = vscode.Uri.file(doc.fileName);
             const range: vscode.Range = doc.getWordRangeAtPosition(pos);
             let lines: string[] = doc.getText().split("\n");
