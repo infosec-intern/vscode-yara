@@ -12,3 +12,4 @@
 
 [1.1.2]: https://github.com/infosec-intern/textmate-yara/commit/7640cadc9db8f2b5087b2fecc7c5fc3f1741c011
 [1.2.0]: https://github.com/infosec-intern/textmate-yara/commit/0ad1cb401758165bf4d5d43f3a549d386f6b1fd6
+[1.2.1]: https://github.com/infosec-intern/textmate-yara/commit/5d29c34f73c210c478fabf1548a7067735b0eedf
