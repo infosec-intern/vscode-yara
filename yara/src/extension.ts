@@ -23,31 +23,27 @@ export class YaraDefinitionProvider implements vscode.DefinitionProvider {
                 let currRuleBegin: number = 0;
                 let currRuleEnd: number = 0;
                 const startRuleRegexp = RegExp("^rule ");
-                // only go up to the symbol's line - anything after isn't our rule
+                const endRuleRegexp = RegExp("^\}");
+                // only go up to the symbol's line because the rule must be
+                // defined before the symbol
                 for (let lineNo = 0; lineNo < pos.line; lineNo++) {
-                    const line = lines[lineNo];
-                    if (startRuleRegexp.test(line)) {
+                    if (startRuleRegexp.test(lines[lineNo])) {
                         currRuleBegin = lineNo;
                     }
                 }
-                // console.log(`broke out of currRuleBegin at line ${currRuleBegin}`);`
                 // start up this loop again using the beginning of the rule
                 // and find the line with just a curly brace to identify the end of a rule
-                const endRuleRegexp = RegExp("^\}");
                 for (let lineNo = currRuleBegin; lineNo < lines.length; lineNo++) {
-                    const line = lines[lineNo];
-                    if (endRuleRegexp.test(line)) {
+                    if (endRuleRegexp.test(lines[lineNo])) {
                         currRuleEnd = lineNo;
                         break;
                     }
                 }
-                // console.log(`broke out of currRuleEnd at line ${lineNo}`);
                 console.log(`Curr rule range: ${currRuleBegin} -> ${currRuleEnd}`);
                 for (let lineNo = currRuleBegin; lineNo < currRuleEnd; lineNo++) {
-                    const line = lines[lineNo];
-                    let character: number = line.indexOf(`$${symbol} =`);
+                    let character: number = lines[lineNo].indexOf(`$${symbol} =`);
                     if (character != -1) {
-                        console.log(`Found ${symbol} on line ${lineNo} at character ${character}`);
+                        console.log(`Found defintion of '${possibleVar}' on line ${lineNo} at character ${character}`);
                         let defPosition: vscode.Position = new vscode.Position(lineNo, character);
                         definition = new vscode.Location(fileUri, defPosition);
                     }
