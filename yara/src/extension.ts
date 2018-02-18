@@ -18,23 +18,40 @@ export class YaraDefinitionProvider implements vscode.DefinitionProvider {
             let possibleVarRange: vscode.Range = new vscode.Range(possibleVarStart, range.end);
             let possibleVar: string = doc.getText(possibleVarRange);
             if (varFirstChar.has(possibleVar.charAt(0))) {
-                console.log(`Variable detected: ${possibleVar}`);
-                let lines: string[] = doc.getText().split("\n");
-                let lineNo = 0;
-                lines.forEach(line => {
-                    let character: number = line.indexOf("rule ");
-                    if (character != -1 && lineNo < pos.line) {
-                        console.log(`[${lineNo}] ${line}`);
-                        // let character: number = line.indexOf(`\$${symbol} = `);
-                        // if (character != -1) {
-                        //     console.log(`Found ${symbol} on line ${lineNo} at character ${character}`);
-                        //     let defPosition: vscode.Position = new vscode.Position(lineNo, character);
-                        //     definition = new vscode.Location(fileUri, defPosition);
-                        //     // Definition found. Break out of forEach
-                        return;
+                // console.log(`Variable detected: ${possibleVar}`);
+                const lines: string[] = doc.getText().split("\n");
+                let currRuleBegin: number = 0;
+                let currRuleEnd: number = 0;
+                const startRuleRegexp = RegExp("^rule ");
+                // only go up to the symbol's line - anything after isn't our rule
+                for (let lineNo = 0; lineNo < pos.line; lineNo++) {
+                    const line = lines[lineNo];
+                    if (startRuleRegexp.test(line)) {
+                        currRuleBegin = lineNo;
                     }
-                    lineNo++;
-                });
+                }
+                // console.log(`broke out of currRuleBegin at line ${currRuleBegin}`);`
+                // start up this loop again using the beginning of the rule
+                // and find the line with just a curly brace to identify the end of a rule
+                const endRuleRegexp = RegExp("^\}");
+                for (let lineNo = currRuleBegin; lineNo < lines.length; lineNo++) {
+                    const line = lines[lineNo];
+                    if (endRuleRegexp.test(line)) {
+                        currRuleEnd = lineNo;
+                        break;
+                    }
+                }
+                // console.log(`broke out of currRuleEnd at line ${lineNo}`);
+                console.log(`Curr rule range: ${currRuleBegin} -> ${currRuleEnd}`);
+                for (let lineNo = currRuleBegin; lineNo < currRuleEnd; lineNo++) {
+                    const line = lines[lineNo];
+                    let character: number = line.indexOf(`$${symbol} =`);
+                    if (character != -1) {
+                        console.log(`Found ${symbol} on line ${lineNo} at character ${character}`);
+                        let defPosition: vscode.Position = new vscode.Position(lineNo, character);
+                        definition = new vscode.Location(fileUri, defPosition);
+                    }
+                }
             }
             else {
                 let lines: string[] = doc.getText().split("\n");
