@@ -4,7 +4,7 @@ import * as vscode from "vscode";
 
 
 // variables have a few possible first characters - use these to identify vars vs. rules
-const varFirstChar = new Set(["$", "#", "@", "!"]);
+const varFirstChar: Set<string> = new Set(["$", "#", "@", "!"]);
 
 /*
     Get the start and end boundaries for the current YARA rule based on a symbol's position
