@@ -118,13 +118,13 @@ suite("YARA: Provider", function () {
         vscode.workspace.openTextDocument(filepath).then(function (doc) {
             let refProvider: vscode.ReferenceProvider = new yara.YaraReferenceProvider();
             // $hex_string: Line 20, Col 11
-            let pos: vscode.Position = new vscode.Position(20, 11);
+            let pos: vscode.Position = new vscode.Position(19, 11);
             // console.log(`search term: ${doc.getText(doc.getWordRangeAtPosition(pos))}`);
             let ctx: vscode.ReferenceContext = null;
             let tokenSource: vscode.CancellationTokenSource = new vscode.CancellationTokenSource();
             let results = refProvider.provideReferences(doc, pos, ctx, tokenSource.token);
             let passed: boolean = true;
-            if (results instanceof Array && results.length == 2) {
+            if (results instanceof Array && results.length == 4) {
                 results.forEach(reference => {
                     let refWordRange: vscode.Range = doc.getWordRangeAtPosition(reference.range.start);
                     let refWord: string = doc.getText(refWordRange);
@@ -134,7 +134,7 @@ suite("YARA: Provider", function () {
             }
             else if (results instanceof Promise) {
                 results.then(function(references) {
-                    if (references.length != 2) {
+                    if (references.length != 4) {
                         passed = false;
                     }
                     else {
