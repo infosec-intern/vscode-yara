@@ -75,7 +75,7 @@ suite("YARA: Provider", function () {
             // $dstring: Line 22, Col 11
             let pos: vscode.Position = new vscode.Position(21, 11);
             // console.log(`search term: ${doc.getText(doc.getWordRangeAtPosition(pos))}`);
-            let ctx: vscode.ReferenceContext = null;
+            let ctx: vscode.ReferenceContext|null = null;
             let tokenSource: vscode.CancellationTokenSource = new vscode.CancellationTokenSource();
             let results = refProvider.provideReferences(doc, pos, ctx, tokenSource.token);
             let passed: boolean = true;
@@ -120,7 +120,7 @@ suite("YARA: Provider", function () {
             // $hex_string: Line 20, Col 11
             let pos: vscode.Position = new vscode.Position(19, 11);
             // console.log(`search term: ${doc.getText(doc.getWordRangeAtPosition(pos))}`);
-            let ctx: vscode.ReferenceContext = null;
+            let ctx: vscode.ReferenceContext|null = null;
             let tokenSource: vscode.CancellationTokenSource = new vscode.CancellationTokenSource();
             let results = refProvider.provideReferences(doc, pos, ctx, tokenSource.token);
             let passed: boolean = true;

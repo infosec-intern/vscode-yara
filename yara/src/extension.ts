@@ -10,8 +10,8 @@ const varFirstChar = new Set(["$", "#", "@", "!"]);
     Get the start and end boundaries for the current YARA rule based on a symbol's position
 */
 function GetRuleRange(lines: string[], symbol: vscode.Position) {
-    let begin: vscode.Position = null;
-    let end: vscode.Position = null;
+    let begin: vscode.Position|null = null;
+    let end: vscode.Position|null = null;
     const startRuleRegexp = RegExp("^rule ");
     const endRuleRegexp = RegExp("^\}");
     // find the nearest reference to "rule" by traversing the lines in reverse order
@@ -35,7 +35,7 @@ function GetRuleRange(lines: string[], symbol: vscode.Position) {
 export class YaraDefinitionProvider implements vscode.DefinitionProvider {
     public provideDefinition(doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken): Thenable<vscode.Location> {
         return new Promise((resolve, reject) => {
-            let definition: vscode.Location = null;
+            let definition: vscode.Location|null = null;
             const fileUri: vscode.Uri = vscode.Uri.file(doc.fileName);
             const range: vscode.Range = doc.getWordRangeAtPosition(pos);
             const symbol: string = doc.getText(range);
