@@ -50,8 +50,9 @@ export class YaraDefinitionProvider implements vscode.DefinitionProvider {
                 for (let lineNo = currentRuleRange.start.line; lineNo < currentRuleRange.end.line; lineNo++) {
                     let character: number = lines[lineNo].indexOf(`$${symbol} =`);
                     if (character != -1) {
-                        console.log(`Found defintion of '${possibleVar}' on line ${lineNo + 1} at character ${character + 1}`);
-                        let defPosition: vscode.Position = new vscode.Position(lineNo, character);
+                        // console.log(`Found defintion of '${possibleVar}' on line ${lineNo + 1} at character ${character + 1}`);
+                        // gotta add one because VSCode won't recognize the '$' as part of the symbol
+                        let defPosition: vscode.Position = new vscode.Position(lineNo, character + 1);
                         definition = new vscode.Location(fileUri, defPosition);
                         break;
                     }
@@ -61,7 +62,7 @@ export class YaraDefinitionProvider implements vscode.DefinitionProvider {
                 for (let lineNo = 0; lineNo < pos.line; lineNo++) {
                     let character: number = lines[lineNo].indexOf(symbol);
                     if (character != -1 && lines[lineNo].startsWith("rule")) {
-                        console.log(`Found ${symbol} on line ${lineNo} at character ${character}`);
+                        // console.log(`Found ${symbol} on line ${lineNo} at character ${character}`);
                         let defPosition: vscode.Position = new vscode.Position(lineNo, character);
                         definition = new vscode.Location(fileUri, defPosition);
                         break;
