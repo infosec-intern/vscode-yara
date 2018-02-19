@@ -52,7 +52,6 @@ suite("YARA: Provider", function () {
             let tokenSource: vscode.CancellationTokenSource = new vscode.CancellationTokenSource();
             let result = defProvider.provideDefinition(doc, pos, tokenSource.token);
             if (result instanceof vscode.Location) {
-                console.log(`result: ${JSON.stringify(result)}`);
                 let resultWordRange: vscode.Range = doc.getWordRangeAtPosition(result.range.start);
                 let resultWord: string = doc.getText(resultWordRange);
                 if (resultWord == "hex_string") { done(); }
@@ -62,9 +61,7 @@ suite("YARA: Provider", function () {
             }
             else if (result instanceof Promise) {
                 result.then(function (definition) {
-                    console.log(`definition: ${JSON.stringify(definition)}`);
                     let resultWordRange: vscode.Range = doc.getWordRangeAtPosition(definition.range.start);
-                    console.log(`resultWordRange: ${JSON.stringify(resultWordRange)}`);
                     let resultWord: string = doc.getText(resultWordRange);
                     if (resultWord == "hex_string") { done(); }
                 });
