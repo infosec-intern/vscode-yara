@@ -16,9 +16,9 @@ suite("YARA: Provider", function () {
         const filepath: string = path.join(workspace, "peek_rules.yara");
         vscode.workspace.openTextDocument(filepath).then(function (doc) {
             let defProvider: vscode.DefinitionProvider = new yara.YaraDefinitionProvider();
-            // SyntaxExample: Line 40, Col 14
+            // SyntaxExample: Line 42, Col 14
             // line numbers start at 0, so we have to subtract one for the lookup
-            let pos: vscode.Position = new vscode.Position(39, 14);
+            let pos: vscode.Position = new vscode.Position(41, 14);
             let tokenSource: vscode.CancellationTokenSource = new vscode.CancellationTokenSource();
             let result = defProvider.provideDefinition(doc, pos, tokenSource.token);
             if (result instanceof vscode.Location) {
@@ -36,6 +36,33 @@ suite("YARA: Provider", function () {
                     let resultWordRange: vscode.Range = doc.getWordRangeAtPosition(definition.range.start);
                     let resultWord: string = doc.getText(resultWordRange);
                     if (resultWord == "SyntaxExample") { done(); }
+                });
+            }
+        });
+    });
+
+    test("variable definition", function (done) {
+        const filepath: string = path.join(workspace, "peek_rules.yara");
+        vscode.workspace.openTextDocument(filepath).then(function (doc) {
+            let defProvider: vscode.DefinitionProvider = new yara.YaraDefinitionProvider();
+            // $hex_string: Line 25, Col 14
+            // line numbers start at 0, so we have to subtract one for the lookup
+            let pos: vscode.Position = new vscode.Position(24, 14);
+            let tokenSource: vscode.CancellationTokenSource = new vscode.CancellationTokenSource();
+            let result = defProvider.provideDefinition(doc, pos, tokenSource.token);
+            if (result instanceof vscode.Location) {
+                let resultWordRange: vscode.Range = doc.getWordRangeAtPosition(result.range.start);
+                let resultWord: string = doc.getText(resultWordRange);
+                if (resultWord == "hex_string") { done(); }
+            }
+            else if (result instanceof Array) {
+                // Should only get one result, so we've failed if an Array is returned
+            }
+            else if (result instanceof Promise) {
+                result.then(function (definition) {
+                    let resultWordRange: vscode.Range = doc.getWordRangeAtPosition(definition.range.start);
+                    let resultWord: string = doc.getText(resultWordRange);
+                    if (resultWord == "hex_string") { done(); }
                 });
             }
         });

@@ -36,6 +36,8 @@ rule RuleReferenceExample
         description = "Rule Reference Example"
         author = "Test"
         reference = "https://infosec-intern.github.io"
+    strings:
+        $hex_string = "test"
     condition:
-        SyntaxExample and "test"
+        SyntaxExample and $hex_string
 }
