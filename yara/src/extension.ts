@@ -14,10 +14,11 @@ function GetRuleRange(lines: string[], symbol: vscode.Position) {
     let end: vscode.Position = null;
     const startRuleRegexp = RegExp("^rule ");
     const endRuleRegexp = RegExp("^\}");
-    // only go up to the symbol's line because the rule must be defined before the symbol
-    for (let lineNo = 0; lineNo < symbol.line; lineNo++) {
+    // find the nearest reference to "rule" by traversing the lines in reverse order
+    for (let lineNo = symbol.line; lineNo >= 0; lineNo--) {
         if (startRuleRegexp.test(lines[lineNo])) {
             begin = new vscode.Position(lineNo, 0);
+            break;
         }
     }
     // start up this loop again using the beginning of the rule
