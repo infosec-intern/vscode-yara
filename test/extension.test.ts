@@ -35,7 +35,7 @@ suite("YARA: Provider", function () {
                 result.then(function (definition) {
                     let resultWordRange: vscode.Range = doc.getWordRangeAtPosition(definition.range.start);
                     let resultWord: string = doc.getText(resultWordRange);
-                    if (resultWord == "SyntaxExample") { done(); }
+                    if (resultWord == "SyntaxExample" && definition.range.start.line == 5) { done(); }
                 });
             }
         });
@@ -79,11 +79,12 @@ suite("YARA: Provider", function () {
             let tokenSource: vscode.CancellationTokenSource = new vscode.CancellationTokenSource();
             let results = refProvider.provideReferences(doc, pos, ctx, tokenSource.token);
             let passed: boolean = true;
+            const acceptableLines: Set<number> = new Set([21, 28, 29]);
             if (results instanceof Array && results.length == 3) {
                 results.forEach(reference => {
                     let refWordRange: vscode.Range = doc.getWordRangeAtPosition(reference.range.start);
                     let refWord: string = doc.getText(refWordRange);
-                    if (refWord != "dstring") { passed = false; }
+                    if (refWord != "dstring" || !acceptableLines.has(reference.range.start.line)) { passed = false; }
                 });
                 if (passed) { done(); }
             }
@@ -96,7 +97,7 @@ suite("YARA: Provider", function () {
                         references.forEach(reference => {
                             let refWordRange = doc.getWordRangeAtPosition(reference.range.start);
                             let refWord: string = doc.getText(refWordRange);
-                            if (refWord != "dstring") { passed = false; }
+                            if (refWord != "dstring" || !acceptableLines.has(reference.range.start.line)) { passed = false; }
                         });
                         if (passed) { done(); }
                     }
@@ -124,11 +125,12 @@ suite("YARA: Provider", function () {
             let tokenSource: vscode.CancellationTokenSource = new vscode.CancellationTokenSource();
             let results = refProvider.provideReferences(doc, pos, ctx, tokenSource.token);
             let passed: boolean = true;
+            const acceptableLines: Set<number> = new Set([19, 24, 39, 41]);
             if (results instanceof Array && results.length == 4) {
                 results.forEach(reference => {
                     let refWordRange: vscode.Range = doc.getWordRangeAtPosition(reference.range.start);
                     let refWord: string = doc.getText(refWordRange);
-                    if (refWord != "hex_string") { passed = false; }
+                    if (refWord != "hex_string" && acceptableLines.has(reference.range.start.line)) { passed = false; }
                 });
                 if (passed) { done(); }
             }
@@ -141,7 +143,7 @@ suite("YARA: Provider", function () {
                         references.forEach(reference => {
                             let refWordRange = doc.getWordRangeAtPosition(reference.range.start);
                             let refWord: string = doc.getText(refWordRange);
-                            if (refWord != "hex_string") { passed = false; }
+                            if (refWord != "hex_string" && acceptableLines.has(reference.range.start.line)) { passed = false; }
                         });
                         if (passed) { done(); }
                     }
