@@ -39,7 +39,7 @@ export class YaraDefinitionProvider implements vscode.DefinitionProvider {
             const range: vscode.Range = doc.getWordRangeAtPosition(pos);
             const symbol: string = doc.getText(range);
             // console.log(`Providing definition for symbol '${symbol}'`);
-            let possibleVarStart: vscode.Position = new vscode.Position(range.start.line, range.start.character-1);
+            let possibleVarStart: vscode.Position = new vscode.Position(range.start.line, range.start.character - 1);
             let possibleVarRange: vscode.Range = new vscode.Range(possibleVarStart, range.end);
             let possibleVar: string = doc.getText(possibleVarRange);
             const lines: string[] = doc.getText().split("\n");
@@ -50,27 +50,23 @@ export class YaraDefinitionProvider implements vscode.DefinitionProvider {
                 for (let lineNo = currentRuleRange.start.line; lineNo < currentRuleRange.end.line; lineNo++) {
                     let character: number = lines[lineNo].indexOf(`$${symbol} =`);
                     if (character != -1) {
-                        // console.log(`Found defintion of '${possibleVar}' on line ${lineNo+1} at character ${character+1}`);
+                        console.log(`Found defintion of '${possibleVar}' on line ${lineNo + 1} at character ${character + 1}`);
                         let defPosition: vscode.Position = new vscode.Position(lineNo, character);
                         definition = new vscode.Location(fileUri, defPosition);
+                        break;
                     }
                 }
             }
             else {
-                let lineNo = 0;
-                lines.forEach(line => {
-                    let character: number = line.indexOf(symbol);
-                    // line numbers are offset by one in output - need to adjust
-                    // only supporting definitions for rules
-                    if (character != -1 && (lineNo+1) != pos.line && line.startsWith("rule")) {
-                        // console.log(`Found ${symbol} on line ${lineNo} at character ${character}`);
+                for (let lineNo = 0; lineNo < pos.line; lineNo++) {
+                    let character: number = lines[lineNo].indexOf(symbol);
+                    if (character != -1 && lines[lineNo].startsWith("rule")) {
+                        console.log(`Found ${symbol} on line ${lineNo} at character ${character}`);
                         let defPosition: vscode.Position = new vscode.Position(lineNo, character);
                         definition = new vscode.Location(fileUri, defPosition);
-                        // Definition found. Break out of forEach
-                        return;
+                        break;
                     }
-                    lineNo++;
-                });
+                }
             }
             if (definition != null) {
                 resolve(definition);
@@ -91,7 +87,7 @@ export class YaraReferenceProvider implements vscode.ReferenceProvider {
             let references: vscode.Location[] = new Array<vscode.Location>();
             let symbol: string = doc.getText(range);
             // console.log(`Providing references for symbol '${symbol}'`);
-            let possibleVarStart: vscode.Position = new vscode.Position(range.start.line, range.start.character-1);
+            let possibleVarStart: vscode.Position = new vscode.Position(range.start.line, range.start.character - 1);
             let possibleVarRange: vscode.Range = new vscode.Range(possibleVarStart, range.end);
             let possibleVar: string = doc.getText(possibleVarRange);
             if (varFirstChar.has(possibleVar.charAt(0))) {
@@ -102,7 +98,7 @@ export class YaraReferenceProvider implements vscode.ReferenceProvider {
                     if (character != -1) {
                         // console.log(`Found ${symbol} on line ${lineNo} at character ${character}`);
                         // have to readjust the character index
-                        let refPosition: vscode.Position = new vscode.Position(lineNo, character+1);
+                        let refPosition: vscode.Position = new vscode.Position(lineNo, character + 1);
                         references.push(new vscode.Location(fileUri, refPosition));
                     }
                     lineNo++;
@@ -132,7 +128,7 @@ export class YaraReferenceProvider implements vscode.ReferenceProvider {
 
 export function activate(context: vscode.ExtensionContext) {
     // console.log("Activating Yara extension");
-    let YARA: vscode.DocumentSelector = {language: "yara", scheme: "file"};
+    let YARA: vscode.DocumentSelector = { language: "yara", scheme: "file" };
     let definitionDisposable: vscode.Disposable = vscode.languages.registerDefinitionProvider(YARA, new YaraDefinitionProvider());
     let referenceDisposable: vscode.Disposable = vscode.languages.registerReferenceProvider(YARA, new YaraReferenceProvider());
     context.subscriptions.push(definitionDisposable);
