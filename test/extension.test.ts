@@ -68,7 +68,7 @@ suite("YARA: Provider", function () {
         });
     });
 
-    test("rule references", function (done) {
+    test("symbol references", function (done) {
         const filepath: string = path.join(workspace, "peek_rules.yara");
         vscode.workspace.openTextDocument(filepath).then(function (doc) {
             let refProvider: vscode.ReferenceProvider = new yara.YaraReferenceProvider();
