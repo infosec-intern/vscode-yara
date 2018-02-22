@@ -65,5 +65,9 @@
         "compile": "tsc -watch -p ./",
         "postinstall": "node ./node_modules/vscode/bin/install",
         "test": "mocha"
+    },
+    "dependencies": {
+        "typescript": "^2.7.2",
+        "vscode": "^1.1.10"
     }
 }
