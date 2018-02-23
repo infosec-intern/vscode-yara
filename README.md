@@ -15,8 +15,7 @@ Currently, Snippets support includes:
 ## Features
 
 ### Definition Provider and Peeking
-Allows peeking and Ctrl+clicking to jump to a rule definition.
-This only applies to rule names at the moment, but variables are in the works
+Allows peeking and Ctrl+clicking to jump to a rule definition. This applies to both rule names and variables
 
 ![Go To Definition](./images/peek_rules.PNG)
 
