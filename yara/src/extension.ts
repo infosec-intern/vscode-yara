@@ -94,20 +94,26 @@ export class YaraReferenceProvider implements vscode.ReferenceProvider {
             let possibleVar: string = doc.getText(possibleVarRange);
             if (varFirstChar.has(possibleVar.charAt(0))) {
                 let varRegexp: string;
-                console.log(`Identified symbol as a variable: ${symbol}`);
+                let startLine: number;
+                let endLine: number;
+                // console.log(`Identified symbol as a variable: ${symbol}`);
                 let possibleWildcardEnd: vscode.Position = new vscode.Position(range.end.line, range.end.character + 1);
                 let possibleWildcardRange: vscode.Range = new vscode.Range(possibleVarStart, possibleWildcardEnd);
                 let possibleWildcard: string = doc.getText(possibleWildcardRange);
-                // treat like a wildcard
                 if (possibleWildcard.slice(-1) == "*") {
-                    console.log(`possibleWildcard: ${JSON.stringify(possibleWildcard)}`);
+                    // treat like a wildcard and search only the local rule
                     varRegexp = `[\$#@!]${symbol}[a-zA-Z0-9_]+`;
+                    let ruleRange = GetRuleRange(lines, pos);
+                    startLine = ruleRange.start.line;
+                    endLine = ruleRange.end.line;
                 }
-                // treat like a normal variable reference
                 else {
+                    // treat like a normal variable reference and search the whole document
                     varRegexp = `[\$#@!]${symbol}[^a-zA-Z0-9_]`;
+                    startLine = 0;
+                    endLine = lines.length;
                 }
-                for (let lineNo = 0; lineNo < lines.length; lineNo++) {
+                for (let lineNo = startLine; lineNo < endLine; lineNo++) {
                     let character: number = lines[lineNo].search(varRegexp);
                     if (character != -1) {
                         // console.log(`Found ${symbol} on line ${lineNo} at character ${character}`);
