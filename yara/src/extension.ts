@@ -93,18 +93,30 @@ export class YaraReferenceProvider implements vscode.ReferenceProvider {
             let possibleVarRange: vscode.Range = new vscode.Range(possibleVarStart, range.end);
             let possibleVar: string = doc.getText(possibleVarRange);
             if (varFirstChar.has(possibleVar.charAt(0))) {
-                // console.log(`Identified symbol as a variable: ${symbol}`);
-                let lineNo = 0;
-                lines.forEach(line => {
-                    let character: number = line.search(`[\$#@!]${symbol}[^a-zA-Z0-9_]`);
+                let varRegexp: string;
+                console.log(`Identified symbol as a variable: ${symbol}`);
+                let possibleWildcardEnd: vscode.Position = new vscode.Position(range.end.line, range.end.character + 1);
+                let possibleWildcardRange: vscode.Range = new vscode.Range(possibleVarStart, possibleWildcardEnd);
+                let possibleWildcard: string = doc.getText(possibleWildcardRange);
+                // treat like a wildcard
+                if (possibleWildcard.slice(-1) == "*") {
+                    console.log(`possibleWildcard: ${JSON.stringify(possibleWildcard)}`);
+                    varRegexp = `[\$#@!]${symbol}[a-zA-Z0-9_]+`;
+                }
+                // treat like a normal variable reference
+                else {
+                    varRegexp = `[\$#@!]${symbol}[^a-zA-Z0-9_]`;
+                }
+                for (let lineNo = 0; lineNo < lines.length; lineNo++) {
+                    let character: number = lines[lineNo].search(varRegexp);
                     if (character != -1) {
                         // console.log(`Found ${symbol} on line ${lineNo} at character ${character}`);
                         // have to readjust the character index
                         let refPosition: vscode.Position = new vscode.Position(lineNo, character + 1);
                         references.push(new vscode.Location(fileUri, refPosition));
                     }
-                    lineNo++;
-                });
+
+                }
             }
             else {
                 let lineNo = 0;
