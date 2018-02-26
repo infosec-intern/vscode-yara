@@ -16,9 +16,9 @@ suite("YARA: Provider", function () {
         const filepath: string = path.join(workspace, "peek_rules.yara");
         vscode.workspace.openTextDocument(filepath).then(function (doc) {
             let defProvider: vscode.DefinitionProvider = new yara.YaraDefinitionProvider();
-            // SyntaxExample: Line 42, Col 14
+            // SyntaxExample: Line 43, Col 14
             // line numbers start at 0, so we have to subtract one for the lookup
-            let pos: vscode.Position = new vscode.Position(41, 14);
+            let pos: vscode.Position = new vscode.Position(42, 14);
             let tokenSource: vscode.CancellationTokenSource = new vscode.CancellationTokenSource();
             let result = defProvider.provideDefinition(doc, pos, tokenSource.token);
             if (result instanceof vscode.Location) {
@@ -98,6 +98,44 @@ suite("YARA: Provider", function () {
                             let refWordRange = doc.getWordRangeAtPosition(reference.range.start);
                             let refWord: string = doc.getText(refWordRange);
                             if (refWord != "dstring" || !acceptableLines.has(reference.range.start.line)) { passed = false; }
+                        });
+                        if (passed) { done(); }
+                    }
+                });
+            }
+        });
+    });
+
+    test("wildcard references", function (done) {
+        const filepath: string = path.join(workspace, "peek_rules.yara");
+        vscode.workspace.openTextDocument(filepath).then(function (doc) {
+            let refProvider: vscode.ReferenceProvider = new yara.YaraReferenceProvider();
+            // $hex_*: Line 31, Col 11
+            let pos: vscode.Position = new vscode.Position(30, 11);
+            // console.log(`search term: ${doc.getText(doc.getWordRangeAtPosition(pos))}`);
+            let ctx: vscode.ReferenceContext|null = null;
+            let tokenSource: vscode.CancellationTokenSource = new vscode.CancellationTokenSource();
+            let results = refProvider.provideReferences(doc, pos, ctx, tokenSource.token);
+            let passed: boolean = true;
+            const acceptableLines: Set<number> = new Set([20, 21, 25]);
+            if (results instanceof Array && results.length == 3) {
+                results.forEach(reference => {
+                    let refWordRange: vscode.Range = doc.getWordRangeAtPosition(reference.range.start);
+                    let refWord: string = doc.getText(refWordRange);
+                    if (!acceptableLines.has(reference.range.start.line)) { passed = false; }
+                });
+                if (passed) { done(); }
+            }
+            else if (results instanceof Promise) {
+                results.then(function(references) {
+                    if (references.length != 3) {
+                        passed = false;
+                    }
+                    else {
+                        references.forEach(reference => {
+                            let refWordRange = doc.getWordRangeAtPosition(reference.range.start);
+                            let refWord: string = doc.getText(refWordRange);
+                            if (!acceptableLines.has(reference.range.start.line)) { passed = false; }
                         });
                         if (passed) { done(); }
                     }
