@@ -117,7 +117,7 @@ suite("YARA: Provider", function () {
             let tokenSource: vscode.CancellationTokenSource = new vscode.CancellationTokenSource();
             let results = refProvider.provideReferences(doc, pos, ctx, tokenSource.token);
             let passed: boolean = true;
-            const acceptableLines: Set<number> = new Set([20, 21, 25]);
+            const acceptableLines: Set<number> = new Set([19, 20, 24]);
             if (results instanceof Array && results.length == 3) {
                 results.forEach(reference => {
                     let refWordRange: vscode.Range = doc.getWordRangeAtPosition(reference.range.start);
