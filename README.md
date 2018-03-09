@@ -1,13 +1,7 @@
 ![Source - https://raw.githubusercontent.com/blacktop/docker-yara/master/logo.png](./images/logo.png)
 
 # textmate-yara
-Syntax Highlighting and Snippets support for the YARA pattern matching language
-
-Currently, Snippets support includes:
-* A new file skeleton (or `rule:` skeleton)
-* `import` statement completion
-* `strings:` section skeleton
-* `meta:` section skeleton
+Language support for the YARA pattern matching language
 
 ## Screenshot
 ![Image as of 04 Sept 2016](./images/04092016.PNG)
@@ -23,6 +17,13 @@ Allows peeking and Ctrl+clicking to jump to a rule definition. This applies to b
 Shows the locations of a given symbol (rule name, variable, constant, etc.)
 
 ![Find All References](./images/references.PNG)
+
+### Snippets
+Includes:
+* `rule:` skeleton
+* `import` statement completion
+* `strings:` section skeleton
+* `meta:` section skeleton
 
 ## Problems?
 If you encounter an issue with the syntax, feel free to create an issue or pull request!
