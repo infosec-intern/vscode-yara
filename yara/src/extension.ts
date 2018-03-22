@@ -32,6 +32,14 @@ function GetRuleRange(lines: string[], symbol: vscode.Position) {
     return new vscode.Range(begin, end);
 }
 
+export class YaraCompletionItemProvider implements vscode.CompletionItemProvider {
+    public provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): Thenable<vscode.CompletionItem[]> {
+        // provide completion for YARA modules
+        // will have to be static until I can figure out a better method
+        return null
+    }
+}
+
 export class YaraDefinitionProvider implements vscode.DefinitionProvider {
     public provideDefinition(doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken): Thenable<vscode.Location> {
         return new Promise((resolve, reject) => {
@@ -151,6 +159,7 @@ export function activate(context: vscode.ExtensionContext) {
     let YARA: vscode.DocumentSelector = { language: "yara", scheme: "file" };
     let definitionDisposable: vscode.Disposable = vscode.languages.registerDefinitionProvider(YARA, new YaraDefinitionProvider());
     let referenceDisposable: vscode.Disposable = vscode.languages.registerReferenceProvider(YARA, new YaraReferenceProvider());
+    vscode.languages.registerCompletionItemProvider(YARA, new YaraCompletionItemProvider(), '.');
     context.subscriptions.push(definitionDisposable);
     context.subscriptions.push(referenceDisposable);
 };
