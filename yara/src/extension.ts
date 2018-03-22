@@ -36,6 +36,8 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
     public provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): Thenable<vscode.CompletionItem[]> {
         // provide completion for YARA modules
         // will have to be static until I can figure out a better method
+        let items: vscode.CompletionItem[] = Array<vscode.CompletionItem>();
+        let list: vscode.CompletionList = new vscode.CompletionList(items, false);
         return null
     }
 }
