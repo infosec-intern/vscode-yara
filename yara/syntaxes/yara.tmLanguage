@@ -235,7 +235,7 @@
 			<key>name</key>
 			<string>string.regexp.yara</string>
 			<key>match</key>
-			<string>/.*/(i|c|x|t|s|m|p|w|n|J|U|d|b|e|q|x)*</string>
+			<string>/.*?/(i|c|x|t|s|m|p|w|n|J|U|d|b|e|q|x)*</string>
 		</dict>
 		<!-- hex -->
 		<dict>
