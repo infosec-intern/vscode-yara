@@ -33,11 +33,39 @@ function GetRuleRange(lines: string[], symbol: vscode.Position) {
 }
 
 export class YaraCompletionItemProvider implements vscode.CompletionItemProvider {
-    public provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): Thenable<vscode.CompletionItem[]> {
+    public provideCompletionItems(doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext): Thenable<vscode.CompletionItem[]> {
         // provide completion for YARA modules
         // will have to be static until I can figure out a better method
-        let items: vscode.CompletionItem[] = Array<vscode.CompletionItem>();
-        let list: vscode.CompletionList = new vscode.CompletionList(items, false);
+        const module_list: Set<string> = new Set(["pe", "elf", "cuckoo", "magic", "magic", "hash", "math", "time"]);
+        const modules  = {
+            "pe": ["machine", "checksum", "calculate_checksum", "subsystem", "timestamp",
+                   "entry_point", "image_base", "characteristics", "linker_version",
+                   "os_version", "image_version", "subsystem_version", "dll_characteristics",
+                   "number_of_sections", "sections", "overlay", "number_of_resources",
+                   "resource_timestamp", "resource_version", "resources", "version_info",
+                   "number_of_signatures", "signatures", "rich_signature", "exports",
+                   "number_of_exports", "number_of_imports", "imports", "locale", "language",
+                   "imphash", "section_index", "is_dll", "is_32bit", "is_64bit", "rva_to_offset"],
+            "elf": ["type", "machine", "entry_point", "number_of_sections", "sections", "number_of_segments",
+                    "segments", "dynamic_section_entries", "dynamic", "symtab_entries", "symtab"],
+            "cuckoo": ["network", "registry", "filesystem", "sync"],
+            "magic": ["type", "mime_type"],
+            "hash": ["md5", "sha1", "sha256", "checksum32"],
+            "math": ["entropy", "monte_carlo_pi", "serial_correlation", "mean", "deviation", "in_range"],
+            "dotnet": ["version", "module_name", "number_of_streams", "streams", "number_of_guids",
+                       "guids", "number_of_resources", "resources", "assembly", "number_of_modulerefs",
+                       "modulerefs", "typelib", "assembly_refs", "number_of_user_strings", "user_strings"],
+            "time": ["now"]
+        };
+        let module_start = new vscode.Position(pos.line, pos.character - 1);
+        let module_range = doc.getWordRangeAtPosition(module_start);
+        let symbol: string = doc.getText(module_range);
+        if (context.triggerCharacter == "." && module_list.has(symbol)) {
+            let items: vscode.CompletionItem[] = Array<vscode.CompletionItem>();
+            let list: vscode.CompletionList = new vscode.CompletionList(items, false);
+            const range: vscode.Range = doc.getWordRangeAtPosition(pos);
+            console.log(`symbol: ${JSON.stringify(symbol)}`);
+        }
         return null
     }
 }
