@@ -10,8 +10,8 @@ const varFirstChar: Set<string> = new Set(["$", "#", "@", "!"]);
     Get the start and end boundaries for the current YARA rule based on a symbol's position
 */
 function GetRuleRange(lines: string[], symbol: vscode.Position) {
-    let begin: vscode.Position|null = null;
-    let end: vscode.Position|null = null;
+    let begin: vscode.Position | null = null;
+    let end: vscode.Position | null = null;
     const startRuleRegexp = RegExp("^rule ");
     const endRuleRegexp = RegExp("^\}");
     // find the nearest reference to "rule" by traversing the lines in reverse order
@@ -36,31 +36,34 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
     public provideCompletionItems(doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext): Thenable<vscode.CompletionItem[]> {
         // provide completion for YARA modules
         // will have to be static until I can figure out a better method
-        const module_list: Set<string> = new Set(["pe", "elf", "cuckoo", "magic", "magic", "hash", "math", "time"]);
-        const modules  = {
+        const modules = {
             "pe": ["machine", "checksum", "calculate_checksum", "subsystem", "timestamp",
-                   "entry_point", "image_base", "characteristics", "linker_version",
-                   "os_version", "image_version", "subsystem_version", "dll_characteristics",
-                   "number_of_sections", "sections", "overlay", "number_of_resources",
-                   "resource_timestamp", "resource_version", "resources", "version_info",
-                   "number_of_signatures", "signatures", "rich_signature", "exports",
-                   "number_of_exports", "number_of_imports", "imports", "locale", "language",
-                   "imphash", "section_index", "is_dll", "is_32bit", "is_64bit", "rva_to_offset"],
+                "entry_point", "image_base", "characteristics", "linker_version",
+                "os_version", "image_version", "subsystem_version", "dll_characteristics",
+                "number_of_sections", "sections", "overlay", "number_of_resources",
+                "resource_timestamp", "resource_version", "resources", "version_info",
+                "number_of_signatures", "signatures", "rich_signature", "exports",
+                "number_of_exports", "number_of_imports", "imports", "locale", "language",
+                "imphash", "section_index", "is_dll", "is_32bit", "is_64bit", "rva_to_offset"],
             "elf": ["type", "machine", "entry_point", "number_of_sections", "sections", "number_of_segments",
-                    "segments", "dynamic_section_entries", "dynamic", "symtab_entries", "symtab"],
+                "segments", "dynamic_section_entries", "dynamic", "symtab_entries", "symtab"],
             "cuckoo": ["network", "registry", "filesystem", "sync"],
             "magic": ["type", "mime_type"],
             "hash": ["md5", "sha1", "sha256", "checksum32"],
             "math": ["entropy", "monte_carlo_pi", "serial_correlation", "mean", "deviation", "in_range"],
             "dotnet": ["version", "module_name", "number_of_streams", "streams", "number_of_guids",
-                       "guids", "number_of_resources", "resources", "assembly", "number_of_modulerefs",
-                       "modulerefs", "typelib", "assembly_refs", "number_of_user_strings", "user_strings"],
-            "time": ["now"]
+                "guids", "number_of_resources", "resources", "assembly", "number_of_modulerefs",
+                "modulerefs", "typelib", "assembly_refs", "number_of_user_strings", "user_strings"],
+            "time": ["now"],
+            has: function (name: string) {
+                let list: Set<string> = new Set(["pe", "elf", "cuckoo", "magic", "magic", "hash", "math", "dotnet", "time"]);
+                return list.has(name);
+            }
         };
         let module_start = new vscode.Position(pos.line, pos.character - 1);
         let module_range = doc.getWordRangeAtPosition(module_start);
         let symbol: string = doc.getText(module_range);
-        if (context.triggerCharacter == "." && module_list.has(symbol)) {
+        if (context.triggerCharacter == "." && modules.has(symbol)) {
             let items: vscode.CompletionItem[] = Array<vscode.CompletionItem>();
             let list: vscode.CompletionList = new vscode.CompletionList(items, false);
             const range: vscode.Range = doc.getWordRangeAtPosition(pos);
@@ -73,7 +76,7 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
 export class YaraDefinitionProvider implements vscode.DefinitionProvider {
     public provideDefinition(doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken): Thenable<vscode.Location> {
         return new Promise((resolve, reject) => {
-            let definition: vscode.Location|null = null;
+            let definition: vscode.Location | null = null;
             const fileUri: vscode.Uri = vscode.Uri.file(doc.fileName);
             const range: vscode.Range = doc.getWordRangeAtPosition(pos);
             const symbol: string = doc.getText(range);
