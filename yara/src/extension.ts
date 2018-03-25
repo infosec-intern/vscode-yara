@@ -34,6 +34,7 @@ function GetRuleRange(lines: string[], symbol: vscode.Position) {
 
 export class YaraCompletionItemProvider implements vscode.CompletionItemProvider {
     public provideCompletionItems(doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext): Thenable<vscode.CompletionItem[]> {
+        return new Promise((resolve, reject) => {
         // provide completion for YARA modules
         // will have to be static until I can figure out a better method
         const modules = {
@@ -95,11 +96,11 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
                     items.push(new vscode.CompletionItem(field));
                 });
                 console.log(JSON.stringify(items));
-                // resolve(items);
+                resolve(items);
             }
-            // return new vscode.CompletionList(items, false);
         }
-        // reject();
+        reject();
+        });
     }
 }
 
