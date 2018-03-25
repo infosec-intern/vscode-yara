@@ -37,27 +37,49 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
         // provide completion for YARA modules
         // will have to be static until I can figure out a better method
         const modules = {
-            "pe": ["machine", "checksum", "calculate_checksum", "subsystem", "timestamp",
-                "entry_point", "image_base", "characteristics", "linker_version",
-                "os_version", "image_version", "subsystem_version", "dll_characteristics",
-                "number_of_sections", "sections", "overlay", "number_of_resources",
-                "resource_timestamp", "resource_version", "resources", "version_info",
-                "number_of_signatures", "signatures", "rich_signature", "exports",
-                "number_of_exports", "number_of_imports", "imports", "locale", "language",
-                "imphash", "section_index", "is_dll", "is_32bit", "is_64bit", "rva_to_offset"],
-            "elf": ["type", "machine", "entry_point", "number_of_sections", "sections", "number_of_segments",
-                "segments", "dynamic_section_entries", "dynamic", "symtab_entries", "symtab"],
-            "cuckoo": ["network", "registry", "filesystem", "sync"],
-            "magic": ["type", "mime_type"],
-            "hash": ["md5", "sha1", "sha256", "checksum32"],
-            "math": ["entropy", "monte_carlo_pi", "serial_correlation", "mean", "deviation", "in_range"],
-            "dotnet": ["version", "module_name", "number_of_streams", "streams", "number_of_guids",
-                "guids", "number_of_resources", "resources", "assembly", "number_of_modulerefs",
-                "modulerefs", "typelib", "assembly_refs", "number_of_user_strings", "user_strings"],
-            "time": ["now"],
             has: function (name: string) {
                 let list: Set<string> = new Set(["pe", "elf", "cuckoo", "magic", "magic", "hash", "math", "dotnet", "time"]);
                 return list.has(name);
+            },
+            get: function (name: string) {
+                // a terrible method for providing these items
+                // but i have no idea how to do this crap in (type|java)script properly
+                let items: null|Array<string> = null;
+                if (name == "pe") {
+                    items = ["machine", "checksum", "calculate_checksum", "subsystem", "timestamp",
+                    "entry_point", "image_base", "characteristics", "linker_version",
+                    "os_version", "image_version", "subsystem_version", "dll_characteristics",
+                    "number_of_sections", "sections", "overlay", "number_of_resources",
+                    "resource_timestamp", "resource_version", "resources", "version_info",
+                    "number_of_signatures", "signatures", "rich_signature", "exports",
+                    "number_of_exports", "number_of_imports", "imports", "locale", "language",
+                    "imphash", "section_index", "is_dll", "is_32bit", "is_64bit", "rva_to_offset"];
+                }
+                else if (name == "elf") {
+                    items = ["type", "machine", "entry_point", "number_of_sections", "sections", "number_of_segments",
+                    "segments", "dynamic_section_entries", "dynamic", "symtab_entries", "symtab"];
+                }
+                else if (name == "cuckoo") {
+                    items = ["network", "registry", "filesystem", "sync"];
+                }
+                else if (name == "magic") {
+                    items = ["type", "mime_type"];
+                }
+                else if (name == "hash") {
+                    items = ["md5", "sha1", "sha256", "checksum32"];
+                }
+                else if (name == "math") {
+                    items = ["entropy", "monte_carlo_pi", "serial_correlation", "mean", "deviation", "in_range"];
+                }
+                else if (name == "dotnet") {
+                    items = ["version", "module_name", "number_of_streams", "streams", "number_of_guids",
+                    "guids", "number_of_resources", "resources", "assembly", "number_of_modulerefs",
+                    "modulerefs", "typelib", "assembly_refs", "number_of_user_strings", "user_strings"];
+                }
+                else if (name == "time") {
+                    items = ["now"];
+                }
+                return items;
             }
         };
         let module_start = new vscode.Position(pos.line, pos.character - 1);
@@ -65,11 +87,19 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
         let symbol: string = doc.getText(module_range);
         if (context.triggerCharacter == "." && modules.has(symbol)) {
             let items: vscode.CompletionItem[] = Array<vscode.CompletionItem>();
-            let list: vscode.CompletionList = new vscode.CompletionList(items, false);
             const range: vscode.Range = doc.getWordRangeAtPosition(pos);
             console.log(`symbol: ${JSON.stringify(symbol)}`);
+            let fields: null|Array<string> = modules.get(symbol);
+            if (fields != null) {
+                fields.forEach(field => {
+                    items.push(new vscode.CompletionItem(field));
+                });
+                console.log(JSON.stringify(items));
+                // resolve(items);
+            }
+            // return new vscode.CompletionList(items, false);
         }
-        return null
+        // reject();
     }
 }
 
