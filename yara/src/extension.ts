@@ -44,9 +44,9 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
             get: function (name: string) {
                 // a terrible method for providing these items
                 // but i have no idea how to do this crap in (type|java)script properly
-                let items: null|Array<string> = null;
+                let items: null|Array<string>;
                 if (name == "pe") {
-                    items = ["machine", "checksum", "calculate_checksum", "subsystem", "timestamp",
+                    return ["machine", "checksum", "calculate_checksum", "subsystem", "timestamp",
                     "entry_point", "image_base", "characteristics", "linker_version",
                     "os_version", "image_version", "subsystem_version", "dll_characteristics",
                     "number_of_sections", "sections", "overlay", "number_of_resources",
@@ -56,30 +56,30 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
                     "imphash", "section_index", "is_dll", "is_32bit", "is_64bit", "rva_to_offset"];
                 }
                 else if (name == "elf") {
-                    items = ["type", "machine", "entry_point", "number_of_sections", "sections", "number_of_segments",
+                    return ["type", "machine", "entry_point", "number_of_sections", "sections", "number_of_segments",
                     "segments", "dynamic_section_entries", "dynamic", "symtab_entries", "symtab"];
                 }
                 else if (name == "cuckoo") {
-                    items = ["network", "registry", "filesystem", "sync"];
+                    return ["network", "registry", "filesystem", "sync"];
                 }
                 else if (name == "magic") {
-                    items = ["type", "mime_type"];
+                    return ["type", "mime_type"];
                 }
                 else if (name == "hash") {
-                    items = ["md5", "sha1", "sha256", "checksum32"];
+                    return ["md5", "sha1", "sha256", "checksum32"];
                 }
                 else if (name == "math") {
-                    items = ["entropy", "monte_carlo_pi", "serial_correlation", "mean", "deviation", "in_range"];
+                    return ["entropy", "monte_carlo_pi", "serial_correlation", "mean", "deviation", "in_range"];
                 }
                 else if (name == "dotnet") {
-                    items = ["version", "module_name", "number_of_streams", "streams", "number_of_guids",
+                    return ["version", "module_name", "number_of_streams", "streams", "number_of_guids",
                     "guids", "number_of_resources", "resources", "assembly", "number_of_modulerefs",
                     "modulerefs", "typelib", "assembly_refs", "number_of_user_strings", "user_strings"];
                 }
                 else if (name == "time") {
-                    items = ["now"];
+                    return ["now"];
                 }
-                return items;
+                return null;
             }
         };
         let module_start = new vscode.Position(pos.line, pos.character - 1);
