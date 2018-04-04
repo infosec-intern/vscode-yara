@@ -228,6 +228,13 @@ export const modules = {
         }
         else if (name == "cuckoo") {
             return [
+                ["dns_lookup", vscode.CompletionItemKind.Method],
+                ["file_access", vscode.CompletionItemKind.Method],
+                ["http_get", vscode.CompletionItemKind.Method],
+                ["http_post", vscode.CompletionItemKind.Method],
+                ["http_request", vscode.CompletionItemKind.Method],
+                ["key_access", vscode.CompletionItemKind.Method],
+                ["mutex", vscode.CompletionItemKind.Method],
                 ["network", vscode.CompletionItemKind.Class],
                 ["registry", vscode.CompletionItemKind.Class],
                 ["filesystem", vscode.CompletionItemKind.Class],
