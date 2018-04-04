@@ -243,45 +243,45 @@ export const modules = {
         }
         else if (name == "magic") {
             return [
-                ["type", vscode.CompletionItemKind.Method],
-                ["mime_type", vscode.CompletionItemKind.Method]
+                ["mime_type", vscode.CompletionItemKind.Method],
+                ["type", vscode.CompletionItemKind.Method]
             ];
         }
         else if (name == "hash") {
             return [
+                ["checksum32", vscode.CompletionItemKind.Method],
                 ["md5", vscode.CompletionItemKind.Method],
                 ["sha1", vscode.CompletionItemKind.Method],
-                ["sha256", vscode.CompletionItemKind.Method],
-                ["checksum32", vscode.CompletionItemKind.Method]
+                ["sha256", vscode.CompletionItemKind.Method]
             ];
         }
         else if (name == "math") {
             return [
-                ["entropy", vscode.CompletionItemKind.Method],
-                ["monte_carlo_pi", vscode.CompletionItemKind.Method],
-                ["serial_correlation", vscode.CompletionItemKind.Method],
-                ["mean", vscode.CompletionItemKind.Method],
                 ["deviation", vscode.CompletionItemKind.Method],
-                ["in_range", vscode.CompletionItemKind.Method]
+                ["entropy", vscode.CompletionItemKind.Method],
+                ["in_range", vscode.CompletionItemKind.Method],
+                ["mean", vscode.CompletionItemKind.Method],
+                ["monte_carlo_pi", vscode.CompletionItemKind.Method],
+                ["serial_correlation", vscode.CompletionItemKind.Method]
             ];
         }
         else if (name == "dotnet") {
             return [
-                ["version", vscode.CompletionItemKind.Property],
-                ["module_name", vscode.CompletionItemKind.Property],
-                ["number_of_streams", vscode.CompletionItemKind.Property],
-                ["streams", vscode.CompletionItemKind.Class],
-                ["number_of_guids", vscode.CompletionItemKind.Property],
-                ["guids", vscode.CompletionItemKind.Property],
-                ["number_of_resources", vscode.CompletionItemKind.Property],
-                ["resources", vscode.CompletionItemKind.Class],
                 ["assembly", vscode.CompletionItemKind.Class],
-                ["number_of_modulerefs", vscode.CompletionItemKind.Property],
-                ["modulerefs", vscode.CompletionItemKind.Property],
-                ["typelib", vscode.CompletionItemKind.Property],
                 ["assembly_refs", vscode.CompletionItemKind.Class],
+                ["guids", vscode.CompletionItemKind.Property],
+                ["modulerefs", vscode.CompletionItemKind.Property],
+                ["module_name", vscode.CompletionItemKind.Property],
+                ["number_of_guids", vscode.CompletionItemKind.Property],
+                ["number_of_modulerefs", vscode.CompletionItemKind.Property],
+                ["number_of_resources", vscode.CompletionItemKind.Property],
+                ["number_of_streams", vscode.CompletionItemKind.Property],
                 ["number_of_user_strings", vscode.CompletionItemKind.Property],
-                ["user_strings", vscode.CompletionItemKind.Property]
+                ["resources", vscode.CompletionItemKind.Class],
+                ["streams", vscode.CompletionItemKind.Class],
+                ["typelib", vscode.CompletionItemKind.Property],
+                ["user_strings", vscode.CompletionItemKind.Property],
+                ["version", vscode.CompletionItemKind.Property]
             ];
         }
         else if (name == "time") {
