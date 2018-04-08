@@ -39,10 +39,9 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
             let module_start = new vscode.Position(pos.line, pos.character - 1);
             let module_range = doc.getWordRangeAtPosition(module_start);
             let symbol: string = doc.getText(module_range);
-            if (context.triggerCharacter == "." && modules.has(symbol)) {
+            if (context.triggerCharacter == ".") {
                 let items: vscode.CompletionItem[] = Array<vscode.CompletionItem>();
                 const range: vscode.Range = doc.getWordRangeAtPosition(pos);
-                console.log(`symbol: ${JSON.stringify(symbol)}`);
                 let fields: any = modules.get(symbol);
                 if (fields != null) {
                     fields.forEach(field => {

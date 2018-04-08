@@ -184,9 +184,7 @@
         "type_string": "property",
         "UP_SYSTEM_ONLY": "enum",
         "WDM_DRIVER": "enum",
-        "version_info": {
-
-        },
+        "version_info": "property"
     },
     "elf": {
         "DT_NULL": "enum",
@@ -350,7 +348,7 @@
         "monte_carlo_pi": "method",
         "serial_correlation": "method"
     },
-    "dotnet": { // class
+    "dotnet": {
         "assembly": {
             "culture": "property",
             "name": "property",
@@ -370,12 +368,12 @@
         "number_of_resources": "property",
         "number_of_streams": "property",
         "number_of_user_strings": "property",
-        "resources": { // class
+        "resources": {
             "name": "property",
             "offset": "property",
             "size": "property"
         },
-        "streams": { // class
+        "streams": {
             "name": "property",
             "offset": "property",
             "size": "property"
