@@ -10,37 +10,15 @@ const schema: Object = require(schema_path);
 // provide completion for YARA modules
 // will have to be static until I can figure out a better method
 export const modules = {
-    get: function (doc: vscode.TextDocument, pos: vscode.Position) {
-        let items: null | (string | vscode.CompletionItemKind)[][] = [];
+    get: function (doc: vscode.TextDocument, pos: vscode.Position): null | (string | vscode.CompletionItemKind)[][] {
         let parsed: Array<string> = doc.lineAt(pos).text.split(" ");
         let symbols: Array<string> = parsed[parsed.length - 1].split(".");
         // start at top level to make sure every symbol can be traced back to a module
-        let module_name: string = symbols[0];
-        items = parseSchema(symbols, schema, 0);
-        return items;
-    }
-};
-
-export class YaraCompletionItemProvider implements vscode.CompletionItemProvider {
-    public provideCompletionItems(doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext): Thenable<vscode.CompletionItem[] | vscode.CompletionList> {
-        return new Promise((resolve, reject) => {
-            if (context.triggerCharacter == ".") {
-                let items: vscode.CompletionItem[] = Array<vscode.CompletionItem>();
-                let fields: any = modules.get(doc, pos);
-                if (fields != null) {
-                    fields.forEach(field => {
-                        items.push(new vscode.CompletionItem(field[0], field[1]));
-                    });
-                    console.log(JSON.stringify(items));
-                    resolve(items);
-                }
-            }
-            reject();
-        });
+        return parseSchema(symbols, schema, 0);
     }
 }
 
-function parseSchema(symbols: Array<string>, schema: Object, depth: number) {
+function parseSchema(symbols: Array<string>, schema: Object, depth: number): null | (string | vscode.CompletionItemKind)[][] {
     let items: null | (string | vscode.CompletionItemKind)[][] = [];
     let current_symbol: string = symbols[depth];
     if (depth == symbols.length - 1) {
@@ -62,4 +40,23 @@ function parseSchema(symbols: Array<string>, schema: Object, depth: number) {
         }
     }
     return items;
+}
+
+export class YaraCompletionItemProvider implements vscode.CompletionItemProvider {
+    public provideCompletionItems(doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext): vscode.ProviderResult<vscode.CompletionItem[] | vscode.CompletionList> {
+        return new Promise((resolve, reject) => {
+            if (context.triggerCharacter == ".") {
+                let items: vscode.CompletionItem[] = Array<vscode.CompletionItem>();
+                let fields: any = modules.get(doc, pos);
+                if (fields != null) {
+                    fields.forEach(field => {
+                        items.push(new vscode.CompletionItem(field[0], field[1]));
+                    });
+                    console.log(JSON.stringify(items));
+                    resolve(items);
+                }
+            }
+            reject();
+        });
+    }
 }
