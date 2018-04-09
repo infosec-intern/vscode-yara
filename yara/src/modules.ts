@@ -22,7 +22,7 @@ export const modules = {
 };
 
 export class YaraCompletionItemProvider implements vscode.CompletionItemProvider {
-    public provideCompletionItems(doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext): Thenable<vscode.CompletionItem[]> {
+    public provideCompletionItems(doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext): Thenable<vscode.CompletionItem[] | vscode.CompletionList> {
         return new Promise((resolve, reject) => {
             if (context.triggerCharacter == ".") {
                 let items: vscode.CompletionItem[] = Array<vscode.CompletionItem>();
