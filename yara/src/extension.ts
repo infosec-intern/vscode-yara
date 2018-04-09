@@ -36,13 +36,9 @@ function GetRuleRange(lines: string[], symbol: vscode.Position) {
 export class YaraCompletionItemProvider implements vscode.CompletionItemProvider {
     public provideCompletionItems(doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext): Thenable<vscode.CompletionItem[]> {
         return new Promise((resolve, reject) => {
-            let module_start = new vscode.Position(pos.line, pos.character - 1);
-            let module_range = doc.getWordRangeAtPosition(module_start);
-            let symbol: string = doc.getText(module_range);
             if (context.triggerCharacter == ".") {
                 let items: vscode.CompletionItem[] = Array<vscode.CompletionItem>();
-                const range: vscode.Range = doc.getWordRangeAtPosition(pos);
-                let fields: any = modules.get(symbol);
+                let fields: any = modules.get(doc, pos);
                 if (fields != null) {
                     fields.forEach(field => {
                         items.push(new vscode.CompletionItem(field[0], field[1]));
