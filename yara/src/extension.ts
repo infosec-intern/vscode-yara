@@ -1,7 +1,7 @@
 "use strict";
 
 import * as vscode from "vscode";
-import {modules} from "./modules_class";
+import {YaraCompletionItemProvider} from "./modules";
 
 
 // variables have a few possible first characters - use these to identify vars vs. rules
@@ -31,25 +31,6 @@ function GetRuleRange(lines: string[], symbol: vscode.Position) {
         }
     }
     return new vscode.Range(begin, end);
-}
-
-export class YaraCompletionItemProvider implements vscode.CompletionItemProvider {
-    public provideCompletionItems(doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext): Thenable<vscode.CompletionItem[]> {
-        return new Promise((resolve, reject) => {
-            if (context.triggerCharacter == ".") {
-                let items: vscode.CompletionItem[] = Array<vscode.CompletionItem>();
-                let fields: any = modules.get(doc, pos);
-                if (fields != null) {
-                    fields.forEach(field => {
-                        items.push(new vscode.CompletionItem(field[0], field[1]));
-                    });
-                    console.log(JSON.stringify(items));
-                    resolve(items);
-                }
-            }
-            reject();
-        });
-    }
 }
 
 export class YaraDefinitionProvider implements vscode.DefinitionProvider {
