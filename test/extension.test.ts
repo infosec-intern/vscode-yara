@@ -8,6 +8,7 @@ Please refer to their documentation on https://mochajs.org/ for help.
 import * as path from "path";
 import * as vscode from "vscode";
 import * as yara from "../yara/src/extension";
+import {YaraCompletionItemProvider} from "../yara/src/modules";
 
 let workspace = path.join(__dirname, "..", "..", "test/rules/");
 
@@ -15,7 +16,7 @@ suite("YARA: Provider", function () {
     test("rule definition", function (done) {
         const filepath: string = path.join(workspace, "peek_rules.yara");
         vscode.workspace.openTextDocument(filepath).then(function (doc) {
-            let defProvider: vscode.DefinitionProvider = new yara.YaraDefinitionProvider();
+            const defProvider: vscode.DefinitionProvider = new yara.YaraDefinitionProvider();
             // SyntaxExample: Line 43, Col 14
             // line numbers start at 0, so we have to subtract one for the lookup
             let pos: vscode.Position = new vscode.Position(42, 14);
@@ -44,7 +45,7 @@ suite("YARA: Provider", function () {
     test("variable definition", function (done) {
         const filepath: string = path.join(workspace, "peek_rules.yara");
         vscode.workspace.openTextDocument(filepath).then(function (doc) {
-            let defProvider: vscode.DefinitionProvider = new yara.YaraDefinitionProvider();
+            const defProvider: vscode.DefinitionProvider = new yara.YaraDefinitionProvider();
             // $hex_string: Line 25, Col 14
             // line numbers start at 0, so we have to subtract one for the lookup
             let pos: vscode.Position = new vscode.Position(24, 14);
@@ -71,7 +72,7 @@ suite("YARA: Provider", function () {
     test("symbol references", function (done) {
         const filepath: string = path.join(workspace, "peek_rules.yara");
         vscode.workspace.openTextDocument(filepath).then(function (doc) {
-            let refProvider: vscode.ReferenceProvider = new yara.YaraReferenceProvider();
+            const refProvider: vscode.ReferenceProvider = new yara.YaraReferenceProvider();
             // $dstring: Line 22, Col 11
             let pos: vscode.Position = new vscode.Position(21, 11);
             // console.log(`search term: ${doc.getText(doc.getWordRangeAtPosition(pos))}`);
@@ -109,7 +110,7 @@ suite("YARA: Provider", function () {
     test("wildcard references", function (done) {
         const filepath: string = path.join(workspace, "peek_rules.yara");
         vscode.workspace.openTextDocument(filepath).then(function (doc) {
-            let refProvider: vscode.ReferenceProvider = new yara.YaraReferenceProvider();
+            const refProvider: vscode.ReferenceProvider = new yara.YaraReferenceProvider();
             // $hex_*: Line 31, Col 11
             let pos: vscode.Position = new vscode.Position(30, 11);
             // console.log(`search term: ${doc.getText(doc.getWordRangeAtPosition(pos))}`);
@@ -141,6 +142,18 @@ suite("YARA: Provider", function () {
                     }
                 });
             }
+        });
+    });
+
+    test("code completion", function (done) {
+        const filepath: string = path.join(workspace, "peek_rules.yara");
+        vscode.workspace.openTextDocument(filepath).then(function (doc) {
+            const ccProvider: YaraCompletionItemProvider = new YaraCompletionItemProvider();
+            // ModuleCompletionExample: Line 53, Col 12
+            let pos: vscode.Position = new vscode.Position(52, 12);
+            let tokenSource: vscode.CancellationTokenSource = new vscode.CancellationTokenSource();
+            let items = ccProvider.provideCompletionItems(doc, pos, tokenSource.token, undefined);
+            console.log(items);
         });
     });
 
