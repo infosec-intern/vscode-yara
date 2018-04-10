@@ -1,7 +1,7 @@
 "use strict";
 
 import * as vscode from "vscode";
-import {YaraCompletionItemProvider} from "./modules";
+import {YaraCompletionItemProvider} from "./completionProvider";
 
 
 // variables have a few possible first characters - use these to identify vars vs. rules
@@ -152,9 +152,10 @@ export function activate(context: vscode.ExtensionContext) {
     let YARA: vscode.DocumentSelector = { language: "yara", scheme: "file" };
     let definitionDisposable: vscode.Disposable = vscode.languages.registerDefinitionProvider(YARA, new YaraDefinitionProvider());
     let referenceDisposable: vscode.Disposable = vscode.languages.registerReferenceProvider(YARA, new YaraReferenceProvider());
-    vscode.languages.registerCompletionItemProvider(YARA, new YaraCompletionItemProvider(), '.');
+    let completionDisposable: vscode.Disposable = vscode.languages.registerCompletionItemProvider(YARA, new YaraCompletionItemProvider(), '.');
     context.subscriptions.push(definitionDisposable);
     context.subscriptions.push(referenceDisposable);
+    context.subscriptions.push(completionDisposable);
 };
 
 export function deactivate(context: vscode.ExtensionContext) {
