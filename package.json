@@ -1,8 +1,8 @@
 {
     "name": "yara",
     "displayName": "YARA",
-    "description": "Syntax highlighting and snippets support for the YARA pattern matching language",
-    "version": "1.2.4",
+    "description": "Rich language support for the YARA pattern matching language",
+    "version": "1.2.5",
     "icon": "images/logo.png",
     "galleryBanner": {
         "color": "#A4A4A4",

@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.2.5] 2018-04-13
+* Added module code completion
+
 ## [1.2.4] 2018-03-20
 * Addressed problem raised in Issue #21: "Greedy regex"
 * Added 'xor' keyword string (Thanks to wesinator)
@@ -26,3 +29,4 @@
 [1.2.2]: https://github.com/infosec-intern/textmate-yara/commit/01c9a4c9b7795494488bacab20cacec9a83e67d3
 [1.2.3]: https://github.com/infosec-intern/textmate-yara/commit/e2ecae2efaf91012b6dd71bc328597beb83ef7fa
 [1.2.4]: https://github.com/infosec-intern/textmate-yara/commit/00e44d92dedd0fc9001a8458d001e274489abe5c
+[1.2.5]: https://github.com/infosec-intern/textmate-yara/commit/94a1dffe16df543a2c46eae0f3c04ffb5e06d659
