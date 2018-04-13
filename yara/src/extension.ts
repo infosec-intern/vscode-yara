@@ -1,6 +1,7 @@
 "use strict";
 
 import * as vscode from "vscode";
+import {YaraCompletionItemProvider} from "./completionProvider";
 
 
 // variables have a few possible first characters - use these to identify vars vs. rules
@@ -10,8 +11,8 @@ const varFirstChar: Set<string> = new Set(["$", "#", "@", "!"]);
     Get the start and end boundaries for the current YARA rule based on a symbol's position
 */
 function GetRuleRange(lines: string[], symbol: vscode.Position) {
-    let begin: vscode.Position|null = null;
-    let end: vscode.Position|null = null;
+    let begin: vscode.Position | null = null;
+    let end: vscode.Position | null = null;
     const startRuleRegexp = RegExp("^rule ");
     const endRuleRegexp = RegExp("^\}");
     // find the nearest reference to "rule" by traversing the lines in reverse order
@@ -35,7 +36,7 @@ function GetRuleRange(lines: string[], symbol: vscode.Position) {
 export class YaraDefinitionProvider implements vscode.DefinitionProvider {
     public provideDefinition(doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken): Thenable<vscode.Location> {
         return new Promise((resolve, reject) => {
-            let definition: vscode.Location|null = null;
+            let definition: vscode.Location | null = null;
             const fileUri: vscode.Uri = vscode.Uri.file(doc.fileName);
             const range: vscode.Range = doc.getWordRangeAtPosition(pos);
             const symbol: string = doc.getText(range);
@@ -151,8 +152,10 @@ export function activate(context: vscode.ExtensionContext) {
     let YARA: vscode.DocumentSelector = { language: "yara", scheme: "file" };
     let definitionDisposable: vscode.Disposable = vscode.languages.registerDefinitionProvider(YARA, new YaraDefinitionProvider());
     let referenceDisposable: vscode.Disposable = vscode.languages.registerReferenceProvider(YARA, new YaraReferenceProvider());
+    let completionDisposable: vscode.Disposable = vscode.languages.registerCompletionItemProvider(YARA, new YaraCompletionItemProvider(), '.');
     context.subscriptions.push(definitionDisposable);
     context.subscriptions.push(referenceDisposable);
+    context.subscriptions.push(completionDisposable);
 };
 
 export function deactivate(context: vscode.ExtensionContext) {
