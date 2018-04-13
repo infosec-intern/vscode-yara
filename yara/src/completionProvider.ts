@@ -45,7 +45,7 @@ function parseSchema(symbols: Array<string>, schema: Object, depth: number): nul
 export class YaraCompletionItemProvider implements vscode.CompletionItemProvider {
     public provideCompletionItems(doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext): vscode.ProviderResult<vscode.CompletionItem[] | vscode.CompletionList> {
         return new Promise((resolve, reject) => {
-            if (context != undefined && context.triggerCharacter == ".") {
+            if (context == undefined || context.triggerCharacter == ".") {
                 let items: vscode.CompletionItem[] = Array<vscode.CompletionItem>();
                 let fields: any = modules.get(doc, pos);
                 if (fields != null) {

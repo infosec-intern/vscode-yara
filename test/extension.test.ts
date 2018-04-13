@@ -8,7 +8,7 @@ Please refer to their documentation on https://mochajs.org/ for help.
 import * as path from "path";
 import * as vscode from "vscode";
 import * as yara from "../yara/src/extension";
-import {YaraCompletionItemProvider} from "../yara/src/modules";
+import {YaraCompletionItemProvider} from "../yara/src/completionProvider";
 
 let workspace = path.join(__dirname, "..", "..", "test/rules/");
 
@@ -146,14 +146,20 @@ suite("YARA: Provider", function () {
     });
 
     test("code completion", function (done) {
-        const filepath: string = path.join(workspace, "peek_rules.yara");
+        const filepath: string = path.join(workspace, "code_completion.yara");
         vscode.workspace.openTextDocument(filepath).then(function (doc) {
             const ccProvider: YaraCompletionItemProvider = new YaraCompletionItemProvider();
-            // ModuleCompletionExample: Line 53, Col 12
-            let pos: vscode.Position = new vscode.Position(52, 12);
+            // "cuckoo.": Line 8, Col 12
+            let pos: vscode.Position = new vscode.Position(7, 12);
             let tokenSource: vscode.CancellationTokenSource = new vscode.CancellationTokenSource();
-            let items = ccProvider.provideCompletionItems(doc, pos, tokenSource.token, undefined);
-            console.log(items);
+            ccProvider.provideCompletionItems(doc, pos, tokenSource.token, undefined).then(function (items) {
+                if (items[0].label == "network" || items[0].kind == vscode.CompletionItemKind.Class &&
+                    items[1].label == "registry" || items[1].kind == vscode.CompletionItemKind.Class &&
+                    items[2].label == "filesystem" || items[2].kind == vscode.CompletionItemKind.Class &&
+                    items[3].label == "sync" || items[3].kind == vscode.CompletionItemKind.Class) {
+                        done();
+                    }
+            });
         });
     });
 
