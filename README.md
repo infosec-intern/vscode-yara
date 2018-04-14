@@ -18,6 +18,11 @@ Shows the locations of a given symbol (rule name, variable, constant, etc.)
 
 ![Find All References](./images/references.PNG)
 
+### Code Completion
+Provides completion suggestions for standard YARA modules, including `pe`, `elf`, `math`, and all the others available in the official documentation: http://yara.readthedocs.io/en/v3.7.0/modules.html
+
+![Code Completion](./images/module_completion.PNG)
+
 ### Snippets
 Includes:
 * `rule:` skeleton
