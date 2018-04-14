@@ -20,11 +20,18 @@ export const modules = {
         });
         return results;
     },
-    get: function (doc: vscode.TextDocument, pos: vscode.Position): null | (string | vscode.CompletionItemKind)[][] {
+    get: function (doc: vscode.TextDocument, pos: vscode.Position, require_imports): null | (string | vscode.CompletionItemKind)[][] {
         let parsed: Array<string> = doc.lineAt(pos).text.split(" ");
         let symbols: Array<string> = parsed[parsed.length - 1].split(".");
-        const filter: Array<string> = this.possibleModules(doc);
-        if (filter.indexOf(symbols[0]) > -1) {
+        if (require_imports) {
+            const filter: Array<string> = this.possibleModules(doc);
+            if (filter.indexOf(symbols[0]) > -1) {
+                // start at top level to make sure every symbol can be traced back to a module
+                return parseSchema(symbols, schema, 0);
+            }
+            else { return null; }
+        }
+        else {
             // start at top level to make sure every symbol can be traced back to a module
             return parseSchema(symbols, schema, 0);
         }
@@ -59,8 +66,9 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
     public provideCompletionItems(doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext): vscode.ProviderResult<vscode.CompletionItem[] | vscode.CompletionList> {
         return new Promise((resolve, reject) => {
             if (context == undefined || context.triggerCharacter == ".") {
+                let config: vscode.WorkspaceConfiguration = vscode.workspace.getConfiguration("yara");
                 let items: vscode.CompletionItem[] = Array<vscode.CompletionItem>();
-                let fields: any = modules.get(doc, pos);
+                let fields: any = modules.get(doc, pos, config.get("require_imports", false));
                 if (fields != null) {
                     fields.forEach(field => {
                         items.push(new vscode.CompletionItem(field[0], field[1]));
@@ -71,10 +79,12 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
             reject();
         });
     }
+/*
     public resolveCompletionItem(item: vscode.CompletionItem, token: vscode.CancellationToken): vscode.ProviderResult<vscode.CompletionItem> {
         return new Promise((resolve, reject) => {
             console.log(`resolving ${JSON.stringify(item)}`);
             resolve(item);
         });
     }
+*/
 }

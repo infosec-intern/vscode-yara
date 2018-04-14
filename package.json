@@ -54,7 +54,17 @@
                 "language": "yara",
                 "path": "yara/snippets/yara.json"
             }
-        ]
+        ],
+        "configuration": {
+            "title": "YARA configuration",
+            "properties": {
+                "yara.require_imports": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "When providing suggestions for YARA modules, first require an import statement at the top of the rule file. For example, in order to autocomplete the 'time.now()' method, require 'import \"time\"'. Off by default."
+                }
+            }
+        }
     },
     "main": "out/yara/src/extension",
     "activationEvents": [
