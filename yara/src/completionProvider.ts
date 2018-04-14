@@ -10,11 +10,24 @@ const schema: Object = require(schema_path);
 // provide completion for YARA modules
 // will have to be static until I can figure out a better method
 export const modules = {
+    possibleModules: function (doc: vscode.TextDocument): Array<string> {
+        const importRegexp: RegExp = RegExp("^import \"(pe|elf|cuckoo|magic|hash|math|dotnet|time)\"\r$");
+        let results: Array<string> = [];
+        doc.getText().split("\n").forEach(line => {
+            if (importRegexp.test(line)) {
+                results.push(line.split("\"")[1]);
+            }
+        });
+        return results;
+    },
     get: function (doc: vscode.TextDocument, pos: vscode.Position): null | (string | vscode.CompletionItemKind)[][] {
         let parsed: Array<string> = doc.lineAt(pos).text.split(" ");
         let symbols: Array<string> = parsed[parsed.length - 1].split(".");
-        // start at top level to make sure every symbol can be traced back to a module
-        return parseSchema(symbols, schema, 0);
+        const filter: Array<string> = this.possibleModules(doc);
+        if (filter.indexOf(symbols[0]) > -1) {
+            // start at top level to make sure every symbol can be traced back to a module
+            return parseSchema(symbols, schema, 0);
+        }
     }
 }
 
