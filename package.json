@@ -2,7 +2,7 @@
     "name": "yara",
     "displayName": "YARA",
     "description": "Rich language support for the YARA pattern matching language",
-    "version": "1.2.5",
+    "version": "1.3.0",
     "icon": "images/logo.png",
     "galleryBanner": {
         "color": "#A4A4A4",
