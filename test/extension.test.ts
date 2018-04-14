@@ -150,7 +150,7 @@ suite("YARA: Provider", function () {
         vscode.workspace.openTextDocument(filepath).then(function (doc) {
             const ccProvider: YaraCompletionItemProvider = new YaraCompletionItemProvider();
             // "cuckoo.": Line 8, Col 12
-            let pos: vscode.Position = new vscode.Position(7, 12);
+            let pos: vscode.Position = new vscode.Position(9, 12);
             let tokenSource: vscode.CancellationTokenSource = new vscode.CancellationTokenSource();
             ccProvider.provideCompletionItems(doc, pos, tokenSource.token, undefined).then(function (items) {
                 if (items[0].label == "network" || items[0].kind == vscode.CompletionItemKind.Class &&

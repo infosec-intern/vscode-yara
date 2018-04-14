@@ -43,14 +43,12 @@ function parseSchema(symbols: Array<string>, schema: Object, depth: number): nul
     let current_symbol: string = symbols[depth];
     if (depth == symbols.length - 1) {
         for (const key in schema) {
-            if (schema.hasOwnProperty(key)) {
-                const value: string = schema[key];
-                let kind_type = vscode.CompletionItemKind.Class;
-                if (value == "enum") { kind_type = vscode.CompletionItemKind.Enum; }
-                else if (value == "property") { kind_type = vscode.CompletionItemKind.Property; }
-                else if (value == "method") { kind_type = vscode.CompletionItemKind.Method; }
-                items.push([key, kind_type]);
-            }
+            const value: string = schema[key];
+            let kind_type = vscode.CompletionItemKind.Class;
+            if (value == "enum") { kind_type = vscode.CompletionItemKind.Enum; }
+            else if (value == "property") { kind_type = vscode.CompletionItemKind.Property; }
+            else if (value == "method") { kind_type = vscode.CompletionItemKind.Method; }
+            items.push([key, kind_type]);
         }
     }
     else if (schema.hasOwnProperty(current_symbol)) {
