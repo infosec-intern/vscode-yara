@@ -35,18 +35,5 @@ If you encounter an issue with the syntax, feel free to create an issue or pull 
 Alternatively, check out some of the YARA syntaxes for Sublime and Textmate (i.e. those in the <b>Example Code</b> section below).
 They use the same syntax engine as VSCode and should work the same way
 
-## References
-#### Syntax Reference:<br>
+## YARA Documentation
 https://yara.readthedocs.io/
-
-#### TextMate Docs:<br>
-http://manual.macromates.com/en/language_grammars
-
-#### Regular Expressions:<br>
-http://www.regular-expressions.info/modifiers.html
-
-#### Example Code:<br>
-https://github.com/mmcgrana/textmate-clojure/blob/master/Syntaxes/Clojure.tmLanguage <br>
-https://github.com/textmate/python.tmbundle/blob/master/Syntaxes/Python.tmLanguage <br>
-https://github.com/nyx0/YaraSyntax/blob/master/yara.tmLanguage <br>
-https://github.com/blacktop/language-yara
