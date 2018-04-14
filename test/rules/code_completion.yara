@@ -1,3 +1,5 @@
+import "cuckoo"
+
 rule ModuleCompletionExample
 {
     meta:
