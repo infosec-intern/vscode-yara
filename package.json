@@ -18,7 +18,7 @@
         "url": "https://github.com/infosec-intern/textmate-yara/issues"
     },
     "engines": {
-        "vscode": "^1.0.0"
+        "vscode": "^1.22.0"
     },
     "categories": [
         "Languages",
