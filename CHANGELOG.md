@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.3.1] 2018-04-29
+* Reorganized code base for clarity; no new features/fixes
+
 ## [1.3.0] 2018-04-13
 * Added module code completion
 
@@ -30,3 +33,4 @@
 [1.2.3]: https://github.com/infosec-intern/textmate-yara/commit/e2ecae2efaf91012b6dd71bc328597beb83ef7fa
 [1.2.4]: https://github.com/infosec-intern/textmate-yara/commit/00e44d92dedd0fc9001a8458d001e274489abe5c
 [1.3.0]: https://github.com/infosec-intern/textmate-yara/commit/94a1dffe16df543a2c46eae0f3c04ffb5e06d659
+[1.3.1]: https://github.com/infosec-intern/textmate-yara/commit/955bbbaa078bc3875e07468d864b94479c2652d3
