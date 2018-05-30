@@ -1,37 +1,62 @@
 {
-	"Rule": {
-		"prefix": "rule",
-		"body": [
-			"/*",
-			"\tRULE DESCRIPTION HERE",
-			"*/",
-			"rule ${name}",
-			"{",
-			"\tcondition:",
-			"\t\t$1",
-			"}"
-		],
-		"description": "Generate a basic skeleton"
-	},
-	"Meta": {
-		"prefix": "meta",
-		"body": [
-			"meta:",
-			"\t${metadata}"
-		],
-		"description": "Generate a 'meta' section"
-	},
-	"Strings": {
-		"prefix": "strings",
-		"body": [
-			"strings:",
-			"\t${string(s)}"
-		],
-		"description": "Generate a 'strings' section"
-	},
-	"Import": {
-		"prefix": "import",
-		"body": "import \"${module}\"",
-		"description": "Import a YARA module"
-	}
+    "Rule": {
+        "prefix": "rule",
+        "body": [
+            "rule ${TM_FILENAME_BASE}",
+            "{",
+            "\tmeta:",
+            "\t\tauthor = ${1:author}",
+            "\t\tdate = ${CURRENT_YEAR-CURRENT_MONTH-CURRENT_DATE}",
+            "\tstrings:",
+            "\t\t${2:strings}",
+            "\tcondition:",
+            "\t\t${3:condition}",
+            "}"
+        ],
+        "description": "Generate a rule skeleton"
+    },
+    "Meta": {
+        "prefix": "meta",
+        "body": [
+            "meta:",
+            "\t${metadata}"
+        ],
+        "description": "Generate a 'meta' section"
+    },
+    "Strings": {
+        "prefix": "strings",
+        "body": [
+            "strings:",
+            "\t${strings}"
+        ],
+        "description": "Generate a 'strings' section"
+    },
+    "Condition": {
+        "prefix": "condition",
+        "body": [
+            "condition:",
+            "\t${conditions}"
+        ],
+        "description": "Generate a 'condition' section"
+    },
+    "Import": {
+        "prefix": "import",
+        "body": "import \"${|pe,elf,cuckoo,magic,hash,math,dotnet,time|}\"",
+        "description": "Import a YARA module"
+    },
+    "for": {
+        "prefix": "for",
+        "body": "for ${1:expression} of ${2:string_set} : ( ${3:boolean_expression} )",
+        "description": "Apply the same condition to many strings"
+    },
+    "any": {
+        "prefix": "any",
+        "body": "any of ${them}",
+        "description": "String set keyword: any"
+    },
+    "all": {
+        "prefix": "all",
+        "body": "all of ${them}",
+        "description": "String set keyword: all"
+    }
 }
