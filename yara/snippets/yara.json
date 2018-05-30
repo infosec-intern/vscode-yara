@@ -5,12 +5,11 @@
             "rule ${TM_FILENAME_BASE}",
             "{",
             "\tmeta:",
-            "\t\tauthor = ${1:author}",
-            "\t\tdate = ${CURRENT_YEAR-CURRENT_MONTH-CURRENT_DATE}",
+            "\t\tdate = ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
             "\tstrings:",
-            "\t\t${2:strings}",
+            "\t\t${1:strings}",
             "\tcondition:",
-            "\t\t${3:condition}",
+            "\t\t${2:condition}",
             "}"
         ],
         "description": "Generate a rule skeleton"
