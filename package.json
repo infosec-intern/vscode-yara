@@ -21,7 +21,7 @@
         "vscode": "^1.22.0"
     },
     "categories": [
-        "Languages",
+        "Programming Languages",
         "Snippets"
     ],
     "contributes": {
