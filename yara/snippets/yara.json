@@ -18,6 +18,7 @@
         "prefix": "meta",
         "body": [
             "meta:",
+            "\t\tdate = ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
             "\t${metadata}"
         ],
         "description": "Generate a 'meta' section"
