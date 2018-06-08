@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.3.3] 2018-06-07
+* Fixed regexp syntax highlighting
+
 ## [1.3.2] 2018-05-29
 * Added modified rule snippet and new snippets for 'for' loop
 
@@ -38,3 +41,4 @@
 [1.3.0]: https://github.com/infosec-intern/textmate-yara/commit/94a1dffe16df543a2c46eae0f3c04ffb5e06d659
 [1.3.1]: https://github.com/infosec-intern/textmate-yara/commit/955bbbaa078bc3875e07468d864b94479c2652d3
 [1.3.2]: https://github.com/infosec-intern/textmate-yara/commit/a047c27bab68deac6910dd440d3e6aaad005e33a
+[1.3.3]: https://github.com/infosec-intern/textmate-yara/commit/e94c3ec33f306e762c0e4a2d6c12268a9e9dcc4a
