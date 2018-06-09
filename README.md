@@ -1,6 +1,6 @@
 ![Source - https://raw.githubusercontent.com/blacktop/docker-yara/master/logo.png](./images/logo.png)
 
-# textmate-yara
+# YARA for Visual Studio Code
 Language support for the YARA pattern matching language
 
 ## Screenshot
