@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.3.4] 2018-06-13
+* Fixed 'date' string value in metadata and updated packages
+
 ## [1.3.3] 2018-06-07
 * Fixed regexp syntax highlighting
 
@@ -42,3 +45,4 @@
 [1.3.1]: https://github.com/infosec-intern/textmate-yara/commit/955bbbaa078bc3875e07468d864b94479c2652d3
 [1.3.2]: https://github.com/infosec-intern/textmate-yara/commit/a047c27bab68deac6910dd440d3e6aaad005e33a
 [1.3.3]: https://github.com/infosec-intern/textmate-yara/commit/e94c3ec33f306e762c0e4a2d6c12268a9e9dcc4a
+[1.3.4]: https://github.com/infosec-intern/textmate-yara/commit/c36207d619cfa6df7623cb4e2419140c7cc400d4
