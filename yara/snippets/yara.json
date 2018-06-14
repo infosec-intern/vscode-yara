@@ -5,7 +5,7 @@
             "rule ${TM_FILENAME_BASE}",
             "{",
             "\tmeta:",
-            "\t\tdate = ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+            "\t\tdate = \"${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}\"",
             "\tstrings:",
             "\t\t${1:strings}",
             "\tcondition:",
@@ -18,7 +18,7 @@
         "prefix": "meta",
         "body": [
             "meta:",
-            "\t\tdate = ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+            "\t\tdate = \"${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}\"",
             "\t${metadata}"
         ],
         "description": "Generate a 'meta' section"
