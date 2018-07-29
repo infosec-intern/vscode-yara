@@ -86,7 +86,7 @@
 			<key>name</key>
 			<string>keyword.operator.bitwise.yara</string>
 			<key>match</key>
-			<string>(\&|\||\>\>|\<\<|~|\^)</string>
+			<string>(\&amp;|\||\&gt;\&gt;|\&lt;\&lt;|~|\^)</string>
 		</dict>
 		<!-- condition: -->
 		<dict>
@@ -188,7 +188,7 @@
 			<key>name</key>
 			<string>keyword.operator.relational.yara</string>
 			<key>match</key>
-			<string>(\<=?|\>=?|==|\!=)</string>
+			<string>(\&lt;=?|\&gt;=?|==|\!=)</string>
 		</dict>
 		<!-- rule -->
 		<dict>
