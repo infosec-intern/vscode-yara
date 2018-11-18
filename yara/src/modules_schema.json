@@ -382,7 +382,9 @@
         "deviation": "method",
         "entropy": "method",
         "in_range": "method",
+        "max": "method",
         "mean": "method",
+        "min": "method",
         "monte_carlo_pi": "method",
         "serial_correlation": "method"
     },
