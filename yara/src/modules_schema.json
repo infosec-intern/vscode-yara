@@ -1,21 +1,41 @@
 {
     "pe": {
         "AGGRESIVE_WS_TRIM": "enum",
+        "base_of_code": "property",
+        "base_of_data": "property",
         "BYTES_REVERSED_LO": "enum",
         "BYTES_REVERSED_HI": "enum",
         "calculate_checksum": "method",
         "characteristics": "property",
         "checksum": "property",
+        "data_directories": {
+            "size": "property",
+            "virtual_address": "property"
+        },
         "DEBUG_STRIPPED": "enum",
         "DLL": "enum",
         "dll_characteristics": "property",
         "DYNAMIC_BASE": "enum",
         "entry_point": "property",
         "EXECUTABLE_IMAGE": "enum",
+        "file_alignment": "property",
         "FORCE_INTEGRITY": "enum",
         "exports": "method",
         "id": "property",
         "image_base": "property",
+        "IMAGE_DIRECTORY_ENTRY_BASERELOC": "enum",
+        "IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT": "enum",
+        "IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR": "enum",
+        "IMAGE_DIRECTORY_ENTRY_DEBUG": "enum",
+        "IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT": "enum",
+        "IMAGE_DIRECTORY_ENTRY_EXCEPTION": "enum",
+        "IMAGE_DIRECTORY_ENTRY_EXPORT": "enum",
+        "IMAGE_DIRECTORY_ENTRY_IAT": "enum",
+        "IMAGE_DIRECTORY_ENTRY_IMPORT": "enum",
+        "IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG": "enum",
+        "IMAGE_DIRECTORY_ENTRY_RESOURCE": "enum",
+        "IMAGE_DIRECTORY_ENTRY_SECURITY": "enum",
+        "IMAGE_DIRECTORY_ENTRY_TLS": "enum",
         "image_version": {
             "major": "property",
             "minor": "property"
@@ -34,6 +54,7 @@
             "major": "property",
             "minor": "property"
         },
+        "loader_flags": "property",
         "locale": "method",
         "LOCAL_SYMS_STRIPPED": "enum",
         "machine": "property",
@@ -68,9 +89,12 @@
         "number_of_exports": "property",
         "number_of_imports": "property",
         "number_of_resources": "property",
+        "number_of_rva_and_sizes": "property",
         "number_of_sections": "property",
         "number_of_signatures": "property",
+        "number_of_symbols": "property",
         "NX_COMPAT": "enum",
+        "opthdr_magic": "property",
         "os_version": {
             "major": "property",
             "minor": "property"
@@ -79,6 +103,7 @@
             "offset": "property",
             "size": "property"
         },
+        "pointer_to_symbol_table": "property",
         "RELOCS_STRIPPED": "enum",
         "REMOVABLE_RUN_FROM_SWAP": "enum",
         "resources": {
@@ -135,6 +160,7 @@
             "virtual_address": "property",
             "virtual_size": "property"
         },
+        "section_alignment": "property",
         "SECTION_CNT_CODE": "enum",
         "SECTION_CNT_INITIALIZED_DATA": "enum",
         "SECTION_CNT_UNINITIALIZED_DATA": "enum",
@@ -156,9 +182,20 @@
             "not_before": "property",
             "serial": "property",
             "subject": "property",
+            "thumbprint": "property",
             "valid_on": "method",
             "version": "method"
         },
+        "size_of_code": "property",
+        "size_of_headers": "property",
+        "size_of_image": "property",
+        "size_of_initialized_data": "property",
+        "size_of_heap_commit": "property",
+        "size_of_heap_reserve": "property",
+        "size_of_optional_header": "property",
+        "size_of_stack_commit": "property",
+        "size_of_stack_reserve": "property",
+        "size_of_uninitialized_data": "property",
         "subsystem": "property",
         "SUBSYSTEM_EFI_APPLICATION": "enum",
         "SUBSYSTEM_EFI_BOOT_SERVICE_DRIVER": "enum",
@@ -184,6 +221,7 @@
         "type_string": "property",
         "UP_SYSTEM_ONLY": "enum",
         "WDM_DRIVER": "enum",
+        "win32_version_value": "property",
         "version_info": "property"
     },
     "elf": {
