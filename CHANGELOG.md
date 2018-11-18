@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.6] 2018-11-18
+* Updated module schema to YARA version 3.8.1
+* Updated dependencies
+
 ## [1.3.5] 2018-07-29
 * Merged XML validation fix from @wesinator
 
@@ -50,3 +54,4 @@
 [1.3.3]: https://github.com/infosec-intern/textmate-yara/commit/e94c3ec33f306e762c0e4a2d6c12268a9e9dcc4a
 [1.3.4]: https://github.com/infosec-intern/textmate-yara/commit/c36207d619cfa6df7623cb4e2419140c7cc400d4
 [1.3.5]: https://github.com/infosec-intern/textmate-yara/commit/484f38b89b96b52cfc89b8e33166e3557974fa13
+[1.3.6]: https://github.com/infosec-intern/textmate-yara/commit/3c8b2a4ac394542142e6c08b5bdc453de2e40cd9
