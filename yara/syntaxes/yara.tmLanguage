@@ -242,7 +242,7 @@
 			<key>contentName</key>
 			<string>string.hex.yara</string>
 			<key>begin</key>
-			<string>= {</string>
+			<string>=\s*?{</string>
 			<key>end</key>
 			<string>}</string>
 		</dict>
