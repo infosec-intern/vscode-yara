@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.7] 2019-09-16
+* Merged "Improve hex string begin matching" from @wesinator
+* Updated dependencies
+
 ## [1.3.6] 2018-11-18
 * Updated module schema to YARA version 3.8.1
 * Updated dependencies
@@ -55,3 +59,4 @@
 [1.3.4]: https://github.com/infosec-intern/textmate-yara/commit/c36207d619cfa6df7623cb4e2419140c7cc400d4
 [1.3.5]: https://github.com/infosec-intern/textmate-yara/commit/484f38b89b96b52cfc89b8e33166e3557974fa13
 [1.3.6]: https://github.com/infosec-intern/textmate-yara/commit/3c8b2a4ac394542142e6c08b5bdc453de2e40cd9
+[1.3.7]: https://github.com/infosec-intern/textmate-yara/commit/75855ac8d26605a2043e169f7c53e29f203f6f99
