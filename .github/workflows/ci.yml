@@ -2,6 +2,7 @@ name: textmate-yara
 
 on:
   push:
+    branches:
     - github-actions
 
 jobs:
