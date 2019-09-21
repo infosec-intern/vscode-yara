@@ -1,0 +1,19 @@
+name: textmate-yara
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ '8', '10', '12' ]
+    name: Run Unit Tests - Node ${{ matrix.node }}
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install
+    - run: npm run build
+    - run: npm test
