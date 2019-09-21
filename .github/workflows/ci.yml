@@ -35,4 +35,3 @@ jobs:
         npm install
         npm run build
         npm test
-    - shell: bash
