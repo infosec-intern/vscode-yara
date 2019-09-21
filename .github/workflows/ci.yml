@@ -2,6 +2,9 @@
 name: textmate-yara
 
 on:
+  pull_request:
+    branches:
+    - master
   push:
     branches:
     - github-actions
