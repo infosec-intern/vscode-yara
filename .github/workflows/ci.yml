@@ -7,16 +7,23 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [ '8', '10', '12' ]
-    name: Run Unit Tests - Node ${{ matrix.node }}
+        # test against the following major versions of Node
+        node: [ '8' ]
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+        # node: [ '8', '10', '12' ]
+    name: Testing on Node ${{ matrix.node }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v1
+      with:
+        # only use the latest files
+        fetch-depth: 1
     - uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+      # npm commands are defined in package.json the "scripts" section
     - run: npm install
     - run: npm run build
     - run: npm test
