@@ -12,7 +12,8 @@ jobs:
       matrix:
         # test against the following major versions of Node
         node: [ '8' ]
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ ubuntu-latest ]
+        # os: [ ubuntu-latest, windows-latest, macOS-latest ]
         # node: [ '8', '10', '12' ]
     name: Testing on Node ${{ matrix.node }} and ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
