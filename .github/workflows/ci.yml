@@ -21,6 +21,7 @@ jobs:
     name: Testing on Node ${{ matrix.node }} and ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     steps:
+    - name: Build and run tests
     - uses: actions/checkout@v1
       with:
         # only use the latest files
@@ -28,10 +29,10 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-      # might work for linux. update display variable so vscode will open
-      # npm commands are defined in package.json the "scripts" section
     - run: |
+        # might work for linux. update display variable so vscode will open
         export DISPLAY=':99.0' /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+        # npm commands are defined in package.json the "scripts" section
         npm install
         npm run build
         npm test
