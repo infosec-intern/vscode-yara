@@ -26,7 +26,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
       # might work for linux. update display variable so vscode will open
-    - run: export DISPLAY=':99.0' /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+      # update: got the same warning as before: "(code:2773): Gtk-WARNING **: 04:16:26.982: cannot open display: "
+    # - run: export DISPLAY=':99.0' /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
       # npm commands are defined in package.json the "scripts" section
     - run: npm install
     - run: npm run build
