@@ -1,6 +1,8 @@
 name: textmate-yara
 
-on: push
+on:
+  push:
+    - github-actions
 
 jobs:
   build:
