@@ -21,7 +21,6 @@ jobs:
     name: Testing on Node ${{ matrix.node }} and ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     steps:
-    - shell: bash
     - uses: actions/checkout@v1
       with:
         # only use the latest files
@@ -36,3 +35,4 @@ jobs:
         npm install
         npm run build
         npm test
+    - shell: bash
