@@ -8,20 +8,19 @@ on:
   push:
     branches:
     - github-actions
+    - master
 
 jobs:
-  build:
+  unittests:
     strategy:
       matrix:
         # test against the following major versions of Node
         node: [ '8' ]
-        os: [ ubuntu-latest ]
-        # os: [ ubuntu-latest, windows-latest, macOS-latest ]
         # node: [ '8', '10', '12' ]
-    name: Testing on Node ${{ matrix.node }} and ${{ matrix.os }}
+        os: [ ubuntu-latest, macOS-latest, windows-latest ]
+    name: ${{ matrix.os }} and node ${{ matrix.node }}
     runs-on: ${{ matrix.os }}
     steps:
-    - name: Build and run tests
     - uses: actions/checkout@v1
       with:
         # only use the latest files
@@ -29,10 +28,7 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: |
-        # might work for linux. update display variable so vscode will open
-        export DISPLAY=':99.0' /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-        # npm commands are defined in package.json the "scripts" section
-        npm install
-        npm run build
-        npm test
+    # npm "run" commands are defined in package.json the "scripts" section
+    - run: npm install
+    - run: npm run compile
+    - run: npm test

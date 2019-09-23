@@ -30,9 +30,7 @@ suite("YARA: Provider", function () {
                 if (resultWord == "SyntaxExample") { done(); }
             }
             else if (result instanceof Array) {
-                let resultWordRange: vscode.Range = doc.getWordRangeAtPosition(result[0].range.start);
-                let resultWord: string = doc.getText(resultWordRange);
-                if (resultWord == "SyntaxExample") { done(); }
+                // Should only get one result, so we've failed if an Array is returned
             }
             else if (result instanceof Promise) {
                 result.then(function (definition) {
@@ -223,8 +221,8 @@ suite("YARA: Provider", function () {
                             let refWord: string = doc.getText(refWordRange);
                             if (refWord != "hex_string" && acceptableLines.has(reference.range.start.line)) { passed = false; }
                         });
-                        if (passed) { done(); }
                     }
+                    if (passed) { done(); }
                 });
             }
         });
