@@ -41,7 +41,7 @@
     },
     "Import": {
         "prefix": "import",
-        "body": "import \"${|pe,elf,cuckoo,magic,hash,math,dotnet,time|}\"",
+        "body": "import \"${1|pe,elf,cuckoo,magic,hash,math,dotnet,time|}\"",
         "description": "Import a YARA module"
     },
     "for": {
