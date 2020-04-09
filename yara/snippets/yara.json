@@ -2,14 +2,18 @@
     "Rule": {
         "prefix": "rule",
         "body": [
-            "rule ${TM_FILENAME_BASE}",
+            "rule ${1:$TM_FILENAME_BASE}",
             "{",
             "\tmeta:",
+            "\t\tdescription = \"${description}\"",
+            "\t\tauthor = \"${author}\"",
             "\t\tdate = \"${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}\"",
+            "\t\treference = \"${reference}\"",
+            "\t\thash = \"${hash}\"",
             "\tstrings:",
-            "\t\t${1:strings}",
+            "\t\t$${name} = \"${string}\"",
             "\tcondition:",
-            "\t\t${2:condition}",
+            "\t\t${condition}",
             "}"
         ],
         "description": "Generate a rule skeleton"
@@ -18,8 +22,11 @@
         "prefix": "meta",
         "body": [
             "meta:",
-            "\t\tdate = \"${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}\"",
-            "\t${metadata}"
+            "\tdescription = \"${description}\"",
+            "\tauthor = \"${author}\"",
+            "\tdate = \"${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}\"",
+            "\treference = \"${reference}\"",
+            "\thash = \"${hash}\""
         ],
         "description": "Generate a 'meta' section"
     },
@@ -27,7 +34,7 @@
         "prefix": "strings",
         "body": [
             "strings:",
-            "\t${strings}"
+            "\t$${name} = \"${string}\""
         ],
         "description": "Generate a 'strings' section"
     },
