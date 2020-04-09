@@ -33,7 +33,7 @@ export class YaraReferenceProvider implements vscode.ReferenceProvider {
                 }
                 else {
                     // treat like a normal variable reference and search the whole document
-                    varRegexp = `[\$#@!]${symbol}[^a-zA-Z0-9_]`;
+                    varRegexp = `[\$#@!](${symbol}[^a-zA-Z0-9_]|${symbol}$)`;
                     startLine = 0;
                     endLine = lines.length;
                 }
