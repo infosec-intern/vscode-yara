@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.3.9] 2020-04-09
+* Merged snippet improvements from @ITAYC0HEN
+* Fixed reference provider regexp
+* Updated dependencies
+
 ## [1.3.8] 2019-12-30
 * Merged "fix import snippet" from @wesinator
 * Updated dependencies
@@ -65,3 +70,4 @@
 [1.3.6]: https://github.com/infosec-intern/textmate-yara/commit/3c8b2a4ac394542142e6c08b5bdc453de2e40cd9
 [1.3.7]: https://github.com/infosec-intern/textmate-yara/commit/75855ac8d26605a2043e169f7c53e29f203f6f99
 [1.3.8]: https://github.com/infosec-intern/textmate-yara/commit/27cb613b3450317afe03617c8cae96610e04ac6e
+[1.3.9]: https://github.com/infosec-intern/textmate-yara/commit/893073684743990777306da581688f9158e41179
