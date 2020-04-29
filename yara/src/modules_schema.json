@@ -165,6 +165,10 @@
         "sections": {
             "characteristics": "property",
             "name": "property",
+            "number_of_line_numbers": "property",
+            "number_of_relocations": "property",
+            "pointer_to_line_numbers": "property",
+            "pointer_to_relocations":"property",
             "raw_data_offset": "property",
             "raw_data_size": "property",
             "virtual_address": "property",
