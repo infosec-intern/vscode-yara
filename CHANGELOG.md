@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.10] 2020-04-29
+* Updated syntax to YARA version 4.0.0
+* Updated module schema to YARA version 4.0.0
+
 ## [1.3.9] 2020-04-09
 * Merged snippet improvements from @ITAYC0HEN
 * Fixed reference provider regexp
@@ -71,3 +75,4 @@
 [1.3.7]: https://github.com/infosec-intern/textmate-yara/commit/75855ac8d26605a2043e169f7c53e29f203f6f99
 [1.3.8]: https://github.com/infosec-intern/textmate-yara/commit/27cb613b3450317afe03617c8cae96610e04ac6e
 [1.3.9]: https://github.com/infosec-intern/textmate-yara/commit/893073684743990777306da581688f9158e41179
+[1.3.10]: https://github.com/infosec-intern/textmate-yara/commit/af9dbb055f0213064740a1184f95226d23a089b6
