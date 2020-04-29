@@ -42,3 +42,18 @@ rule RuleReferenceExample
     condition:
         SyntaxExample and $hex_string
 }
+
+rule Yara4Example
+{
+    meta:
+        description = "Example rule to test features added in version 4.0"
+    strings:
+        $b64name = "string" base64
+        $b64wname = "string" base64wide
+    condition:
+        any of them
+        and pe.pdb_path == "C:\fake_pdb_path"
+        and pe.dll_name == "library.dll"
+        and pe.export_timestamp == 000000000
+        and pe.exports_index(40)
+}

@@ -269,7 +269,7 @@
 			<key>name</key>
 			<string>storage.modifier.yara</string>
 			<key>match</key>
-			<string>(\bfullword\b|\bglobal\b|\bnocase\b|\bprivate\b|\bwide\b|\bxor\b)</string>
+			<string>(\bbase64\b|\bbase64wide\b|\bfullword\b|\bglobal\b|\bnocase\b|\bprivate\b|\bwide\b|\bxor\b)</string>
 		</dict>
 		<!-- Data Types - Integer -->
 		<dict>
