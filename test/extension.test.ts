@@ -227,4 +227,34 @@ suite("YARA: Provider", function () {
             }
         });
     });
+
+    /*
+        Trying to capture definitions for private rules
+        Should align symbol `my_private_rule` with definition started by `private rule my_private_rule`
+    */
+   test("issue #32", function (done) {
+        const filepath: string = path.join(workspace, "private_rule_goto.yara");
+        vscode.workspace.openTextDocument(filepath).then(function (doc) {
+            const defProvider: vscode.DefinitionProvider = new YaraDefinitionProvider();
+            // my_private_rule: Line 10, Col 14
+            let pos: vscode.Position = new vscode.Position(9, 14);
+            let tokenSource: vscode.CancellationTokenSource = new vscode.CancellationTokenSource();
+            let result = defProvider.provideDefinition(doc, pos, tokenSource.token);
+            if (result instanceof vscode.Location) {
+                let resultWordRange: vscode.Range = doc.getWordRangeAtPosition(result.range.start);
+                let resultWord: string = doc.getText(resultWordRange);
+                if (resultWord == "my_private_rule" && resultWordRange.start.line == 0 && resultWordRange.start.character == 13) { done(); }
+            }
+            else if (result instanceof Array) {
+                // Should only get one result, so we've failed if an Array is returned
+            }
+            else if (result instanceof Promise) {
+                result.then(function (definition) {
+                    let resultWordRange: vscode.Range = doc.getWordRangeAtPosition(definition.range.start);
+                    let resultWord: string = doc.getText(resultWordRange);
+                    if (resultWord == "my_private_rule" && resultWordRange.start.line == 0 && resultWordRange.start.character == 13) { done(); }
+                });
+            }
+        });
+   });
 });

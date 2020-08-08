@@ -1,7 +1,7 @@
 "use strict";
 
 import * as vscode from "vscode";
-import {GetRuleRange, varFirstChar} from "./helpers";
+import {GetRuleRange, varFirstChar, IsRuleStart} from "./helpers";
 
 
 export class YaraDefinitionProvider implements vscode.DefinitionProvider {
@@ -34,7 +34,7 @@ export class YaraDefinitionProvider implements vscode.DefinitionProvider {
             else {
                 for (let lineNo = 0; lineNo < pos.line; lineNo++) {
                     let character: number = lines[lineNo].indexOf(symbol);
-                    if (character != -1 && lines[lineNo].startsWith("rule")) {
+                    if (character != -1 && IsRuleStart(lines[lineNo])) {
                         // console.log(`Found ${symbol} on line ${lineNo} at character ${character}`);
                         let defPosition: vscode.Position = new vscode.Position(lineNo, character);
                         definition = new vscode.Location(fileUri, defPosition);
