@@ -31,6 +31,7 @@ jobs:
     # npm "run" commands are defined in package.json the "scripts" section
     - run: npm install
     - run: npm run compile
-    - uses: GabrielBB/xvfb-action@v1.2
+    - name: Run tests
+      uses: GabrielBB/xvfb-action@v1.2
       with:
         run: npm test
