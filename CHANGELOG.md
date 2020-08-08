@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.11] 2020-08-08
+* Fixed Issue #32 - private rule definitions not recognized
+* Updated dependencies
+
 ## [1.3.10] 2020-04-29
 * Updated syntax to YARA version 4.0.0
 * Updated module schema to YARA version 4.0.0
@@ -76,3 +80,4 @@
 [1.3.8]: https://github.com/infosec-intern/textmate-yara/commit/27cb613b3450317afe03617c8cae96610e04ac6e
 [1.3.9]: https://github.com/infosec-intern/textmate-yara/commit/893073684743990777306da581688f9158e41179
 [1.3.10]: https://github.com/infosec-intern/textmate-yara/commit/af9dbb055f0213064740a1184f95226d23a089b6
+[1.3.11]: https://github.com/infosec-intern/textmate-yara/commit/9831637d1632e89fb45e3cff2975867740005f13
