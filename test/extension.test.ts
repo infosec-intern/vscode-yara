@@ -13,6 +13,11 @@ import * as vscode from "vscode";
 const workspace = path.join(__dirname, "..", "..", "test/rules/");
 
 suite("YARA: Provider", function () {
+    setup(async function () {
+        const extension: vscode.Extension<unknown> = vscode.extensions.getExtension("infosec-intern.yara");
+        await extension.activate();
+    });
+
     test("rule definition", function (done) {
         const filepath: string = path.join(workspace, "peek_rules.yara");
         const uri: vscode.Uri = vscode.Uri.file(filepath);
@@ -20,11 +25,12 @@ suite("YARA: Provider", function () {
         // line numbers start at 0, so we have to subtract one for the lookup
         const pos: vscode.Position = new vscode.Position(42, 14);
         vscode.commands.executeCommand("vscode.executeDefinitionProvider", uri, pos).then((definitions: vscode.Location[]) => {
-                console.log(`rule definitions: ${JSON.stringify(definitions)}`);
+                // console.log(`rule definitions: ${JSON.stringify(definitions)}`);
                 assert.equal(definitions.length, 1);
                 definitions.forEach((definition: vscode.Location) => {
                     assert.equal(definition.uri.path, filepath);
                     assert.equal(definition.range.start.line, 5);
+                    assert.equal(definition.range.start.character, 5);
                 });
                 done();
             });
@@ -42,6 +48,7 @@ suite("YARA: Provider", function () {
             definitions.forEach((definition: vscode.Location) => {
                 assert.equal(definition.uri.path, filepath);
                 assert.equal(definition.range.start.line, 19);
+                assert.equal(definition.range.start.character, 9);
             });
             done();
         });
