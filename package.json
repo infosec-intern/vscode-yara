@@ -73,6 +73,8 @@
     "scripts": {
         "vscode:prepublish": "tsc -p ./",
         "compile": "tsc -p ./",
+        "lint": "eslint yara/src --ext ts",
+        "linttests": "eslint test --ext ts",
         "test": "mocha ./out/test/runTests"
     },
     "devDependencies": {
@@ -83,10 +85,10 @@
         "eslint": "^7.21.0",
         "glob": "^7.1.6",
         "mocha": "^8.3.1",
-        "typescript": "^2.9.2"
+        "typescript": "^3.7.5",
+        "vscode-test": "^1.5.1"
     },
     "dependencies": {
-        "@types/vscode": "^1.54.0",
-        "vscode-test": "^1.5.1"
+        "@types/vscode": "^1.54.0"
     }
 }

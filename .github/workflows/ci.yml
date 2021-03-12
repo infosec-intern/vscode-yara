@@ -6,19 +6,15 @@ on:
     branches:
     - main
   push:
-    branches:
-    - github-actions
-    - main
+    branches-ignore:
+    - 'releases/**/*'
 
 jobs:
   unittests:
     strategy:
       matrix:
-        # test against the following major versions of Node
-        node: [ '8' ]
-        # node: [ '8', '10', '12' ]
         os: [ ubuntu-latest, macOS-latest, windows-latest ]
-    name: ${{ matrix.os }} and node ${{ matrix.node }}
+    name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v1
@@ -27,11 +23,13 @@ jobs:
         fetch-depth: 1
     - uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: '10.x'
     # npm "run" commands are defined in package.json the "scripts" section
-    - run: npm install
-    - run: npm run compile
-    - name: Run tests
-      uses: GabrielBB/xvfb-action@v1.2
-      with:
-        run: npm test
+    - name: Install dependencies
+      run: npm ci
+    - name: Lint code
+      run: npm run lint
+    - name: Lint tests
+      run: npm run linttests
+    - name: Build, test
+      run: npm test
