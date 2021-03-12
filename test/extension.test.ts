@@ -29,7 +29,7 @@ suite("YARA: Provider", function () {
                 // console.log(`rule definitions: ${JSON.stringify(definitions)}`);
                 assert.equal(definitions.length, 1);
                 definitions.forEach((definition: vscode.Location) => {
-                    assert.equal(definition.uri.path, filepath);
+                    assert.equal(definition.uri.fsPath, filepath);
                     assert.equal(definition.range.start.line, 5);
                     assert.equal(definition.range.start.character, 5);
                 });
@@ -47,7 +47,7 @@ suite("YARA: Provider", function () {
             // console.log(`variable definitions: ${JSON.stringify(definitions)}`);
             assert.equal(definitions.length, 1);
             definitions.forEach((definition: vscode.Location) => {
-                assert.equal(definition.uri.path, filepath);
+                assert.equal(definition.uri.fsPath, filepath);
                 assert.equal(definition.range.start.line, 19);
                 assert.equal(definition.range.start.character, 9);
             });
@@ -65,7 +65,7 @@ suite("YARA: Provider", function () {
             // console.log(`symbol references: ${JSON.stringify(references)}`);
             assert.equal(references.length, 3);
             references.forEach((reference: vscode.Location) => {
-                assert.equal(reference.uri.path, filepath);
+                assert.equal(reference.uri.fsPath, filepath);
                 assert.ok(reference.range.isSingleLine);
                 assert.ok(acceptableLines.has(reference.range.start.line));
                 assert.equal(reference.range.start.character, 9);
@@ -84,7 +84,7 @@ suite("YARA: Provider", function () {
             // console.log(`wildcard references: ${JSON.stringify(references)}`);
             assert.equal(references.length, 3);
             references.forEach((reference: vscode.Location) => {
-                assert.equal(reference.uri.path, filepath);
+                assert.equal(reference.uri.fsPath, filepath);
                 assert.ok(reference.range.isSingleLine);
                 assert.ok(acceptableLines.has(reference.range.start.line));
                 assert.equal(reference.range.start.character, 9);
@@ -132,7 +132,7 @@ suite("YARA: Provider", function () {
             // console.log(`issue 17: ${JSON.stringify(references)}`);
             assert.equal(references.length, 4);
             references.forEach((reference: vscode.Location) => {
-                assert.equal(reference.uri.path, filepath);
+                assert.equal(reference.uri.fsPath, filepath);
                 assert.ok(reference.range.isSingleLine);
                 assert.ok(acceptableLines.has(reference.range.start.line));
                 if (reference.range.start.line == 42) {
@@ -160,7 +160,7 @@ suite("YARA: Provider", function () {
             // console.log(`issue 32: ${JSON.stringify(references)}`);
             assert.equal(references.length, 1);
             references.forEach((reference: vscode.Location) => {
-                assert.equal(reference.uri.path, filepath);
+                assert.equal(reference.uri.fsPath, filepath);
                 assert.ok(reference.range.isSingleLine);
                 assert.equal(reference.range.start.line, 0);
                 assert.equal(reference.range.start.character, 13);
