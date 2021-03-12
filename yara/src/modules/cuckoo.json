@@ -1,0 +1,17 @@
+{
+    "network": {
+        "dns_lookup": "method",
+        "http_get": "method",
+        "http_post": "method",
+        "http_request": "method"
+    },
+    "registry": {
+        "key_access": "method"
+    },
+    "filesystem": {
+        "file_access": "method"
+    },
+    "sync": {
+        "mutex": "method"
+    }
+}

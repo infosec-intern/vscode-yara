@@ -1,6 +1,7 @@
 "use strict";
 
 import * as fs from 'fs';
+import * as glob from 'glob';
 import * as path from "path";
 import * as vscode from "vscode";
 
@@ -11,8 +12,8 @@ type ModuleAttribute = string|Map<string,string>;
 type ModuleEntry = Map<string,ModuleAttribute>;
 // e.g. pe, elf, magic, etc.
 type Module = Map<string,ModuleEntry>;
-const schema_path: string = path.join(__dirname, "..", "..", "..", "yara/src/modules_schema.json");
-const schema: Record<string, Module> = JSON.parse(fs.readFileSync(schema_path, 'utf8'));
+// path to the directory containing module data
+const schema_path: string = path.join(__dirname, "..", "..", "..", "yara", "src", "modules");
 const flatModules: vscode.CompletionList = flattenModules();
 
 // provide completion for YARA modules
@@ -20,13 +21,13 @@ const flatModules: vscode.CompletionList = flattenModules();
 export const modules = {
     possibleModules: function (doc: vscode.TextDocument): Array<string> {
         const importRegexp = RegExp("^import \"(pe|elf|cuckoo|magic|hash|math|dotnet|time)\"");
-        const results: Array<string> = [];
+        const imported_modules: Array<string> = [];
         doc.getText().split("\n").forEach(line => {
             if (importRegexp.test(line)) {
-                results.push(line.split("\"")[1]);
+                imported_modules.push(line.split("\"")[1]);
             }
         });
-        return results;
+        return imported_modules;
     },
     // get: function (doc: vscode.TextDocument, pos: vscode.Position, require_imports: boolean|undefined): null | (string | vscode.CompletionItemKind)[][] {
     get: function (doc: vscode.TextDocument, pos: vscode.Position, require_imports: boolean|undefined): null | vscode.CompletionList {
@@ -46,7 +47,8 @@ export const modules = {
             return flatModules;
             // return parseSchema(symbols, schema, 0);
         }
-    }
+    },
+    all: [],
 }
 
 // function parseSchema(symbols: Array<string>, schema: any, depth: number): null | (string | vscode.CompletionItemKind)[][] {
@@ -75,6 +77,14 @@ export const modules = {
 */
 function flattenModules(): vscode.CompletionList {
     const entries: vscode.CompletionList = new vscode.CompletionList();
-    console.log(schema);
+    // console.log(schema);
+    glob("*.json", {cwd: schema_path}, (err: Error|null, matches: Array<string>) => {
+        if (err) {
+            console.log(`glob error: ${err}`);
+        }
+        matches.forEach((match: string) => {
+            console.log(`${match} matched!`);
+        });
+    });
     return entries;
 }
