@@ -1,5 +1,5 @@
 # https://code.visualstudio.com/api/working-with-extensions/continuous-integration
-name: textmate-yara
+name: build
 
 on:
   pull_request:
