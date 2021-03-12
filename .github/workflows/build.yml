@@ -1,0 +1,35 @@
+# https://code.visualstudio.com/api/working-with-extensions/continuous-integration
+name: build
+
+on:
+  pull_request:
+    branches:
+    - main
+  push:
+    branches-ignore:
+    - 'releases/**/*'
+
+jobs:
+  unittests:
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macOS-latest, windows-latest ]
+      fail-fast: false
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        # only use the latest files
+        fetch-depth: 1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - run: npm ci
+    - run: npm run lint
+    - run: npm run linttests
+    - run: npm run compile
+    - run: xvfb-run -a npm test
+      if: runner.os == 'Linux'
+    - run: npm test
+      if: runner.os != 'Linux'

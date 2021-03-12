@@ -9,7 +9,7 @@ export const varFirstChar: Set<string> = new Set(["$", "#", "@", "!"]);
 /*
     Get the start and end boundaries for the current YARA rule based on a symbol's position
 */
-export function GetRuleRange(lines: string[], symbol: vscode.Position) {
+export function GetRuleRange(lines: string[], symbol: vscode.Position): vscode.Range {
     let begin: vscode.Position | null = null;
     let end: vscode.Position | null = null;
     // find the nearest reference to "rule" by traversing the lines in reverse order
@@ -33,13 +33,13 @@ export function GetRuleRange(lines: string[], symbol: vscode.Position) {
 /*
     Determine if the given line is the start of a YARA rule or not
 */
-export function IsRuleStart(line: string) {
+export function IsRuleStart(line: string): boolean {
     return new RegExp("^(private )?rule ").test(line);
 }
 
 /*
     Determine if the given line is the end of a YARA rule or not
 */
-export function IsRuleEnd(line: string) {
-    return new RegExp("^\}").test(line);
+export function IsRuleEnd(line: string): boolean {
+    return new RegExp("^}").test(line);
 }
