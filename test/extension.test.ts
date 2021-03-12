@@ -14,7 +14,8 @@ const workspace = path.join(__dirname, "..", "..", "test/rules/");
 
 suite("YARA: Provider", function () {
     setup(async function () {
-        const extension: vscode.Extension<unknown> = vscode.extensions.getExtension("infosec-intern.yara");
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const extension: vscode.Extension<any> = vscode.extensions.getExtension("infosec-intern.yara");
         await extension.activate();
     });
 
