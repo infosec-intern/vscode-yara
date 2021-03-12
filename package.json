@@ -75,7 +75,7 @@
         "compile": "tsc -p ./",
         "lint": "eslint yara/src --ext ts",
         "linttests": "eslint test --ext ts",
-        "test": "mocha ./out/test/runTests"
+        "test": "node ./out/test/runTests.js"
     },
     "devDependencies": {
         "@types/mocha": "^2.2.32",
