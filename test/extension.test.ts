@@ -1,10 +1,10 @@
-"use strict";
-import * as assert from "assert";
-import * as path from "path";
-import * as vscode from "vscode";
+'use strict';
+import * as assert from 'assert';
+import * as path from 'path';
+import * as vscode from 'vscode';
 
-const extensionId = "infosec-intern.yara";
-const workspace = path.join(__dirname, "..", "..", "test/rules/");
+const extensionId = 'infosec-intern.yara';
+const workspace = path.join(__dirname, '..', '..', 'test', 'rules');
 
 suite("YARA: Provider", function () {
     setup(async function () {
@@ -153,59 +153,65 @@ suite("Code Completion", function () {
     test("it provides the first level of labels with module name", async function () {
         const filepath: string = path.join(workspace, "code_completion.yara");
         const uri: vscode.Uri = vscode.Uri.file(filepath);
-        const pos: vscode.Position = new vscode.Position(9, 16);    // cuckoo.
+        const pos: vscode.Position = new vscode.Position(11, 14);    // time.
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, '.');
-        console.log(`code completion #1: ${JSON.stringify(completions)}`);
         assert.equal(completions.isIncomplete, false);
-        assert.equal(completions.items.length, 4);
-        assert.deepEqual(completions.items[0], new vscode.CompletionItem("network", vscode.CompletionItemKind.Class));
-        assert.deepEqual(completions.items[1], new vscode.CompletionItem("registry", vscode.CompletionItemKind.Class));
-        assert.deepEqual(completions.items[2], new vscode.CompletionItem("filesystem", vscode.CompletionItemKind.Class));
-        assert.deepEqual(completions.items[3], new vscode.CompletionItem("sync", vscode.CompletionItemKind.Class));
+        const items: Array<vscode.CompletionItem> = completions.items;
+        assert.equal(items.length, 1);
+        assert.ok(items[0].label === "time.now()" && items[0].kind === vscode.CompletionItemKind.Method);
     });
 
     test("it provides the second level of labels with module + first level", async function () {
         const filepath: string = path.join(workspace, "code_completion.yara");
         const uri: vscode.Uri = vscode.Uri.file(filepath);
-        const pos: vscode.Position = new vscode.Position(10, 24);   // cuckoo.network.
+        const pos: vscode.Position = new vscode.Position(12, 24);   // cuckoo.network.
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, '.');
-        console.log(`code completion #2: ${JSON.stringify(completions)}`);
         assert.equal(completions.isIncomplete, false);
-        assert.equal(completions.items.length, 8);
-        assert.deepEqual(completions.items[0], new vscode.CompletionItem("dns_lookup", vscode.CompletionItemKind.Method));
-        assert.deepEqual(completions.items[1], new vscode.CompletionItem("host", vscode.CompletionItemKind.Method));
-        assert.deepEqual(completions.items[2], new vscode.CompletionItem("http_get", vscode.CompletionItemKind.Method));
-        assert.deepEqual(completions.items[3], new vscode.CompletionItem("http_post", vscode.CompletionItemKind.Method));
-        assert.deepEqual(completions.items[4], new vscode.CompletionItem("http_request", vscode.CompletionItemKind.Method));
-        assert.deepEqual(completions.items[5], new vscode.CompletionItem("http_user_agent", vscode.CompletionItemKind.Method));
-        assert.deepEqual(completions.items[6], new vscode.CompletionItem("tcp", vscode.CompletionItemKind.Method));
-        assert.deepEqual(completions.items[7], new vscode.CompletionItem("udp", vscode.CompletionItemKind.Method));
+        const items: Array<vscode.CompletionItem> = completions.items;
+        assert.equal(items.length, 8);
+        assert.ok(items[0].label === "cuckoo.network.dns_lookup()" && items[0].kind === vscode.CompletionItemKind.Method);
+        assert.ok(items[1].label === "cuckoo.network.host()" && items[1].kind === vscode.CompletionItemKind.Method);
+        assert.ok(items[2].label === "cuckoo.network.http_get()" && items[2].kind === vscode.CompletionItemKind.Method);
+        assert.ok(items[3].label === "cuckoo.network.http_post()" && items[3].kind === vscode.CompletionItemKind.Method);
+        assert.ok(items[4].label === "cuckoo.network.http_request()" && items[4].kind === vscode.CompletionItemKind.Method);
+        assert.ok(items[5].label === "cuckoo.network.http_user_agent()" && items[5].kind === vscode.CompletionItemKind.Method);
+        assert.ok(items[6].label === "cuckoo.network.tcp()" && items[6].kind === vscode.CompletionItemKind.Method);
+        assert.ok(items[7].label === "cuckoo.network.udp()" && items[7].kind === vscode.CompletionItemKind.Method);
     });
 
     test("it does not provide completion items for non-existent modules", async function () {
         const filepath: string = path.join(workspace, "code_completion.yara");
         const uri: vscode.Uri = vscode.Uri.file(filepath);
-        const pos: vscode.Position = new vscode.Position(11, 16);   // foobar.
+        const pos: vscode.Position = new vscode.Position(13, 16);   // foobar.
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, '.');
         assert.equal(completions.isIncomplete, false);
-        assert.equal(completions.items.length, 0);
+        const providerItems: Array<vscode.CompletionItem> = completions.items.filter((item: vscode.CompletionItem) => {
+            // the extension never provides 'Text' completion items - these are only provided by the IDE
+            // ... so filter these out first
+            return item.kind !== vscode.CompletionItemKind.Text;
+        });
+        assert.equal(providerItems.length, 0);
     });
 
-    test.skip("it provides an Enum kind when the JSON specifies an enum", async function () {
+    test("it provides an Enum kind when the JSON specifies an enum", async function () {
         const filepath: string = path.join(workspace, "code_completion.yara");
         const uri: vscode.Uri = vscode.Uri.file(filepath);
-        const pos: vscode.Position = new vscode.Position(12, 25);   // pe.AGGRESIVE_WS_
+        const pos: vscode.Position = new vscode.Position(14, 25);   // pe.AGGRESIVE_WS_
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, '.');
         assert.equal(completions.isIncomplete, false);
-        assert.equal(completions.items.length, 1);
+        const items: Array<vscode.CompletionItem> = completions.items;
+        assert.equal(items.length, 1);
+        assert.ok(items[0].label === "pe.AGGRESIVE_WS_TRIM" && items[0].kind === vscode.CompletionItemKind.Enum);
     });
 
-    test.skip("it provides a Property kind when the JSON specifies a property", async function () {
+    test("it provides a Property kind when the JSON specifies a property", async function () {
         const filepath: string = path.join(workspace, "code_completion.yara");
         const uri: vscode.Uri = vscode.Uri.file(filepath);
-        const pos: vscode.Position = new vscode.Position(13, 21);   // pe.character
+        const pos: vscode.Position = new vscode.Position(15, 21);   // pe.character
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, '.');
         assert.equal(completions.isIncomplete, false);
-        assert.equal(completions.items.length, 1);
+        const items: Array<vscode.CompletionItem> = completions.items;
+        assert.equal(items.length, 1);
+        assert.ok(items[0].label === "pe.characteristics" && items[0].kind === vscode.CompletionItemKind.Property);
     });
 });

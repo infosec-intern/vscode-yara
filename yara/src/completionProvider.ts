@@ -69,7 +69,7 @@ function makeCompletionItem(schemaLabel: string, schemaKind: string): vscode.Com
     Convert a directory of module JSON schemas to Module objects
 */
 function parseSchema(schemaPath: string): ModuleSchema {
-    const matches: Array<string> = glob.sync("*.json", {cwd: schemaPath});
+    const matches: Array<string> = glob.sync('*.json', {cwd: schemaPath});
     const schema: ModuleSchema = new Map<string,Module>();
     matches.forEach((match: string) => {
         const moduleName: string = path.parse(match).name;
@@ -123,14 +123,16 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
                 // first check if the first symbol in the term has been imported, if needed
                 if (canCompleteTerm(this.schema, terms[0], doc)) {
                     const desiredModule: Module = this.schema.get(terms[0]);
-                    items.items = desiredModule.filter((entry: vscode.CompletionItem) => {
-                        return entry.label.startsWith(fullTerm);
-                    }).map<vscode.CompletionItem>((entry: vscode.CompletionItem) => {
-                        // remove any leading characters that overlap with the term already in the document
-                        entry.insertText = entry.label.replace(fullTerm, '');
-                        return entry;
-                    });
-                    resolve(items);
+                    if (desiredModule !== undefined) {
+                        items.items = desiredModule.filter((entry: vscode.CompletionItem) => {
+                            return entry.label.startsWith(fullTerm);
+                        }).map<vscode.CompletionItem>((entry: vscode.CompletionItem) => {
+                            // remove any leading characters that overlap with the term already in the document
+                            entry.insertText = entry.label.replace(fullTerm, '');
+                            return entry;
+                        });
+                        resolve(items);
+                    }
                 }
                 reject();
             } catch (error) {

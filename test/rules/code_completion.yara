@@ -1,4 +1,6 @@
 import "cuckoo"
+import "pe"
+import "time"
 
 rule ModuleCompletionExample
 {
@@ -7,7 +9,7 @@ rule ModuleCompletionExample
         author = "Test"
         reference = "https://infosec-intern.github.io"
     condition:
-        cuckoo.
+        time.
         cuckoo.network.
         foobar.
         pe.AGGRESIVE_WS_
