@@ -15,9 +15,7 @@ type ModuleSchema = Map<string,Module>;
 function canCompleteTerm(schema: ModuleSchema, requestedModule: string, doc: vscode.TextDocument): boolean {
     if (vscode.workspace.getConfiguration("yara").get("require_imports")) {
         // should match every line starting with 'import "<module>"'
-        // TODO: Fix this crap
-        // const moduleNames: Array<string> = schema.forEach((m: Module, k: string) => { moduleNames.push(k); });
-        const moduleNames: Array<string> = ["cuckoo", "dotnet", "elf", "hash", "magic", "math", "pe", "time"];
+        const moduleNames: Array<string> = Array.from(schema.keys());
         const importRegexp = RegExp(`^import "(${moduleNames.join('|')})"`);
         const imported_modules: Array<string> = doc.getText().split("\n").filter((line: string) => {
             return importRegexp.test(line);
