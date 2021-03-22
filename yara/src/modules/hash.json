@@ -1,5 +1,6 @@
 {
     "checksum32": "method",
+    "crc32": "method",
     "md5": "method",
     "sha1": "method",
     "sha256": "method"

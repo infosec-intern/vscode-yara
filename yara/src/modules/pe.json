@@ -7,10 +7,10 @@
     "calculate_checksum": "method",
     "characteristics": "property",
     "checksum": "property",
-    "data_directories": {
-        "size": "property",
-        "virtual_address": "property"
-    },
+    "data_directories": [
+        {"size": "property"},
+        {"virtual_address": "property"}
+    ],
     "DEBUG_STRIPPED": "enum",
     "DLL": "enum",
     "dll_characteristics": "property",
@@ -20,12 +20,12 @@
     "EXECUTABLE_IMAGE": "enum",
     "export_timestamp": "property",
     "exports": "method",
-    "export_details": {
-        "offset": "property",
-        "name": "property",
-        "forward_name": "property",
-        "ordinal": "property"
-    },
+    "export_details": [
+        {"offset": "property"},
+        {"name": "property"},
+        {"forward_name": "property"},
+        {"ordinal": "property"}
+    ],
     "exports_index": "method",
     "file_alignment": "property",
     "FORCE_INTEGRITY": "enum",
@@ -115,16 +115,16 @@
     "pointer_to_symbol_table": "property",
     "RELOCS_STRIPPED": "enum",
     "REMOVABLE_RUN_FROM_SWAP": "enum",
-    "resources": {
-        "id": "property",
-        "language": "property",
-        "language_string": "property",
-        "length": "property",
-        "name_string": "property",
-        "offset": "property",
-        "type": "property",
-        "type_string": "property"
-    },
+    "resources": [
+        {"id": "property"},
+        {"language": "property"},
+        {"language_string": "property"},
+        {"length": "property"},
+        {"name_string": "property"},
+        {"offset": "property"},
+        {"type": "property"},
+        {"type_string": "property"}
+    ],
     "resource_timestamp": "property",
     "RESOURCE_TYPE_ACCELERATOR": "enum",
     "RESOURCE_TYPE_ANICURSOR": "enum",
@@ -161,18 +161,18 @@
         "version": "method"
     },
     "rva_to_offset": "method",
-    "sections": {
-        "characteristics": "property",
-        "name": "property",
-        "number_of_line_numbers": "property",
-        "number_of_relocations": "property",
-        "pointer_to_line_numbers": "property",
-        "pointer_to_relocations":"property",
-        "raw_data_offset": "property",
-        "raw_data_size": "property",
-        "virtual_address": "property",
-        "virtual_size": "property"
-    },
+    "sections": [
+        {"characteristics": "property"},
+        {"name": "property"},
+        {"number_of_line_numbers": "property"},
+        {"number_of_relocations": "property"},
+        {"pointer_to_line_numbers": "property"},
+        {"pointer_to_relocations":"property"},
+        {"raw_data_offset": "property"},
+        {"raw_data_size": "property"},
+        {"virtual_address": "property"},
+        {"virtual_size": "property"}
+    ],
     "section_alignment": "property",
     "SECTION_CNT_CODE": "enum",
     "SECTION_CNT_INITIALIZED_DATA": "enum",
@@ -188,17 +188,17 @@
     "SECTION_MEM_WRITE": "enum",
     "SECTION_MEM_16BIT": "enum",
     "section_index": "method",
-    "signatures": {
-        "algorithm": "property",
-        "issuer": "property",
-        "not_after": "property",
-        "not_before": "property",
-        "serial": "property",
-        "subject": "property",
-        "thumbprint": "property",
-        "valid_on": "method",
-        "version": "method"
-    },
+    "signatures": [
+        {"algorithm": "property"},
+        {"issuer": "property"},
+        {"not_after": "property"},
+        {"not_before": "property"},
+        {"serial": "property"},
+        {"subject": "property"},
+        {"thumbprint": "property"},
+        {"valid_on": "method"},
+        {"version": "method"}
+    ],
     "size_of_code": "property",
     "size_of_headers": "property",
     "size_of_image": "property",

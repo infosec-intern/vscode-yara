@@ -32,10 +32,10 @@
     "DT_FLAGS": "enum",
     "DT_ENCODING": "enum",
     "dynamic_section_entries": "property",
-    "dynamic": {
-        "type": "property",
-        "value": "property"
-    },
+    "dynamic": [
+        {"type": "property"},
+        {"value": "property"}
+    ],
     "ET_NONE": "enum",
     "ET_REL": "enum",
     "ET_EXEC": "enum",
@@ -71,24 +71,24 @@
     "PT_NULL": "enum",
     "PT_PHDR": "enum",
     "PT_SHLIB": "enum",
-    "sections": {
-        "address": "property",
-        "flags": "property",
-        "name": "property",
-        "size": "property",
-        "offset": "property",
-        "type": "property"
-    },
-    "segments": {
-        "alignment": "property",
-        "file_size": "proeprty",
-        "flags": "property",
-        "memory_size": "property",
-        "offset": "property",
-        "pysical_address": "property",
-        "type": "property",
-        "virtual_address": "property"
-    },
+    "sections": [
+        {"address": "property"},
+        {"flags": "property"},
+        {"name": "property"},
+        {"size": "property"},
+        {"offset": "property"},
+        {"type": "property"}
+    ],
+    "segments": [
+        {"alignment": "property"},
+        {"file_size": "property"},
+        {"flags": "property"},
+        {"memory_size": "property"},
+        {"offset": "property"},
+        {"pysical_address": "property"},
+        {"type": "property"},
+        {"virtual_address": "property"}
+    ],
     "SHF_ALLOC": "enum",
     "SHF_WRITE": "enum",
     "SHF_EXECINSTR": "enum",
@@ -114,14 +114,14 @@
     "STT_OBJECT": "enum",
     "STT_SECTION": "enum",
     "STT_TLS": "enum",
-    "symtab": {
-        "bind": "property",
-        "name": "property",
-        "shndx": "property",
-        "size": "property",
-        "type": "property",
-        "value": "property"
-    },
+    "symtab": [
+        {"bind": "property"},
+        {"name": "property"},
+        {"shndx": "property"},
+        {"size": "property"},
+        {"type": "property"},
+        {"value": "property"}
+    ],
     "symtab_entries": "property",
     "type": "property"
 }
