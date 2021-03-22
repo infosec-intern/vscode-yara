@@ -84,8 +84,6 @@ function parseSchema(schemaPath: string): ModuleSchema {
             if (itemKind instanceof Array) {
                 // module arrays (e.g. pe.sections[], dotnet.guids[])
                 // possibly includes sub-fields on each array entry (e.g. pe.sections[].name)
-                item = makeCompletionItem(`${moduleName}.${attribute}[]`, 'array');
-                yaraModule.push(item);
                 itemKind.forEach((property: Map<string,string>) => {
                     Object.keys(property).forEach((subField: string) => {
                         item = makeCompletionItem(`${moduleName}.${attribute}[].${subField}`, property[subField]);
@@ -100,17 +98,14 @@ function parseSchema(schemaPath: string): ModuleSchema {
             }
             else if (typeof itemKind === 'object') {
                 // module fields with their own sub-fields (e.g. cuckoo.network.http_request)
-                item = makeCompletionItem(`${moduleName}.${attribute}`, 'struct');
-                yaraModule.push(item);
                 Object.keys(itemKind).forEach((subField: string) => {
                     item = makeCompletionItem(`${moduleName}.${attribute}.${subField}`, itemKind[subField]);
                     yaraModule.push(item);
                 });
             }
         });
-        schema[moduleName] = yaraModule;
+        schema.set(moduleName, yaraModule);
     });
-    console.log(schema);
     return schema;
 }
 
@@ -129,28 +124,28 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
                 const terms: Array<string> = fullTerm.split(".");
                 // first check if the first symbol in the term has been imported, if needed
                 if (canCompleteTerm(this.schema, terms[0], doc)) {
-                    console.log(this.schema);
                     const desiredModule: Module = this.schema.get(terms[0]);
-                    console.log(JSON.stringify(desiredModule));
-                    // const fields: (string | vscode.CompletionItemKind)[][] = modules.get(doc, pos, config.get("require_imports", false));
-                    // let items: vscode.CompletionItem[] = Array<vscode.CompletionItem>();
-                    // items = fields.map<vscode.CompletionItem>((field: Array<string|vscode.CompletionItemKind>) => {
-                    //     return new vscode.CompletionItem(field[0] as string, field[1] as vscode.CompletionItemKind);
-                    // });
+                    items.items = desiredModule.filter((entry: vscode.CompletionItem) => {
+                        return entry.label.startsWith(fullTerm);
+                    }).map<vscode.CompletionItem>((entry: vscode.CompletionItem) => {
+                        // remove any leading characters that overlap with the term already in the document
+                        entry.insertText = entry.label.replace(fullTerm, '');
+                        return entry;
+                    });
+                    resolve(items);
                 }
-                resolve(items);
+                reject();
             } catch (error) {
                 console.log(`YaraCompletionItemProvider: ${error}`);
                 reject();
             }
         });
     }
-/*
+
     public resolveCompletionItem(item: vscode.CompletionItem, token: vscode.CancellationToken): vscode.ProviderResult<vscode.CompletionItem> {
-        return new Promise((resolve, reject) => {
-            console.log(`resolving ${JSON.stringify(item)}`);
+        return new Promise((resolve) => {
+            token.onCancellationRequested(resolve);
             resolve(item);
         });
     }
-*/
 }
