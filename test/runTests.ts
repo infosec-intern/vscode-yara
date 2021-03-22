@@ -10,12 +10,13 @@ async function main() {
     // The path to the extension test runner script
     // Passed to --extensionTestsPath
     const extensionTestsPath = path.resolve(__dirname, "./index");
+    const testWorkspace = path.resolve(__dirname, 'rules');
 
     // Download VS Code, unzip it and run the integration test
     await runTests({
         extensionDevelopmentPath,
         extensionTestsPath,
-        launchArgs: ["--disable-extensions", "--disable-gpu"]
+        launchArgs: [testWorkspace, "--disable-extensions", "--disable-gpu"]
     });
   } catch (err) {
     console.error("Failed to run tests");

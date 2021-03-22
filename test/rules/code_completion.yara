@@ -8,4 +8,8 @@ rule ModuleCompletionExample
         reference = "https://infosec-intern.github.io"
     condition:
         cuckoo.
+        cuckoo.network.
+        foobar.
+        pe.AGGRESIVE_WS_
+        pe.character
 }
