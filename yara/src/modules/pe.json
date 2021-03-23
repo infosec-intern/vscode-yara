@@ -235,5 +235,5 @@
     "UP_SYSTEM_ONLY": "enum",
     "WDM_DRIVER": "enum",
     "win32_version_value": "property",
-    "version_info": "property"
+    "version_info": "dictionary"
 }
