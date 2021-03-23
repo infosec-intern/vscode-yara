@@ -201,7 +201,10 @@ suite("Code Completion", function () {
         assert.equal(completions.isIncomplete, false);
         const items: Array<vscode.CompletionItem> = completions.items;
         assert.equal(items.length, 1);
-        assert.ok(items[0].label === "pe.AGGRESIVE_WS_TRIM" && items[0].kind === vscode.CompletionItemKind.Enum);
+        assert.equal(items[0].label, "pe.AGGRESIVE_WS_TRIM")
+        assert.equal(items[0].kind, vscode.CompletionItemKind.Enum);
+        assert.equal(items[0].detail, undefined);
+        assert.equal(items[0].insertText, "AGGRESIVE_WS_TRIM");
     });
 
     test("it provides a Property kind when the JSON specifies a property", async function () {
@@ -214,6 +217,7 @@ suite("Code Completion", function () {
         assert.equal(items.length, 1);
         assert.equal(items[0].label, "pe.characteristics");
         assert.equal(items[0].kind, vscode.CompletionItemKind.Property);
+        assert.equal(items[0].detail, undefined);
         assert.equal(items[0].insertText, "characteristics");
     });
 
@@ -241,8 +245,8 @@ suite("Code Completion", function () {
         assert.equal(items.length, 1);
         assert.equal(items[0].label, "dotnet.guids");
         assert.equal(items[0].kind, vscode.CompletionItemKind.Unit);
-        assert.equal(items[0].detail, "dotnet.guids[i]");
-        assert.deepEqual(items[0].insertText, new vscode.SnippetString('guids[${1:i}]'));
+        assert.equal(items[0].detail, "dotnet.guids[index]");
+        assert.deepEqual(items[0].insertText, new vscode.SnippetString('guids[${1:index}]'));
     });
 
     test("it provides sub fields when the JSON specifies a list of objects", async function () {
@@ -253,9 +257,13 @@ suite("Code Completion", function () {
         assert.equal(completions.isIncomplete, false);
         const items: Array<vscode.CompletionItem> = completions.items;
         assert.equal(items.length, 2);
-        assert.equal(items[0].label, "pe.data_directories[i].size");
+        assert.equal(items[0].label, "pe.data_directories[].size");
         assert.equal(items[0].kind, vscode.CompletionItemKind.Property);
-        assert.equal(items[1].label, "pe.data_directories[i].virtual_address");
+        assert.equal(items[0].detail, "pe.data_directories[index].size");
+        assert.deepEqual(items[0].insertText, new vscode.SnippetString('data_directories[${1:index}].size'));
+        assert.equal(items[1].label, "pe.data_directories[].virtual_address");
         assert.equal(items[1].kind, vscode.CompletionItemKind.Property);
+        assert.equal(items[1].detail, "pe.data_directories[index].virtual_address");
+        assert.deepEqual(items[1].insertText, new vscode.SnippetString('data_directories[${1:index}].virtual_address'));
     });
 });

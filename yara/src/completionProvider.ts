@@ -75,7 +75,7 @@ function parseSchema(schemaPath: string): ModuleSchema {
                     // possibly includes sub-fields on each array entry (e.g. pe.sections[].name)
                     itemKind.forEach((property: Map<string,string>) => {
                         Object.keys(property).forEach((subField: string) => {
-                            item = new vscode.CompletionItem(`${moduleName}.${attribute}[i].${subField}`, getCompletionItemKind(property[subField]));
+                            item = new vscode.CompletionItem(`${moduleName}.${attribute}[].${subField}`, getCompletionItemKind(property[subField]));
                             yaraModule.push(item);
                         });
                     });
@@ -129,12 +129,17 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
                                 entry.insertText = new vscode.SnippetString(`${insertText}($1)`);
                             }
                             else if (entry.kind === getCompletionItemKind('array')) {
-                                entry.detail = `${entry.label}[i]`;
-                                entry.insertText = new vscode.SnippetString(`${insertText}[$\{1:i}]`);
+                                entry.detail = `${entry.label}[index]`;
+                                entry.insertText = new vscode.SnippetString(`${insertText}[$\{1:index}]`);
                             }
                             else if (entry.kind === getCompletionItemKind('dictionary')) {
                                 entry.detail = `${entry.label}["key"]`
                                 entry.insertText = new vscode.SnippetString(`${insertText}["$\{1:key}"]`);
+                            }
+                            else if (entry.label.includes('[].')) {
+                                // sub-properties of array items
+                                entry.detail = entry.label.replace('[]', '[index]');
+                                entry.insertText = new vscode.SnippetString(insertText.replace('[]', '[${1:index}]'));
                             }
                             else {
                                 entry.insertText = insertText;
