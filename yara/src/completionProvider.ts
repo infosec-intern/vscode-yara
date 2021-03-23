@@ -37,41 +37,19 @@ function getCompletionItemKind(schemaType: string): vscode.CompletionItemKind {
     else if (schemaType === 'property') {
         kind = vscode.CompletionItemKind.Property;  // 9
     }
-    // else if (schemaType === 'field') {
-    //     kind = vscode.CompletionItemKind.Field;    // 4
-    // }
     else if (schemaType === 'array') {
         kind = vscode.CompletionItemKind.Unit;      // 10
     }
     else if (schemaType === 'dictionary') {
         kind = vscode.CompletionItemKind.Struct;    // 21
     }
-    else {
-        // console.log(`got schema I don't recognize: ${JSON.stringify(schemaType)}`);
+    else if (typeof schemaType !== 'object') {
+        // Ignoring arbitrary JSON objects, if we get to this point someone has specified a type
+        // ... that we don't have knowledge of - it's probably a typo
+        console.log(`got schema I don't recognize: ${JSON.stringify(schemaType)}`);
     }
     return kind;
 }
-
-/*
-    Generate a CompletionItem object out of a given label and kind
-    ... and potentially transform it based on its kind
-*/
-// function makeCompletionItem(schemaLabel: string, schemaKind: string): vscode.CompletionItem|undefined {
-//     let item: vscode.CompletionItem|undefined = undefined;
-//     const itemKind: vscode.CompletionItemKind = getCompletionItemKind(schemaKind);
-//     if (itemKind === vscode.CompletionItemKind.Method) {
-//         item = new vscode.CompletionItem(`${schemaLabel}`, itemKind);
-//         item.insertText = new vscode.SnippetString(`${schemaLabel}($1)`);
-//     }
-//     else if (itemKind === vscode.CompletionItemKind.Struct) {
-//         item = new vscode.CompletionItem(`${schemaLabel}`, itemKind);
-//         item.insertText = new vscode.SnippetString(`${schemaLabel}["$\{1:key}"]`);
-//     }
-//     else {
-//         item = new vscode.CompletionItem(schemaLabel, itemKind);
-//     }
-//     return item;
-// }
 
 /*
     Convert a directory of module JSON schemas to Module objects
@@ -128,7 +106,8 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
             try {
                 const items: vscode.CompletionList = new vscode.CompletionList([]);
                 const fullTerm: string = doc.getText(doc.getWordRangeAtPosition(pos, this.wordDefinition));
-                const terms: Array<string> = fullTerm.split(".");
+                const terms: Array<string> = fullTerm.split('.');
+                const prefix = `${terms.slice(0, terms.length-1).join('.')}.`;
                 // first check if the first symbol in the term has been imported, if needed
                 if (canCompleteTerm(this.schema, terms[0], doc)) {
                     const desiredModule: Module = this.schema.get(terms[0]);
@@ -138,16 +117,18 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
                         }).map<vscode.CompletionItem>((entry: vscode.CompletionItem) => {
                             // remove any leading characters that overlap with the term already in the document
                             // ... but keep full module path as a detail item and the text to filter by
-                            entry.detail = entry.label;
                             entry.filterText = entry.label;
-                            console.log(terms);
-                            const insertText = entry.label.replace(fullTerm, '');
+                            const insertText = entry.label.replace(prefix, '');
                             if (entry.kind === vscode.CompletionItemKind.Method) {
-                                entry.label = `${entry.label}()`;
+                                entry.detail = `${entry.label}()`;
                                 entry.insertText = new vscode.SnippetString(`${insertText}($1)`);
                             }
                             else if (entry.kind === vscode.CompletionItemKind.Struct) {
+                                entry.detail = `${entry.label}["key"]`
                                 entry.insertText = new vscode.SnippetString(`${insertText}["$\{1:key}"]`);
+                            }
+                            else {
+                                entry.insertText = insertText;
                             }
                             return entry;
                         });
@@ -165,7 +146,7 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
     public resolveCompletionItem(item: vscode.CompletionItem, token: vscode.CancellationToken): vscode.ProviderResult<vscode.CompletionItem> {
         return new Promise((resolve) => {
             token.onCancellationRequested(resolve);
-            console.log(item);
+            // TODO: Add documentation - VT Filetypes would be a great place to start
             resolve(item);
         });
     }
