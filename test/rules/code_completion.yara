@@ -1,6 +1,7 @@
 import "cuckoo"
 import "pe"
 import "time"
+import "dotnet"
 
 rule ModuleCompletionExample
 {
@@ -14,4 +15,7 @@ rule ModuleCompletionExample
         foobar.
         pe.AGGRESIVE_WS_
         pe.character
+        pe.version_in
+        dotnet.guids
+        pe.data_director
 }
