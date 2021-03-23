@@ -238,10 +238,10 @@ suite("Code Completion", function () {
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, '.');
         assert.equal(completions.isIncomplete, false);
         const items: Array<vscode.CompletionItem> = completions.items;
-        assert.equal(items.length, 2);
+        assert.equal(items.length, 1);
         assert.equal(items[0].label, "dotnet.guids");
         assert.equal(items[0].kind, vscode.CompletionItemKind.Unit);
-        assert.equal(items[0].detail, "dotnet.guids[]");
+        assert.equal(items[0].detail, "dotnet.guids[i]");
         assert.deepEqual(items[0].insertText, new vscode.SnippetString('guids[${1:i}]'));
     });
 
@@ -253,9 +253,9 @@ suite("Code Completion", function () {
         assert.equal(completions.isIncomplete, false);
         const items: Array<vscode.CompletionItem> = completions.items;
         assert.equal(items.length, 2);
-        assert.equal(items[0].label, "pe.data_directories[].size");
+        assert.equal(items[0].label, "pe.data_directories[i].size");
         assert.equal(items[0].kind, vscode.CompletionItemKind.Property);
-        assert.equal(items[1].label, "pe.data_directories[].virtual_address");
+        assert.equal(items[1].label, "pe.data_directories[i].virtual_address");
         assert.equal(items[1].kind, vscode.CompletionItemKind.Property);
     });
 });

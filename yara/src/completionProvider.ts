@@ -52,7 +52,7 @@ function getCompletionItemKind(schemaType: string): vscode.CompletionItemKind {
 }
 
 /*
-    Convert a directory of module JSON schemas to Module objects
+    Convert a directory of module JSON schemas to a map of Modules to flattened lists of CompletionItems
 */
 function parseSchema(schemaPath: string): ModuleSchema {
     const matches: Array<string> = glob.sync('*.json', {cwd: schemaPath});
@@ -67,13 +67,19 @@ function parseSchema(schemaPath: string): ModuleSchema {
             const itemKind: string|unknown = content[attribute];
             if (itemKind instanceof Array) {
                 // module arrays (e.g. pe.sections[], dotnet.guids[])
-                // possibly includes sub-fields on each array entry (e.g. pe.sections[].name)
-                itemKind.forEach((property: Map<string,string>) => {
-                    Object.keys(property).forEach((subField: string) => {
-                        item = new vscode.CompletionItem(`${moduleName}.${attribute}[].${subField}`, getCompletionItemKind(property[subField]));
-                        yaraModule.push(item);
+                if (itemKind.length === 0) {
+                    item = new vscode.CompletionItem(`${moduleName}.${attribute}`, getCompletionItemKind('array'));
+                    yaraModule.push(item);
+                }
+                else {
+                    // possibly includes sub-fields on each array entry (e.g. pe.sections[].name)
+                    itemKind.forEach((property: Map<string,string>) => {
+                        Object.keys(property).forEach((subField: string) => {
+                            item = new vscode.CompletionItem(`${moduleName}.${attribute}[i].${subField}`, getCompletionItemKind(property[subField]));
+                            yaraModule.push(item);
+                        });
                     });
-                });
+                }
             }
             else if (typeof itemKind === 'string') {
                 // simple module fields (e.g. pe.number_of_sections, hash.md5)
@@ -84,7 +90,6 @@ function parseSchema(schemaPath: string): ModuleSchema {
                 // module fields with their own sub-fields (e.g. cuckoo.network.http_request)
                 Object.keys(itemKind).forEach((subField: string) => {
                     item = new vscode.CompletionItem(`${moduleName}.${attribute}.${subField}`, getCompletionItemKind(itemKind[subField]));
-                    // item = makeCompletionItem(`${moduleName}.${attribute}.${subField}`, itemKind[subField]);
                     yaraModule.push(item);
                 });
             }
@@ -119,11 +124,15 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
                             // ... but keep full module path as a detail item and the text to filter by
                             entry.filterText = entry.label;
                             const insertText = entry.label.replace(prefix, '');
-                            if (entry.kind === vscode.CompletionItemKind.Method) {
+                            if (entry.kind === getCompletionItemKind('method')) {
                                 entry.detail = `${entry.label}()`;
                                 entry.insertText = new vscode.SnippetString(`${insertText}($1)`);
                             }
-                            else if (entry.kind === vscode.CompletionItemKind.Struct) {
+                            else if (entry.kind === getCompletionItemKind('array')) {
+                                entry.detail = `${entry.label}[i]`;
+                                entry.insertText = new vscode.SnippetString(`${insertText}[$\{1:i}]`);
+                            }
+                            else if (entry.kind === getCompletionItemKind('dictionary')) {
                                 entry.detail = `${entry.label}["key"]`
                                 entry.insertText = new vscode.SnippetString(`${insertText}["$\{1:key}"]`);
                             }
