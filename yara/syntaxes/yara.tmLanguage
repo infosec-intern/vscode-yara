@@ -104,6 +104,41 @@
 			<key>match</key>
 			<string>\bcontains\b</string>
 		</dict>
+		<!-- icontains -->
+		<dict>
+			<key>name</key>
+			<string>keyword.other.icontains.yara</string>
+			<key>match</key>
+			<string>\bicontains\b</string>
+		</dict>
+		<!-- startswith -->
+		<dict>
+			<key>name</key>
+			<string>keyword.other.startswith.yara</string>
+			<key>match</key>
+			<string>\bstartswith\b</string>
+		</dict>
+		<!-- istartswith -->
+		<dict>
+			<key>name</key>
+			<string>keyword.other.istartswith.yara</string>
+			<key>match</key>
+			<string>\bistartswith\b</string>
+		</dict>
+		<!-- endswith -->
+		<dict>
+			<key>name</key>
+			<string>keyword.other.endswith.yara</string>
+			<key>match</key>
+			<string>\bendswith\b</string>
+		</dict>
+		<!-- iendswith -->
+		<dict>
+			<key>name</key>
+			<string>keyword.other.iendswith.yara</string>
+			<key>match</key>
+			<string>\biendswith\b</string>
+		</dict>
 		<!-- filesize -->
 		<dict>
 			<key>name</key>
