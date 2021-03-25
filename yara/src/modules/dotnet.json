@@ -1,0 +1,36 @@
+{
+    "assembly": {
+        "culture": "property",
+        "name": "property",
+        "version": "property"
+    },
+    "assembly_refs": {
+        "name": "property",
+        "public_key_or_token": "property",
+        "version": "property"
+    },
+    "field_offsets": [],
+    "guids": [],
+    "length": "property",
+    "modulerefs": "property",
+    "module_name": "property",
+    "number_of_field_offsets": "property",
+    "number_of_guids": "property",
+    "number_of_modulerefs": "property",
+    "number_of_resources": "property",
+    "number_of_streams": "property",
+    "number_of_user_strings": "property",
+    "resources": [
+        {"name": "property"},
+        {"offset": "property"},
+        {"size": "property"}
+    ],
+    "streams": [
+        {"name": "property"},
+        {"offset": "property"},
+        {"size": "property"}
+    ],
+    "typelib": "property",
+    "user_strings": [],
+    "version": "property"
+}

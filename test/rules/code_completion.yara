@@ -1,4 +1,7 @@
 import "cuckoo"
+import "pe"
+import "time"
+import "dotnet"
 
 rule ModuleCompletionExample
 {
@@ -7,5 +10,12 @@ rule ModuleCompletionExample
         author = "Test"
         reference = "https://infosec-intern.github.io"
     condition:
-        cuckoo.
+        time.
+        cuckoo.network.
+        foobar.
+        pe.AGGRESIVE_WS_
+        pe.character
+        pe.version_in
+        dotnet.guids
+        pe.data_director
 }

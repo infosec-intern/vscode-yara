@@ -1,0 +1,21 @@
+{
+    "network": {
+        "dns_lookup": "method",
+        "host": "method",
+        "http_get": "method",
+        "http_post": "method",
+        "http_request": "method",
+        "http_user_agent": "method",
+        "tcp": "method",
+        "udp": "method"
+    },
+    "registry": {
+        "key_access": "method"
+    },
+    "filesystem": {
+        "file_access": "method"
+    },
+    "sync": {
+        "mutex": "method"
+    }
+}
