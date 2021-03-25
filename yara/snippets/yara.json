@@ -5,15 +5,15 @@
             "rule ${1:$TM_FILENAME_BASE}",
             "{",
             "\tmeta:",
-            "\t\tdescription = \"${description}\"",
-            "\t\tauthor = \"${author}\"",
+            "\t\tdescription = \"${2:description}\"",
+            "\t\tauthor = \"${3:author}\"",
             "\t\tdate = \"${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}\"",
-            "\t\treference = \"${reference}\"",
-            "\t\thash = \"${hash}\"",
+            "\t\treference = \"${4:reference}\"",
+            "\t\thash = \"${5:hash}\"",
             "\tstrings:",
-            "\t\t$${name} = \"${string}\"",
+            "\t\t$${6:name} = \"${7:string}\"",
             "\tcondition:",
-            "\t\t${condition}",
+            "\t\t${8:condition}",
             "}"
         ],
         "description": "Generate a rule skeleton"
@@ -22,11 +22,11 @@
         "prefix": "meta",
         "body": [
             "meta:",
-            "\tdescription = \"${description}\"",
-            "\tauthor = \"${author}\"",
+            "\tdescription = \"${1:description}\"",
+            "\tauthor = \"${2:author}\"",
             "\tdate = \"${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}\"",
-            "\treference = \"${reference}\"",
-            "\thash = \"${hash}\""
+            "\treference = \"${3:reference}\"",
+            "\thash = \"${4:hash}\""
         ],
         "description": "Generate a 'meta' section"
     },
@@ -34,7 +34,7 @@
         "prefix": "strings",
         "body": [
             "strings:",
-            "\t$${name} = \"${string}\""
+            "\t$${1:name} = \"${2:string}\""
         ],
         "description": "Generate a 'strings' section"
     },
@@ -42,7 +42,7 @@
         "prefix": "condition",
         "body": [
             "condition:",
-            "\t${conditions}"
+            "\t${1:conditions}"
         ],
         "description": "Generate a 'condition' section"
     },
@@ -51,10 +51,23 @@
         "body": "import \"${1|pe,elf,cuckoo,magic,hash,math,dotnet,time|}\"",
         "description": "Import a YARA module"
     },
-    "for": {
-        "prefix": "for",
-        "body": "for ${1:expression} of ${2:string_set} : ( ${3:boolean_expression} )",
+    "for..of": {
+        "prefix": "for..of",
+        "body": [
+            "for ${1:any} of ${2:them} : (",
+             "\t${3:boolean_expression}",
+             ")"
+        ],
         "description": "Apply the same condition to many strings"
+    },
+    "for..in": {
+        "prefix": "for..in",
+        "body": [
+            "for ${1:any i} in ( ${2:them} ) : (",
+            "\t${3:boolean_expression}",
+            ")"
+        ],
+        "description": "Loop over items"
     },
     "any": {
         "prefix": "any",
@@ -65,5 +78,20 @@
         "prefix": "all",
         "body": "all of ${them}",
         "description": "String set keyword: all"
+    },
+    "PE Header": {
+        "prefix": "header_pe",
+        "body": "uint16(0) == 0x5A4D ",
+        "description": "Generate a condition to check for a PE file header"
+    },
+    "ELF Header": {
+        "prefix": "header_elf",
+        "body": "uint32(0) == 0x464C457F ",
+        "description": "Generate a condition to check for an ELF file header"
+    },
+    "Mach-O Header": {
+        "prefix": "header_macho",
+        "body": "uint32(0) == 0xFEEDFACF ",
+        "description": "Generate a condition to check for a Mach-O file header"
     }
 }
