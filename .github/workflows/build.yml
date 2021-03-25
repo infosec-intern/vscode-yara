@@ -8,6 +8,11 @@ on:
   push:
     branches-ignore:
     - 'releases/**/*'
+    paths-ignore:
+    - '.github/workflows/release.yml'
+    - CHANGELOG.md
+    - README.md
+    - 'images/*'
 
 jobs:
   unittests:

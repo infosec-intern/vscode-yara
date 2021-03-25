@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.4.0] 2021-03-24
+* Reworked module code completion to allow for arrays and dictionaries, and provide methods as snippet strings
+* Added new keywords for operators `icontains`, `endswith`, `iendswith`, `startswith`, `istartswith` added in YARA v4.1.0
+* Added additional snippets for basic file header conditions and updated existing snippets with modern syntax
+* Added "vt" module code completion schema from @3c7
+
 ## [1.3.11] 2020-08-08
 * Fixed Issue #32 - private rule definitions not recognized
 * Updated dependencies
@@ -81,3 +87,4 @@
 [1.3.9]: https://github.com/infosec-intern/textmate-yara/commit/893073684743990777306da581688f9158e41179
 [1.3.10]: https://github.com/infosec-intern/textmate-yara/commit/af9dbb055f0213064740a1184f95226d23a089b6
 [1.3.11]: https://github.com/infosec-intern/textmate-yara/commit/9831637d1632e89fb45e3cff2975867740005f13
+[1.4.0]: https://github.com/infosec-intern/textmate-yara/compare/v1.4.0...v1.3.11
