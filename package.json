@@ -12,10 +12,10 @@
     "license": "MIT License - full document in LICENSE.md",
     "repository": {
         "type": "git",
-        "url": "https://github.com/infosec-intern/textmate-yara"
+        "url": "https://github.com/infosec-intern/vscode-yara"
     },
     "bugs": {
-        "url": "https://github.com/infosec-intern/textmate-yara/issues"
+        "url": "https://github.com/infosec-intern/vscode-yara/issues"
     },
     "engines": {
         "vscode": "^1.22.0"
