@@ -73,23 +73,23 @@
 * Fixed normal string regex to perform non-greedy search (Thanks to samtatasurya)
 * Added this CHANGELOG
 
-[1.1.2]: https://github.com/infosec-intern/textmate-yara/commit/7640cadc9db8f2b5087b2fecc7c5fc3f1741c011
-[1.2.0]: https://github.com/infosec-intern/textmate-yara/commit/0ad1cb401758165bf4d5d43f3a549d386f6b1fd6
-[1.2.1]: https://github.com/infosec-intern/textmate-yara/commit/5d29c34f73c210c478fabf1548a7067735b0eedf
-[1.2.2]: https://github.com/infosec-intern/textmate-yara/commit/01c9a4c9b7795494488bacab20cacec9a83e67d3
-[1.2.3]: https://github.com/infosec-intern/textmate-yara/commit/e2ecae2efaf91012b6dd71bc328597beb83ef7fa
-[1.2.4]: https://github.com/infosec-intern/textmate-yara/commit/00e44d92dedd0fc9001a8458d001e274489abe5c
-[1.3.0]: https://github.com/infosec-intern/textmate-yara/commit/94a1dffe16df543a2c46eae0f3c04ffb5e06d659
-[1.3.1]: https://github.com/infosec-intern/textmate-yara/commit/955bbbaa078bc3875e07468d864b94479c2652d3
-[1.3.2]: https://github.com/infosec-intern/textmate-yara/commit/a047c27bab68deac6910dd440d3e6aaad005e33a
-[1.3.3]: https://github.com/infosec-intern/textmate-yara/commit/e94c3ec33f306e762c0e4a2d6c12268a9e9dcc4a
-[1.3.4]: https://github.com/infosec-intern/textmate-yara/commit/c36207d619cfa6df7623cb4e2419140c7cc400d4
-[1.3.5]: https://github.com/infosec-intern/textmate-yara/commit/484f38b89b96b52cfc89b8e33166e3557974fa13
-[1.3.6]: https://github.com/infosec-intern/textmate-yara/commit/3c8b2a4ac394542142e6c08b5bdc453de2e40cd9
-[1.3.7]: https://github.com/infosec-intern/textmate-yara/commit/75855ac8d26605a2043e169f7c53e29f203f6f99
-[1.3.8]: https://github.com/infosec-intern/textmate-yara/commit/27cb613b3450317afe03617c8cae96610e04ac6e
-[1.3.9]: https://github.com/infosec-intern/textmate-yara/commit/893073684743990777306da581688f9158e41179
-[1.3.10]: https://github.com/infosec-intern/textmate-yara/commit/af9dbb055f0213064740a1184f95226d23a089b6
-[1.3.11]: https://github.com/infosec-intern/textmate-yara/commit/9831637d1632e89fb45e3cff2975867740005f13
-[1.4.0]: https://github.com/infosec-intern/textmate-yara/compare/v1.3.11...v1.4.0
-[1.4.1]: https://github.com/infosec-intern/textmate-yara/compare/v1.4.0...v1.4.1
+[1.1.2]: https://github.com/infosec-intern/vscode-yara/commit/7640cadc9db8f2b5087b2fecc7c5fc3f1741c011
+[1.2.0]: https://github.com/infosec-intern/vscode-yara/commit/0ad1cb401758165bf4d5d43f3a549d386f6b1fd6
+[1.2.1]: https://github.com/infosec-intern/vscode-yara/commit/5d29c34f73c210c478fabf1548a7067735b0eedf
+[1.2.2]: https://github.com/infosec-intern/vscode-yara/commit/01c9a4c9b7795494488bacab20cacec9a83e67d3
+[1.2.3]: https://github.com/infosec-intern/vscode-yara/commit/e2ecae2efaf91012b6dd71bc328597beb83ef7fa
+[1.2.4]: https://github.com/infosec-intern/vscode-yara/commit/00e44d92dedd0fc9001a8458d001e274489abe5c
+[1.3.0]: https://github.com/infosec-intern/vscode-yara/commit/94a1dffe16df543a2c46eae0f3c04ffb5e06d659
+[1.3.1]: https://github.com/infosec-intern/vscode-yara/commit/955bbbaa078bc3875e07468d864b94479c2652d3
+[1.3.2]: https://github.com/infosec-intern/vscode-yara/commit/a047c27bab68deac6910dd440d3e6aaad005e33a
+[1.3.3]: https://github.com/infosec-intern/vscode-yara/commit/e94c3ec33f306e762c0e4a2d6c12268a9e9dcc4a
+[1.3.4]: https://github.com/infosec-intern/vscode-yara/commit/c36207d619cfa6df7623cb4e2419140c7cc400d4
+[1.3.5]: https://github.com/infosec-intern/vscode-yara/commit/484f38b89b96b52cfc89b8e33166e3557974fa13
+[1.3.6]: https://github.com/infosec-intern/vscode-yara/commit/3c8b2a4ac394542142e6c08b5bdc453de2e40cd9
+[1.3.7]: https://github.com/infosec-intern/vscode-yara/commit/75855ac8d26605a2043e169f7c53e29f203f6f99
+[1.3.8]: https://github.com/infosec-intern/vscode-yara/commit/27cb613b3450317afe03617c8cae96610e04ac6e
+[1.3.9]: https://github.com/infosec-intern/vscode-yara/commit/893073684743990777306da581688f9158e41179
+[1.3.10]: https://github.com/infosec-intern/vscode-yara/commit/af9dbb055f0213064740a1184f95226d23a089b6
+[1.3.11]: https://github.com/infosec-intern/vscode-yara/commit/9831637d1632e89fb45e3cff2975867740005f13
+[1.4.0]: https://github.com/infosec-intern/vscode-yara/compare/v1.3.11...v1.4.0
+[1.4.1]: https://github.com/infosec-intern/vscode-yara/compare/v1.4.0...v1.4.1
