@@ -18,18 +18,6 @@
         ],
         "description": "Generate a rule skeleton"
     },
-    "Meta": {
-        "prefix": "meta",
-        "body": [
-            "meta:",
-            "\tdescription = \"${1:description}\"",
-            "\tauthor = \"${2:author}\"",
-            "\tdate = \"${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}\"",
-            "\treference = \"${3:reference}\"",
-            "\thash = \"${4:hash}\""
-        ],
-        "description": "Generate a 'meta' section"
-    },
     "Strings": {
         "prefix": "strings",
         "body": [

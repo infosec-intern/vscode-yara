@@ -56,12 +56,24 @@
             }
         ],
         "configuration": {
-            "title": "YARA configuration",
+            "title": "YARA",
             "properties": {
                 "yara.require_imports": {
                     "type": "boolean",
                     "default": false,
                     "description": "When providing suggestions for YARA modules, first require an import statement at the top of the rule file. For example, in order to autocomplete the 'time.now()' method, require 'import \"time\"'. Off by default."
+                },
+                "yara.meta_entries": {
+                    "type": "object",
+                    "default": {},
+                    "description": "A set of metadata entries to insert into rules. Common keys are date, reference, hash, and author. Empty values will create meta keys with a snippet tabstop, and variables allowed in https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables are accepted.",
+                    "maxProperties": 50,
+                    "additionalProperties": true
+                },
+                "yara.sort_meta": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Sort the metadata entries in alphabetical order by keys. Otherwise, insert keys as listed."
                 }
             }
         }
