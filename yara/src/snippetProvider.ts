@@ -2,8 +2,18 @@
 
 import * as vscode from 'vscode';
 
+/*
+    Extract a variable name from a snippet variable string (e.g. ${TM_FILENAME} => TM_FILENAME)
+*/
+function getVariableNameFromString(rawSnippet: string): string {
+    // remove curly braces denoting a variable and any transform that starts after the first '/'
+    return rawSnippet.replace('${', '').replace('}', '').split('/').shift().toUpperCase();
+}
 
 function generateMetaSnippet(): vscode.SnippetString {
+    const varRegex = new RegExp('\\${[A-Z_]+?}', 'gi');
+    const wholeLineRegex = new RegExp(`^${varRegex.source}$`, 'i')
+    // const varRegex = new RegExp('\\$\\{\\S+?\\}', 'g');
     const config: vscode.WorkspaceConfiguration = vscode.workspace.getConfiguration('yara');
     const metaConfig: unknown = config.get('meta_entries');
     const metaKeys: Array<string> = Object.keys(metaConfig).filter((key: string) => {
@@ -15,15 +25,49 @@ function generateMetaSnippet(): vscode.SnippetString {
     }
     const snippet: vscode.SnippetString = new vscode.SnippetString('meta:\n');
     metaKeys.forEach((key: string) => {
-        if (metaConfig[key] === '') {
+        const metaValue = String(metaConfig[key]);
+        if (metaValue === '') {
             // use tabstops when the user wants a pre-set key, but not a pre-filled value
             // ... to make it easier to fill these in when generating the rule
             snippet.appendText(`\t${key} = "`);
             snippet.appendTabstop();
             snippet.appendText(`"\n`);
         }
+        else if (wholeLineRegex.test(metaValue)) {
+            console.log(`the entire line '${metaValue}' is a variable`);
+            const match: RegExpExecArray = wholeLineRegex.exec(metaValue);
+            if (match === null) {
+                console.log(`Somehow we didn't extract anything from '${wholeLineRegex.source}' for '${metaValue}'`);
+                // TODO: Raise some kind of error to user - probably in an output window
+                return;
+            }
+            const variableName: string = getVariableNameFromString(match.shift());
+            snippet.appendText(`\t${key} = "`);
+            snippet.appendVariable(variableName, '');
+            snippet.appendText(`"\n`);
+        }
+        else if (varRegex.test(metaValue)) {
+            snippet.appendText(`\t${key} = "`);
+            console.log(`found value with variable: ${metaValue}`);
+            // need to make a second regexp pattern, because for some reason global Regexp objects don't match the first value
+            let currIndex = 0;
+            let match: RegExpExecArray;
+            while ((match = varRegex.exec(metaValue)) !== null) {
+                if (match.index > currIndex) {
+                    // if we have a match after our previous append, then
+                    // ... append all the characters from the previous position up to the match
+                    snippet.appendText(metaValue.substring(currIndex, match.index));
+                }
+                const variableMatch: string = match.shift();
+                const variableName: string = getVariableNameFromString(variableMatch);
+                snippet.appendVariable(variableName, '');
+                // move the index up to just after the variable
+                currIndex = match.index + variableMatch.length;
+            }
+            snippet.appendText(`"\n`);
+        }
         else {
-            snippet.appendText(`\t${key} = "${metaConfig[key]}"\n`);
+            snippet.appendText(`\t${key} = "${metaValue}"\n`);
         }
     });
     // remove any extra newlines that may have popped up

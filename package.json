@@ -66,7 +66,7 @@
                 "yara.meta_entries": {
                     "type": "object",
                     "default": {},
-                    "description": "A set of metadata entries to insert into rules. Common keys are date, reference, hash, and author. Empty values will create meta keys with a snippet tabstop, and variables allowed in https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables are accepted.",
+                    "description": "A set of metadata entries to insert into rules. Common keys are date, reference, hash, and author. Empty values will create meta keys with a snippet tabstop, and variables allowed in https://code.visualstudio.com/docs/editor/userdefinedsnippets#_variables are accepted (transforms are ignored).",
                     "maxProperties": 50,
                     "additionalProperties": true
                 },
