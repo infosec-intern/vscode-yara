@@ -12,8 +12,6 @@ function getVariableNameFromString(rawSnippet: string): string {
 
 function generateMetaSnippet(): vscode.SnippetString {
     const varRegex = new RegExp('\\${[A-Z_]+?}', 'gi');
-    const wholeLineRegex = new RegExp(`^${varRegex.source}$`, 'i')
-    // const varRegex = new RegExp('\\$\\{\\S+?\\}', 'g');
     const config: vscode.WorkspaceConfiguration = vscode.workspace.getConfiguration('yara');
     const metaConfig: unknown = config.get('meta_entries');
     const metaKeys: Array<string> = Object.keys(metaConfig).filter((key: string) => {
@@ -33,36 +31,20 @@ function generateMetaSnippet(): vscode.SnippetString {
             snippet.appendTabstop();
             snippet.appendText(`"\n`);
         }
-        else if (wholeLineRegex.test(metaValue)) {
-            console.log(`the entire line '${metaValue}' is a variable`);
-            const match: RegExpExecArray = wholeLineRegex.exec(metaValue);
-            if (match === null) {
-                console.log(`Somehow we didn't extract anything from '${wholeLineRegex.source}' for '${metaValue}'`);
-                // TODO: Raise some kind of error to user - probably in an output window
-                return;
-            }
-            const variableName: string = getVariableNameFromString(match.shift());
-            snippet.appendText(`\t${key} = "`);
-            snippet.appendVariable(variableName, '');
-            snippet.appendText(`"\n`);
-        }
         else if (varRegex.test(metaValue)) {
+            varRegex.lastIndex = 0;
             snippet.appendText(`\t${key} = "`);
-            console.log(`found value with variable: ${metaValue}`);
-            // need to make a second regexp pattern, because for some reason global Regexp objects don't match the first value
             let currIndex = 0;
             let match: RegExpExecArray;
             while ((match = varRegex.exec(metaValue)) !== null) {
-                if (match.index > currIndex) {
-                    // if we have a match after our previous append, then
-                    // ... append all the characters from the previous position up to the match
-                    snippet.appendText(metaValue.substring(currIndex, match.index));
-                }
+                // if we have a match after our previous append, then
+                // ... append all the characters from the previous position up to the match
+                snippet.appendText(metaValue.substring(currIndex, match.index));
                 const variableMatch: string = match.shift();
                 const variableName: string = getVariableNameFromString(variableMatch);
                 snippet.appendVariable(variableName, '');
                 // move the index up to just after the variable
-                currIndex = match.index + variableMatch.length;
+                currIndex = varRegex.lastIndex;
             }
             snippet.appendText(`"\n`);
         }
