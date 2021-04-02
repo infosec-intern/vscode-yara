@@ -21,9 +21,8 @@ suite('Condition Snippet', function () {
         // don't resolve any completion items yet
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 0);
         assert.equal(completions.isIncomplete, false);
-        const items: Array<vscode.CompletionItem> = completions.items;
-        assert.equal(items.length, 4);
-        const item: vscode.CompletionItem = items.find((value: vscode.CompletionItem) => { return value.label === 'condition'; });
+        assert.equal(completions.items.length, 4);
+        const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'condition'; });
         assert.equal(item.label, 'condition');
         assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
         assert.equal(item.detail, 'Generate a \'condition\' section (YARA)');
@@ -69,9 +68,8 @@ suite('Metadata Snippet', function () {
         // don't resolve any completion items yet
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 0);
         assert.equal(completions.isIncomplete, false);
-        const items: Array<vscode.CompletionItem> = completions.items;
-        assert.equal(items.length, 4);
-        const item: vscode.CompletionItem = items.find((value: vscode.CompletionItem) => { return value.label === 'meta'; });
+        assert.equal(completions.items.length, 4);
+        const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'meta'; });
         assert.equal(item.label, 'meta');
         assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
         assert.equal(item.detail, 'Generate a \'meta\' section (YARA)');
@@ -129,9 +127,8 @@ suite('Rule Snippet', function () {
         // don't resolve any completion items yet
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 0);
         assert.equal(completions.isIncomplete, false);
-        const items: Array<vscode.CompletionItem> = completions.items;
-        assert.equal(items.length, 4);
-        const item: vscode.CompletionItem = items.find((value: vscode.CompletionItem) => { return value.label === 'rule'; });
+        assert.equal(completions.items.length, 4);
+        const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'rule'; });
         assert.equal(item.label, 'rule');
         assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
         assert.equal(item.detail, 'Generate a rule skeleton (YARA)');
@@ -161,9 +158,8 @@ suite('Strings Snippet', function () {
         // don't resolve any completion items yet
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 0);
         assert.equal(completions.isIncomplete, false);
-        const items: Array<vscode.CompletionItem> = completions.items;
-        assert.equal(items.length, 4);
-        const item: vscode.CompletionItem = items.find((value: vscode.CompletionItem) => { return value.label === 'strings'; });
+        assert.equal(completions.items.length, 4);
+        const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'strings'; });
         assert.equal(item.label, 'strings');
         assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
         assert.equal(item.detail, 'Generate a \'strings\' section (YARA)');
@@ -181,9 +177,8 @@ suite('Strings Snippet', function () {
         // don't resolve any completion items yet
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 4);
         assert.equal(completions.isIncomplete, false);
-        const items: Array<vscode.CompletionItem> = completions.items;
-        assert.equal(items.length, 4);
-        const item: vscode.CompletionItem = items.find((value: vscode.CompletionItem) => { return value.label === 'strings'; });
+        assert.equal(completions.items.length, 4);
+        const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'strings'; });
         assert.equal(item.label, 'strings');
         assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
         assert.equal(item.detail, 'Generate a \'strings\' section (YARA)');
