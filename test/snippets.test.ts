@@ -6,7 +6,7 @@ import * as vscode from 'vscode';
 const extensionId = 'infosec-intern.yara';
 const workspace = path.join(__dirname, '..', '..', 'test', 'rules');
 
-suite("Snippet Provider", function () {
+suite("Metadata Snippet", function () {
     setup(async function () {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const extension: vscode.Extension<any> = vscode.extensions.getExtension(extensionId);
@@ -62,6 +62,42 @@ suite("Snippet Provider", function () {
     });
 
     test.skip("it does not sort metadata keys when sort_meta is set to false", async function () {
+        assert.ok(false);
+    });
+});
+
+suite("Rule Snippet", function () {
+    setup(async function () {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const extension: vscode.Extension<any> = vscode.extensions.getExtension(extensionId);
+        await extension.activate();
+    });
+
+    test.skip("it provides a basic rule skeleton when no configuration is present", async function () {
+        assert.ok(false);
+    });
+});
+
+suite("Strings Snippet", function () {
+    setup(async function () {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const extension: vscode.Extension<any> = vscode.extensions.getExtension(extensionId);
+        await extension.activate();
+    });
+
+    test.skip("it provides a basic strings section when no configuration is present", async function () {
+        assert.ok(false);
+    });
+});
+
+suite("Condition Snippet", function () {
+    setup(async function () {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const extension: vscode.Extension<any> = vscode.extensions.getExtension(extensionId);
+        await extension.activate();
+    });
+
+    test.skip("it provides a basic condition section when no configuration is present", async function () {
         assert.ok(false);
     });
 });
