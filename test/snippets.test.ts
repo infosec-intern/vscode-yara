@@ -123,7 +123,7 @@ suite('Rule Snippet', function () {
     test('it provides a basic rule skeleton when not resolved', async function () {
         const filepath: string = path.join(workspace, 'snippets.yar');
         const uri: vscode.Uri = vscode.Uri.file(filepath);
-        const pos: vscode.Position = new vscode.Position(0, 5);
+        const pos: vscode.Position = new vscode.Position(0, 4);
         // don't resolve any completion items yet
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 0);
         assert.equal(completions.isIncomplete, false);
