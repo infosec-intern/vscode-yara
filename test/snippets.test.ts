@@ -127,6 +127,7 @@ suite('Rule Snippet', function () {
         // don't resolve any completion items yet
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 0);
         assert.equal(completions.isIncomplete, false);
+        console.log(JSON.stringify(completions));
         assert.equal(completions.items.length, 4);
         const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'rule'; });
         assert.equal(item.label, 'rule');
