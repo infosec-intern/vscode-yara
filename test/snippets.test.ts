@@ -34,8 +34,24 @@ suite('Condition Snippet', function () {
         assert.deepEqual(item.documentation, expectedDocs);
     });
 
-    test.skip('it provides a condition placeholder when resolved', async function () {
-        assert.ok(false);
+    test('it provides a condition placeholder when resolved', async function () {
+        const filepath: string = path.join(workspace, 'snippets.yar');
+        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const pos: vscode.Position = new vscode.Position(5, 14);
+        // resolve items
+        const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 4);
+        assert.equal(completions.isIncomplete, false);
+        const items: Array<vscode.CompletionItem> = completions.items;
+        assert.equal(items.length, 4);
+        const item: vscode.CompletionItem = items.find((value: vscode.CompletionItem) => { return value.label === 'condition'; });
+        assert.equal(item.label, 'condition');
+        assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
+        assert.equal(item.detail, 'Generate a \'condition\' section (YARA)');
+        const expectedInsertText: vscode.SnippetString = new vscode.SnippetString('condition:\n\t${1:any of them}');
+        assert.deepEqual(item.insertText, expectedInsertText);
+        const expectedDocs: vscode.MarkdownString = new vscode.MarkdownString('');
+        expectedDocs.appendCodeblock('condition:\n\tCONDITIONS');
+        assert.deepEqual(item.documentation, expectedDocs);
     });
 });
 
@@ -106,7 +122,27 @@ suite('Rule Snippet', function () {
         await extension.activate();
     });
 
-    test.skip('it provides a basic rule skeleton when no configuration is present', async function () {
+    test('it provides a basic rule skeleton when not resolved', async function () {
+        const filepath: string = path.join(workspace, 'snippets.yar');
+        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const pos: vscode.Position = new vscode.Position(0, 5);
+        // don't resolve any completion items yet
+        const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 0);
+        assert.equal(completions.isIncomplete, false);
+        const items: Array<vscode.CompletionItem> = completions.items;
+        assert.equal(items.length, 4);
+        const item: vscode.CompletionItem = items.find((value: vscode.CompletionItem) => { return value.label === 'rule'; });
+        assert.equal(item.label, 'rule');
+        assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
+        assert.equal(item.detail, 'Generate a rule skeleton (YARA)');
+        const expectedInsertText: vscode.SnippetString = new vscode.SnippetString('rule ${1:$TM_FILENAME_BASE} {\n\t');
+        assert.deepEqual(item.insertText, expectedInsertText);
+        const expectedDocs: vscode.MarkdownString = new vscode.MarkdownString('');
+        expectedDocs.appendCodeblock('rule NAME {');
+        assert.deepEqual(item.documentation, expectedDocs);
+    });
+
+    test.skip('it provides all sections when resolved', async function () {
         assert.ok(false);
     });
 });
@@ -136,10 +172,25 @@ suite('Strings Snippet', function () {
         const expectedDocs: vscode.MarkdownString = new vscode.MarkdownString('');
         expectedDocs.appendCodeblock('strings:\n\tNAME = "STRING"');
         assert.deepEqual(item.documentation, expectedDocs);
-
     });
 
-    test.skip('it provides a choice of strings when resolved', async function () {
-        assert.ok(false);
+    test('it provides a choice of strings when resolved', async function () {
+        const filepath: string = path.join(workspace, 'snippets.yar');
+        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const pos: vscode.Position = new vscode.Position(3, 12);
+        // don't resolve any completion items yet
+        const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 4);
+        assert.equal(completions.isIncomplete, false);
+        const items: Array<vscode.CompletionItem> = completions.items;
+        assert.equal(items.length, 4);
+        const item: vscode.CompletionItem = items.find((value: vscode.CompletionItem) => { return value.label === 'strings'; });
+        assert.equal(item.label, 'strings');
+        assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
+        assert.equal(item.detail, 'Generate a \'strings\' section (YARA)');
+        const expectedInsertText: vscode.SnippetString = new vscode.SnippetString('strings:\n\t${1:name} = ${2|"string",/regex/,{ HEX \\}|}');
+        assert.deepEqual(item.insertText, expectedInsertText);
+        const expectedDocs: vscode.MarkdownString = new vscode.MarkdownString('');
+        expectedDocs.appendCodeblock('strings:\n\tNAME = "STRING"');
+        assert.deepEqual(item.documentation, expectedDocs);
     });
 });

@@ -3,30 +3,6 @@
 import * as vscode from 'vscode';
 
 
-const BASIC_META: vscode.CompletionItem = new vscode.CompletionItem('meta', vscode.CompletionItemKind.Snippet);
-BASIC_META.detail = 'Generate a \'meta\' section (YARA)';
-BASIC_META.insertText = new vscode.SnippetString('meta:\n\t$1 = "$2"');
-BASIC_META.documentation = new vscode.MarkdownString('');
-BASIC_META.documentation.appendCodeblock('meta:\n\tKEY = "VALUE"');
-
-const BASIC_CONDITION: vscode.CompletionItem = new vscode.CompletionItem('condition', vscode.CompletionItemKind.Snippet);
-BASIC_CONDITION.detail = 'Generate a \'condition\' section (YARA)';
-BASIC_CONDITION.insertText = new vscode.SnippetString('condition:\n\t${1:conditions}');
-BASIC_CONDITION.documentation = new vscode.MarkdownString('');
-BASIC_CONDITION.documentation.appendCodeblock('condition:\n\tCONDITIONS');
-
-const BASIC_RULE: vscode.CompletionItem = new vscode.CompletionItem('rule', vscode.CompletionItemKind.Snippet);
-BASIC_RULE.detail = 'Generate a rule skeleton (YARA)';
-BASIC_RULE.insertText = new vscode.SnippetString('rule ${1:$TM_FILENAME_BASE} {\n\t');
-BASIC_RULE.documentation = new vscode.MarkdownString('');
-BASIC_RULE.documentation.appendCodeblock('rule NAME {');
-
-const BASIC_STRINGS: vscode.CompletionItem = new vscode.CompletionItem('strings', vscode.CompletionItemKind.Snippet);
-BASIC_STRINGS.detail = 'Generate a \'strings\' section (YARA)';
-BASIC_STRINGS.insertText = new vscode.SnippetString('strings:\n\t${1:name} = "${2:string}"');
-BASIC_STRINGS.documentation = new vscode.MarkdownString('');
-BASIC_STRINGS.documentation.appendCodeblock('strings:\n\tNAME = "STRING"');
-
 /*
     Extract a variable name from a snippet variable string (e.g. ${TM_FILENAME} => TM_FILENAME)
 */
@@ -104,7 +80,6 @@ function generateRuleSnippet(snippet: vscode.SnippetString = new vscode.SnippetS
     if (config.get('sort_meta')) {
         metaKeys.sort();
     }
-    // meta
     generateMetaSnippet(snippet, 1);
     snippet.appendText('\n');
     generateStringSnippet(snippet, 1);
@@ -125,14 +100,37 @@ function generateStringSnippet(snippet: vscode.SnippetString = new vscode.Snippe
 }
 
 export class YaraSnippetCompletionItemProvider implements vscode.CompletionItemProvider {
-    basicItems: vscode.CompletionList = new vscode.CompletionList([BASIC_CONDITION, BASIC_META, BASIC_RULE, BASIC_STRINGS]);
+    private generateBasicItems(): vscode.CompletionList {
+        const conditionItem: vscode.CompletionItem = new vscode.CompletionItem('condition', vscode.CompletionItemKind.Snippet);
+        conditionItem.detail = 'Generate a \'condition\' section (YARA)';
+        conditionItem.insertText = new vscode.SnippetString('condition:\n\t${1:conditions}');
+        conditionItem.documentation = new vscode.MarkdownString('');
+        conditionItem.documentation.appendCodeblock('condition:\n\tCONDITIONS');
+        const metaItem: vscode.CompletionItem = new vscode.CompletionItem('meta', vscode.CompletionItemKind.Snippet);
+        metaItem.detail = 'Generate a \'meta\' section (YARA)';
+        metaItem.insertText = new vscode.SnippetString('meta:\n\t$1 = "$2"');
+        metaItem.documentation = new vscode.MarkdownString('');
+        metaItem.documentation.appendCodeblock('meta:\n\tKEY = "VALUE"');
+        const ruleItem: vscode.CompletionItem = new vscode.CompletionItem('rule', vscode.CompletionItemKind.Snippet);
+        ruleItem.detail = 'Generate a rule skeleton (YARA)';
+        ruleItem.insertText = new vscode.SnippetString('rule ${1:$TM_FILENAME_BASE} {\n\t');
+        ruleItem.documentation = new vscode.MarkdownString('');
+        ruleItem.documentation.appendCodeblock('rule NAME {');
+        const stringsItem: vscode.CompletionItem = new vscode.CompletionItem('strings', vscode.CompletionItemKind.Snippet);
+        stringsItem.detail = 'Generate a \'strings\' section (YARA)';
+        stringsItem.insertText = new vscode.SnippetString('strings:\n\t${1:name} = "${2:string}"');
+        stringsItem.documentation = new vscode.MarkdownString('');
+        stringsItem.documentation.appendCodeblock('strings:\n\tNAME = "STRING"');
+        return new vscode.CompletionList([conditionItem, metaItem, ruleItem, stringsItem]);
+    }
 
     public provideCompletionItems(doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken): vscode.ProviderResult<vscode.CompletionList> {
         return new Promise((resolve, reject) => {
             token.onCancellationRequested(reject);
             try {
                 // TODO: Only provide sections when inside a rule
-                resolve(this.basicItems);
+                const items: vscode.CompletionList = this.generateBasicItems();
+                resolve(items);
             } catch (error) {
                 console.log(`YaraSnippetCompletionItemProvider: ${error}`);
                 reject();
