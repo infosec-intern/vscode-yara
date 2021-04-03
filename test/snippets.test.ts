@@ -139,8 +139,35 @@ suite('Rule Snippet', function () {
         assert.deepEqual(item.documentation, expectedDocs);
     });
 
-    test.skip('it provides all sections when resolved', async function () {
-        assert.ok(false);
+    test('it provides all sections when resolved', async function () {
+        const filepath: string = path.join(workspace, 'snippets.yar');
+        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const pos: vscode.Position = new vscode.Position(0, 4);
+        const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 4);
+        assert.equal(completions.isIncomplete, false);
+        assert.equal(completions.items.length, 4);
+        const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'rule'; });
+        assert.equal(item.label, 'rule');
+        assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
+        assert.equal(item.detail, 'Generate a rule skeleton (YARA)');
+        const rawSnippetText: string = [
+            'rule ${1:my_rule} {',
+            '\tmeta:',
+            '\t\tauthor = "$2"',
+            '\t\tdate = "${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}"',
+            '\t\thash = "$3"',
+            '\tstrings:',
+            '\t\t${4:name} = ${5|"string",/regex/,{ HEX \\}|}',
+            '\tcondition:',
+            '\t\t${6:any of them}',
+            '\\}',
+            ''
+        ].join('\n');
+        const expectedInsertText: vscode.SnippetString = new vscode.SnippetString(rawSnippetText);
+        assert.deepEqual(item.insertText, expectedInsertText);
+        const expectedDocs: vscode.MarkdownString = new vscode.MarkdownString('');
+        expectedDocs.appendCodeblock(rawSnippetText);
+        assert.deepEqual(item.documentation, expectedDocs);
     });
 });
 

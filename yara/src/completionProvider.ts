@@ -13,7 +13,7 @@ type ModuleSchema = Map<string,Module>;
     Parse a string in a TextDocument and determine if an associated module has been imported for Code Completion
 */
 function canCompleteTerm(schema: ModuleSchema, requestedModule: string, doc: vscode.TextDocument): boolean {
-    if (vscode.workspace.getConfiguration("yara").get("require_imports")) {
+    if (vscode.workspace.getConfiguration("yara").get("requireImports")) {
         // should match every line starting with 'import "<module>"'
         const moduleNames: Array<string> = Array.from(schema.keys());
         const importRegexp = RegExp(`^import "(${moduleNames.join('|')})"`);

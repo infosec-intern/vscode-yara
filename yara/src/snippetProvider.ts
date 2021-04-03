@@ -23,12 +23,12 @@ function generateMetaSnippet(snippet: vscode.SnippetString = new vscode.SnippetS
     const tabs = '\t'.repeat(numTabs);
     const varRegex = new RegExp('\\${[A-Z_]+?}', 'gi');
     const config: vscode.WorkspaceConfiguration = vscode.workspace.getConfiguration('yara');
-    const metaConfig: unknown = config.get('meta_entries');
+    const metaConfig: unknown = config.get('metaEntries');
     const metaKeys: Array<string> = Object.keys(metaConfig).filter((key: string) => {
         // filter out empty keys
         return Boolean(key.trim());
     });
-    if (config.get('sort_meta')) {
+    if (config.get('sortMeta')) {
         metaKeys.sort();
     }
     snippet.appendText(`${tabs}meta:\n`)
@@ -72,12 +72,12 @@ function generateRuleSnippet(snippet: vscode.SnippetString = new vscode.SnippetS
     snippet.appendPlaceholder('my_rule');
     snippet.appendText(' {\n');
     const config: vscode.WorkspaceConfiguration = vscode.workspace.getConfiguration('yara');
-    const metaConfig: unknown = config.get('meta_entries');
+    const metaConfig: unknown = config.get('metaEntries');
     const metaKeys: Array<string> = Object.keys(metaConfig).filter((key: string) => {
         // filter out empty keys
         return Boolean(key.trim());
     });
-    if (config.get('sort_meta')) {
+    if (config.get('sortMeta')) {
         metaKeys.sort();
     }
     generateMetaSnippet(snippet, 1);
@@ -85,7 +85,8 @@ function generateRuleSnippet(snippet: vscode.SnippetString = new vscode.SnippetS
     generateStringSnippet(snippet, 1);
     snippet.appendText('\n');
     generateConditionSnippet(snippet, 1);
-    snippet.appendText('\n}\n');
+    snippet.appendText('\n');
+    snippet.appendText('}\n');
     return snippet;
 }
 
@@ -162,10 +163,10 @@ export class YaraSnippetCompletionItemProvider implements vscode.CompletionItemP
             item.insertText = snippet;
             item.documentation = new vscode.MarkdownString('');
             if (snippet instanceof vscode.SnippetString) {
-                item.documentation.appendCodeblock(snippet.value);
+                item.documentation.appendCodeblock(snippet.value.trim(), 'yara');
             }
             else {
-                item.documentation.appendCodeblock(snippet);
+                item.documentation.appendCodeblock(snippet.trim(), 'yara');
             }
             resolve(item);
         });
