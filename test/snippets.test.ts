@@ -7,6 +7,11 @@ const extensionId = 'infosec-intern.yara';
 const workspace = path.join(__dirname, '..', '..', 'test', 'rules');
 
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function setTestConfig(id:string, value: any, configuration: vscode.WorkspaceConfiguration): Promise<void> {
+    return configuration.update(id, value, vscode.ConfigurationTarget.Global);
+}
+
 suite('Condition Snippet', function () {
     setup(async function () {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -55,10 +60,22 @@ suite('Condition Snippet', function () {
 });
 
 suite('Metadata Snippet', function () {
+    let modifiedConfig: vscode.WorkspaceConfiguration;
+
     setup(async function () {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const extension: vscode.Extension<any> = vscode.extensions.getExtension(extensionId);
         await extension.activate();
+        modifiedConfig = vscode.workspace.getConfiguration('yara');
+    });
+
+    teardown(async function () {
+        const metaDefault: Record<string,string> = {
+            "author": "",
+            "date": "${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}"
+        };
+        await setTestConfig('metaEntries', metaDefault, modifiedConfig);
+        await setTestConfig('sortMeta', true, modifiedConfig);
     });
 
     test('it provides a basic meta section when the user types in the correct prefix', async function () {
@@ -80,12 +97,43 @@ suite('Metadata Snippet', function () {
         assert.deepEqual(item.documentation, expectedDocs);
     });
 
-    test.skip('it provides an empty meta section when no configuration is present', async function () {
-        assert.ok(false);
+    test('it provides an empty meta section when no configuration is present', async function () {
+        const filepath: string = path.join(workspace, 'snippets.yar');
+        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const pos: vscode.Position = new vscode.Position(2, 9);
+        await setTestConfig('metaEntries', {}, modifiedConfig);
+        // don't resolve any completion items yet
+        const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 4);
+        assert.equal(completions.isIncomplete, false);
+        assert.equal(completions.items.length, 4);
+        const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'meta'; });
+        assert.equal(item.label, 'meta');
+        assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
+        assert.equal(item.detail, 'Generate a \'meta\' section (YARA)');
+        const expectedInsertText: vscode.SnippetString = new vscode.SnippetString('meta:');
+        assert.deepEqual(item.insertText, expectedInsertText);
+        const expectedDocs: vscode.MarkdownString = new vscode.MarkdownString('');
+        expectedDocs.appendCodeblock('meta:\n\tkey = "value"');
+        assert.deepEqual(item.documentation, expectedDocs);
     });
 
-    test.skip('it provides a full meta section when a configuration is present', async function () {
-        assert.ok(false);
+    test('it provides a full meta section when a configuration is present', async function () {
+        const filepath: string = path.join(workspace, 'snippets.yar');
+        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const pos: vscode.Position = new vscode.Position(2, 9);
+        // don't resolve any completion items yet
+        const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 4);
+        assert.equal(completions.isIncomplete, false);
+        assert.equal(completions.items.length, 4);
+        const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'meta'; });
+        assert.equal(item.label, 'meta');
+        assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
+        assert.equal(item.detail, 'Generate a \'meta\' section (YARA)');
+        const expectedInsertText: vscode.SnippetString = new vscode.SnippetString('meta:\n\tauthor = "$1"\n\tdate = "${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}"');
+        assert.deepEqual(item.insertText, expectedInsertText);
+        const expectedDocs: vscode.MarkdownString = new vscode.MarkdownString('');
+        expectedDocs.appendCodeblock('meta:\n\tkey = "value"');
+        assert.deepEqual(item.documentation, expectedDocs);
     });
 
     test.skip('it provides tabstops when empty configuration values are present', async function () {
