@@ -155,11 +155,10 @@ suite('Rule Snippet', function () {
             '\tmeta:',
             '\t\tauthor = "$2"',
             '\t\tdate = "${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}"',
-            '\t\thash = "$3"',
             '\tstrings:',
-            '\t\t${4:name} = ${5|"string",/regex/,{ HEX \\}|}',
+            '\t\t${3:name} = ${4|"string",/regex/,{ HEX \\}|}',
             '\tcondition:',
-            '\t\t${6:any of them}',
+            '\t\t${5:any of them}',
             '\\}',
             ''
         ].join('\n');
