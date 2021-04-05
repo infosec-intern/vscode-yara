@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.5.0] 2021-04-04
+* Rule sections - especially the `meta:` section - now generated based on configuration
+* Reorganized tests into multiple files to make them easier to read/find
+
 ## [1.4.1] 2021-03-25
 * Renamed repository to vscode-yara
 * Updated extension repository link
@@ -93,3 +97,4 @@
 [1.3.11]: https://github.com/infosec-intern/vscode-yara/commit/9831637d1632e89fb45e3cff2975867740005f13
 [1.4.0]: https://github.com/infosec-intern/vscode-yara/compare/v1.3.11...v1.4.0
 [1.4.1]: https://github.com/infosec-intern/vscode-yara/compare/v1.4.0...v1.4.1
+[1.5.0]: https://github.com/infosec-intern/vscode-yara/compare/v1.4.1...v1.5.0
