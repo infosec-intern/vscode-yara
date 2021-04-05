@@ -82,6 +82,7 @@ function generateMetaSnippet(snippet: vscode.SnippetString = new vscode.SnippetS
 
 function generateRuleSnippet(snippet: vscode.SnippetString = new vscode.SnippetString()): vscode.SnippetString {
     snippet.appendText('rule ');
+    // TODO: Find a way to mix variables and placeholders, so TM_FILENAME_BASE can be the default and also a placeholder
     snippet.appendPlaceholder('my_rule');
     // TODO: Should the curly brace be on its own line?
     snippet.appendText(' {\n');
