@@ -137,28 +137,112 @@ suite('Metadata Snippet', function () {
         assert.deepEqual(item.documentation, expectedDocs);
     });
 
-    test.skip('it provides tabstops when empty configuration values are present', async function () {
-        assert.ok(false);
+    test('it provides tabstops when empty configuration values are present', async function () {
+        const filepath: string = path.join(workspace, 'snippets.yar');
+        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const pos: vscode.Position = new vscode.Position(2, 9);
+        const testConfig: Record<string,string> = {'author': ''};
+        await setTestConfig('metaEntries', testConfig, modifiedConfig);
+        const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 4);
+        assert.equal(completions.isIncomplete, false);
+        assert.equal(completions.items.length, 4);
+        const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'meta'; });
+        assert.equal(item.label, 'meta');
+        assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
+        assert.equal(item.detail, 'Generate a \'meta\' section (YARA)');
+        const rawInsertText = `meta:\n\tauthor = "$1"`;
+        const expectedInsertText: vscode.SnippetString = new vscode.SnippetString(rawInsertText);
+        assert.deepEqual(item.insertText, expectedInsertText);
+        const expectedDocs: vscode.MarkdownString = new vscode.MarkdownString('');
+        expectedDocs.appendCodeblock(rawInsertText);
+        assert.deepEqual(item.documentation, expectedDocs);
     });
 
     test.skip('it provides support for snippet variables', async function () {
-        assert.ok(false);
+        const filepath: string = path.join(workspace, 'snippets.yar');
+        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const pos: vscode.Position = new vscode.Position(2, 9);
+        const testConfig: Record<string,string> = {'filename': '${TM_FILENAME}'};
+        await setTestConfig('metaEntries', testConfig, modifiedConfig);
+        const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 4);
+        assert.equal(completions.isIncomplete, false);
+        assert.equal(completions.items.length, 4);
+        const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'meta'; });
+        assert.equal(item.label, 'meta');
+        assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
+        assert.equal(item.detail, 'Generate a \'meta\' section (YARA)');
+        const rawInsertText = `meta:\n\tfilename = "snippets.yar"`;
+        const expectedInsertText: vscode.SnippetString = new vscode.SnippetString(rawInsertText);
+        // TODO: Figure out how to resolve the variable in insertText, since VSCode only does it when the snippet has been chosen
+        assert.deepEqual(item.insertText, expectedInsertText);
+        const expectedDocs: vscode.MarkdownString = new vscode.MarkdownString('');
+        expectedDocs.appendCodeblock(rawInsertText);
+        assert.deepEqual(item.documentation, expectedDocs);
     });
 
-    test.skip('it does not provide entries with empty configuration keys', async function () {
-        assert.ok(false);
+    test('it does not provide entries with empty configuration keys', async function () {
+        const filepath: string = path.join(workspace, 'snippets.yar');
+        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const pos: vscode.Position = new vscode.Position(2, 9);
+        const testConfig: Record<string,string> = {'author': '', '': 'This should not show up'};
+        await setTestConfig('metaEntries', testConfig, modifiedConfig);
+        const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 4);
+        assert.equal(completions.isIncomplete, false);
+        assert.equal(completions.items.length, 4);
+        const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'meta'; });
+        assert.equal(item.label, 'meta');
+        assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
+        assert.equal(item.detail, 'Generate a \'meta\' section (YARA)');
+        const rawInsertText = `meta:\n\tauthor = "$1"`;
+        const expectedInsertText: vscode.SnippetString = new vscode.SnippetString(rawInsertText);
+        assert.deepEqual(item.insertText, expectedInsertText);
+        const expectedDocs: vscode.MarkdownString = new vscode.MarkdownString('');
+        expectedDocs.appendCodeblock(rawInsertText);
+        assert.deepEqual(item.documentation, expectedDocs);
     });
 
-    test.skip('it does not provide a meta section without the user typing the correct prefix', async function () {
-        assert.ok(false);
+    test('it sorts the metadata keys when sort_meta is set to true', async function () {
+        const filepath: string = path.join(workspace, 'snippets.yar');
+        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const pos: vscode.Position = new vscode.Position(2, 9);
+        const testConfig: Record<string,string> = {'c': 'third', 'a': 'first', 'd': 'fourth', 'b': 'second'};
+        await setTestConfig('metaEntries', testConfig, modifiedConfig);
+        await setTestConfig('sortMeta', true, modifiedConfig);
+        const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 4);
+        assert.equal(completions.isIncomplete, false);
+        assert.equal(completions.items.length, 4);
+        const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'meta'; });
+        assert.equal(item.label, 'meta');
+        assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
+        assert.equal(item.detail, 'Generate a \'meta\' section (YARA)');
+        const rawInsertText = `meta:\n\ta = "first"\n\tb = "second"\n\tc = "third"\n\td = "fourth"`;
+        const expectedInsertText: vscode.SnippetString = new vscode.SnippetString(rawInsertText);
+        assert.deepEqual(item.insertText, expectedInsertText);
+        const expectedDocs: vscode.MarkdownString = new vscode.MarkdownString('');
+        expectedDocs.appendCodeblock(rawInsertText);
+        assert.deepEqual(item.documentation, expectedDocs);
     });
 
-    test.skip('it sorts the metadata keys when sort_meta is set to true', async function () {
-        assert.ok(false);
-    });
-
-    test.skip('it does not sort metadata keys when sort_meta is set to false', async function () {
-        assert.ok(false);
+    test('it does not sort metadata keys when sort_meta is set to false', async function () {
+        const filepath: string = path.join(workspace, 'snippets.yar');
+        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const pos: vscode.Position = new vscode.Position(2, 9);
+        const testConfig: Record<string,string> = {'c': 'third', 'a': 'first', 'd': 'fourth', 'b': 'second'};
+        await setTestConfig('metaEntries', testConfig, modifiedConfig);
+        await setTestConfig('sortMeta', false, modifiedConfig);
+        const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 4);
+        assert.equal(completions.isIncomplete, false);
+        assert.equal(completions.items.length, 4);
+        const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'meta'; });
+        assert.equal(item.label, 'meta');
+        assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
+        assert.equal(item.detail, 'Generate a \'meta\' section (YARA)');
+        const rawInsertText = `meta:\n\tc = "third"\n\ta = "first"\n\td = "fourth"\n\tb = "second"`;
+        const expectedInsertText: vscode.SnippetString = new vscode.SnippetString(rawInsertText);
+        assert.deepEqual(item.insertText, expectedInsertText);
+        const expectedDocs: vscode.MarkdownString = new vscode.MarkdownString('');
+        expectedDocs.appendCodeblock(rawInsertText);
+        assert.deepEqual(item.documentation, expectedDocs);
     });
 });
 
