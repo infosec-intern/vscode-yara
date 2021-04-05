@@ -74,6 +74,26 @@
                     "type": "boolean",
                     "default": true,
                     "description": "Sort the metadata entries in alphabetical order by keys. Otherwise, insert keys as listed."
+                },
+                "yara.snippets.condition": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable the condition snippet on YARA rules. Has no effect on the presence of the condition section in the rule snippet."
+                },
+                "yara.snippets.meta": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable the meta snippet on YARA rules. Has no effect on the presence of the meta section in the rule snippet."
+                },
+                "yara.snippets.rule": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable the rule skeleton snippet on YARA rules. Settings for other snippets do not affect the sections provided in this snippet."
+                },
+                "yara.snippets.strings": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable the strings snippet on YARA rules. Has no effect on the presence of the strings section in the rule snippet."
                 }
             }
         }

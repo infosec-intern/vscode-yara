@@ -3,6 +3,7 @@ import * as assert from 'assert';
 import * as path from 'path';
 import * as vscode from 'vscode';
 
+const configName = 'yara';
 const extensionId = 'infosec-intern.yara';
 const workspace = path.join(__dirname, '..', '..', 'test', 'rules');
 
@@ -13,10 +14,29 @@ async function setTestConfig(id:string, value: any, configuration: vscode.Worksp
 }
 
 suite('Condition Snippet', function () {
+    let modifiedConfig: vscode.WorkspaceConfiguration;
+
     setup(async function () {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const extension: vscode.Extension<any> = vscode.extensions.getExtension(extensionId);
         await extension.activate();
+        modifiedConfig = vscode.workspace.getConfiguration(configName);
+    });
+
+    teardown(async function () {
+        await setTestConfig('snippets.condition', undefined, modifiedConfig);
+    });
+
+    test('it does not provide a condition snippet when the setting is false', async function () {
+        const filepath: string = path.join(workspace, 'snippets.yar');
+        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const pos: vscode.Position = new vscode.Position(2, 9);
+        await setTestConfig('snippets.condition', false, modifiedConfig);
+        const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 0);
+        assert.equal(completions.isIncomplete, false);
+        assert.equal(completions.items.length, 3);
+        const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'condition'; });
+        assert.equal(item, undefined);
     });
 
     test('it provides a basic condition section when not resolved', async function () {
@@ -66,12 +86,25 @@ suite('Metadata Snippet', function () {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const extension: vscode.Extension<any> = vscode.extensions.getExtension(extensionId);
         await extension.activate();
-        modifiedConfig = vscode.workspace.getConfiguration('yara');
+        modifiedConfig = vscode.workspace.getConfiguration(configName);
     });
 
     teardown(async function () {
         await setTestConfig('metaEntries', undefined, modifiedConfig);
         await setTestConfig('sortMeta', undefined, modifiedConfig);
+        await setTestConfig('snippets.meta', undefined, modifiedConfig);
+    });
+
+    test('it does not provide a meta snippet when the setting is false', async function () {
+        const filepath: string = path.join(workspace, 'snippets.yar');
+        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const pos: vscode.Position = new vscode.Position(2, 9);
+        await setTestConfig('snippets.meta', false, modifiedConfig);
+        const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 0);
+        assert.equal(completions.isIncomplete, false);
+        assert.equal(completions.items.length, 3);
+        const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'meta'; });
+        assert.equal(item, undefined);
     });
 
     test('it provides a basic meta section when the user types in the correct prefix', async function () {
@@ -253,12 +286,23 @@ suite('Rule Snippet', function () {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const extension: vscode.Extension<any> = vscode.extensions.getExtension(extensionId);
         await extension.activate();
-        modifiedConfig = vscode.workspace.getConfiguration('yara');
+        modifiedConfig = vscode.workspace.getConfiguration(configName);
     });
 
     teardown(async function () {
-        await setTestConfig('metaEntries', undefined, modifiedConfig);
-        await setTestConfig('sortMeta', undefined, modifiedConfig);
+        await setTestConfig('snippets.rule', undefined, modifiedConfig);
+    });
+
+    test('it does not provide a rule snippet when the setting is false', async function () {
+        const filepath: string = path.join(workspace, 'snippets.yar');
+        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const pos: vscode.Position = new vscode.Position(2, 9);
+        await setTestConfig('snippets.rule', false, modifiedConfig);
+        const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 0);
+        assert.equal(completions.isIncomplete, false);
+        assert.equal(completions.items.length, 3);
+        const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'rule'; });
+        assert.equal(item, undefined);
     });
 
     test('it provides a basic rule skeleton when not resolved', async function () {
@@ -313,10 +357,29 @@ suite('Rule Snippet', function () {
 });
 
 suite('Strings Snippet', function () {
+    let modifiedConfig: vscode.WorkspaceConfiguration;
+
     setup(async function () {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const extension: vscode.Extension<any> = vscode.extensions.getExtension(extensionId);
         await extension.activate();
+        modifiedConfig = vscode.workspace.getConfiguration(configName);
+    });
+
+    teardown(async function () {
+        await setTestConfig('snippets.strings', undefined, modifiedConfig);
+    });
+
+    test('it does not provide a strings snippet when the setting is false', async function () {
+        const filepath: string = path.join(workspace, 'snippets.yar');
+        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const pos: vscode.Position = new vscode.Position(2, 9);
+        await setTestConfig('snippets.strings', false, modifiedConfig);
+        const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 0);
+        assert.equal(completions.isIncomplete, false);
+        assert.equal(completions.items.length, 3);
+        const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'strings'; });
+        assert.equal(item, undefined);
     });
 
     test('it provides a basic strings section when not resolved', async function () {
