@@ -34,9 +34,20 @@ All modules are stored as JSON under `yara/src/modules/`. Each module has its ow
 * **Sub-field**: A struct located inside an array containing properties unique to each array entry, such as `pe.sections[].name`
 
 ### Snippets
-Some snippets have been included for basic YARA rule patterns, such as the `meta`, `strings`, and `condition` sections.
+Some snippets have been included for basic YARA rule patterns, such as `any/all of them`, `for..of`, and common binary file headers.
 
-Wanting to add your own? Take a look at https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets
+Additionally, each section in a rule (`meta`, `strings`, `condition`) has a toggle-able snippet that can be controlled by the YARA configuration built in to VSCode. If my section snippets interfere with existing ones you've set up, just turn them off!
+
+Lastly, the built-in `meta` snippet has its own configuration entry, so you can pre-generate your metadata for every rule. It supports snippet variables, such as `${CURRENT_DATE}` or `${TM_FILENAME}` as well. For example, setting the `yara.metaEntries` configuration to the following will auto-fill the date, and a tabstop will be placed in the hash field for you to fill in immediately:
+
+```
+{
+    "date": "${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}",
+    "hash": ""
+}
+```
+
+Wanting to add your own snippet or curious what snippet variables exist? Take a look at https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets
 
 ## Problems?
 If you encounter an issue with the syntax, feel free to create an issue or pull request!

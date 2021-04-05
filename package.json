@@ -56,12 +56,44 @@
             }
         ],
         "configuration": {
-            "title": "YARA configuration",
+            "title": "YARA",
             "properties": {
-                "yara.require_imports": {
+                "yara.requireImports": {
                     "type": "boolean",
                     "default": false,
                     "description": "When providing suggestions for YARA modules, first require an import statement at the top of the rule file. For example, in order to autocomplete the 'time.now()' method, require 'import \"time\"'. Off by default."
+                },
+                "yara.metaEntries": {
+                    "type": "object",
+                    "default": {},
+                    "description": "A set of metadata entries to insert into rules. Empty values will create meta keys with a tabstop, and built-in variables are accepted (though transforms are ignored).",
+                    "maxProperties": 50,
+                    "additionalProperties": true
+                },
+                "yara.sortMeta": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Sort the metadata entries in alphabetical order by keys. Otherwise, insert keys as listed."
+                },
+                "yara.snippets.condition": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable the condition snippet on YARA rules. Has no effect on the presence of the condition section in the rule snippet."
+                },
+                "yara.snippets.meta": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable the meta snippet on YARA rules. Has no effect on the presence of the meta section in the rule snippet."
+                },
+                "yara.snippets.rule": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable the rule skeleton snippet on YARA rules. Settings for other snippets do not affect the sections provided in this snippet."
+                },
+                "yara.snippets.strings": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable the strings snippet on YARA rules. Has no effect on the presence of the strings section in the rule snippet."
                 }
             }
         }
