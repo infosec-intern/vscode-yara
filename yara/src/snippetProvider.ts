@@ -100,7 +100,8 @@ function generateStringSnippet(snippet: vscode.SnippetString = new vscode.Snippe
     snippet.appendText(`${tabs}strings:\n`);
     snippet.appendText(`${tabs}\t`);
     snippet.appendPlaceholder('name');
-    snippet.appendText(' = ')
+    snippet.appendText(' = ');
+    // TODO: Find a way to mix choices and placeholders, so user can just hit TAB to replace the value
     snippet.appendChoice(['"string"', '/regex/', '{ HEX }']);
     return snippet;
 }
