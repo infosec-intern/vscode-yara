@@ -83,16 +83,8 @@ function generateMetaSnippet(snippet: vscode.SnippetString = new vscode.SnippetS
 function generateRuleSnippet(snippet: vscode.SnippetString = new vscode.SnippetString()): vscode.SnippetString {
     snippet.appendText('rule ');
     snippet.appendPlaceholder('my_rule');
+    // TODO: Should the curly brace be on its own line?
     snippet.appendText(' {\n');
-    const config: vscode.WorkspaceConfiguration = vscode.workspace.getConfiguration(configName);
-    const metaConfig: unknown = config.get('metaEntries');
-    const metaKeys: Array<string> = Object.keys(metaConfig).filter((key: string) => {
-        // filter out empty keys
-        return Boolean(key.trim());
-    });
-    if (config.get('sortMeta')) {
-        metaKeys.sort();
-    }
     generateMetaSnippet(snippet, 1);
     snippet.appendText('\n');
     generateStringSnippet(snippet, 1);
