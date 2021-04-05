@@ -70,12 +70,8 @@ suite('Metadata Snippet', function () {
     });
 
     teardown(async function () {
-        const metaDefault: Record<string,string> = {
-            "author": "",
-            "date": "${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}"
-        };
-        await setTestConfig('metaEntries', metaDefault, modifiedConfig);
-        await setTestConfig('sortMeta', true, modifiedConfig);
+        await setTestConfig('metaEntries', undefined, modifiedConfig);
+        await setTestConfig('sortMeta', undefined, modifiedConfig);
     });
 
     test('it provides a basic meta section when the user types in the correct prefix', async function () {
@@ -101,7 +97,9 @@ suite('Metadata Snippet', function () {
         const filepath: string = path.join(workspace, 'snippets.yar');
         const uri: vscode.Uri = vscode.Uri.file(filepath);
         const pos: vscode.Position = new vscode.Position(2, 9);
-        await setTestConfig('metaEntries', {}, modifiedConfig);
+        // the editor will merge Object configurations rather than implicitly overwriting them
+        // ... so the only way to clear the config is manually undefining them
+        await setTestConfig('metaEntries', undefined, modifiedConfig);
         // don't resolve any completion items yet
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 4);
         assert.equal(completions.isIncomplete, false);
@@ -110,10 +108,11 @@ suite('Metadata Snippet', function () {
         assert.equal(item.label, 'meta');
         assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
         assert.equal(item.detail, 'Generate a \'meta\' section (YARA)');
-        const expectedInsertText: vscode.SnippetString = new vscode.SnippetString('meta:');
+        const rawInsertText = 'meta:\n\t${1:KEY} = ${2:"VALUE"}';
+        const expectedInsertText: vscode.SnippetString = new vscode.SnippetString(rawInsertText);
         assert.deepEqual(item.insertText, expectedInsertText);
         const expectedDocs: vscode.MarkdownString = new vscode.MarkdownString('');
-        expectedDocs.appendCodeblock('meta:\n\tkey = "value"');
+        expectedDocs.appendCodeblock(rawInsertText);
         assert.deepEqual(item.documentation, expectedDocs);
     });
 
@@ -121,7 +120,8 @@ suite('Metadata Snippet', function () {
         const filepath: string = path.join(workspace, 'snippets.yar');
         const uri: vscode.Uri = vscode.Uri.file(filepath);
         const pos: vscode.Position = new vscode.Position(2, 9);
-        // don't resolve any completion items yet
+        const testConfig: Record<string,string> = {'author': 'test user', 'hash': ''};
+        await setTestConfig('metaEntries', testConfig, modifiedConfig);
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 4);
         assert.equal(completions.isIncomplete, false);
         assert.equal(completions.items.length, 4);
@@ -129,10 +129,11 @@ suite('Metadata Snippet', function () {
         assert.equal(item.label, 'meta');
         assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
         assert.equal(item.detail, 'Generate a \'meta\' section (YARA)');
-        const expectedInsertText: vscode.SnippetString = new vscode.SnippetString('meta:\n\tauthor = "$1"\n\tdate = "${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}"');
+        const rawInsertText = `meta:\n\tauthor = "${testConfig['author']}"\n\thash = "$1"`;
+        const expectedInsertText: vscode.SnippetString = new vscode.SnippetString(rawInsertText);
         assert.deepEqual(item.insertText, expectedInsertText);
         const expectedDocs: vscode.MarkdownString = new vscode.MarkdownString('');
-        expectedDocs.appendCodeblock('meta:\n\tkey = "value"');
+        expectedDocs.appendCodeblock(rawInsertText);
         assert.deepEqual(item.documentation, expectedDocs);
     });
 
@@ -162,10 +163,18 @@ suite('Metadata Snippet', function () {
 });
 
 suite('Rule Snippet', function () {
+    let modifiedConfig: vscode.WorkspaceConfiguration;
+
     setup(async function () {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const extension: vscode.Extension<any> = vscode.extensions.getExtension(extensionId);
         await extension.activate();
+        modifiedConfig = vscode.workspace.getConfiguration('yara');
+    });
+
+    teardown(async function () {
+        await setTestConfig('metaEntries', undefined, modifiedConfig);
+        await setTestConfig('sortMeta', undefined, modifiedConfig);
     });
 
     test('it provides a basic rule skeleton when not resolved', async function () {
@@ -191,6 +200,7 @@ suite('Rule Snippet', function () {
         const filepath: string = path.join(workspace, 'snippets.yar');
         const uri: vscode.Uri = vscode.Uri.file(filepath);
         const pos: vscode.Position = new vscode.Position(0, 4);
+        await setTestConfig('metaEntries', {'author': '', 'date': '${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}'}, modifiedConfig);
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, null, 4);
         assert.equal(completions.isIncomplete, false);
         assert.equal(completions.items.length, 4);

@@ -31,37 +31,48 @@ function generateMetaSnippet(snippet: vscode.SnippetString = new vscode.SnippetS
     if (config.get('sortMeta')) {
         metaKeys.sort();
     }
-    snippet.appendText(`${tabs}meta:\n`)
-    metaKeys.forEach((key: string) => {
-        const metaValue = String(metaConfig[key]);
-        if (metaValue === '') {
-            // use tabstops when the user wants a pre-set key, but not a pre-filled value
-            // ... to make it easier to fill these in when generating the rule
-            snippet.appendText(`${tabs}\t${key} = "`);
-            snippet.appendTabstop();
-            snippet.appendText(`"\n`);
-        }
-        else if (varRegex.test(metaValue)) {
-            varRegex.lastIndex = 0;
-            snippet.appendText(`${tabs}\t${key} = "`);
-            let currIndex = 0;
-            let match: RegExpExecArray;
-            while ((match = varRegex.exec(metaValue)) !== null) {
-                // if we have a match after our previous append, then
-                // ... append all the characters from the previous position up to the match
-                snippet.appendText(metaValue.substring(currIndex, match.index));
-                const variableMatch: string = match.shift();
-                const variableName: string = getVariableNameFromString(variableMatch);
-                snippet.appendVariable(variableName, '');
-                // move the index up to just after the variable
-                currIndex = varRegex.lastIndex;
+    snippet.appendText(`${tabs}meta:\n`);
+    if (metaKeys.length == 0) {
+        // just provide some simple tabstops for the user to add their own metadata
+        snippet.appendText('\t');
+        snippet.appendPlaceholder('KEY');
+        snippet.appendText(' = ');
+        snippet.appendPlaceholder('"VALUE"');
+    }
+    else {
+        metaKeys.forEach((key: string) => {
+            const metaValue = String(metaConfig[key]);
+            if (metaValue === '') {
+                // use tabstops when the user wants a pre-set key, but not a pre-filled value
+                // ... to make it easier to fill these in when generating the rule
+                snippet.appendText(`${tabs}\t${key} = "`);
+                snippet.appendTabstop();
+                snippet.appendText(`"\n`);
             }
-            snippet.appendText(`"\n`);
-        }
-        else {
-            snippet.appendText(`${tabs}\t${key} = "${metaValue}"\n`);
-        }
-    });
+            else if (varRegex.test(metaValue)) {
+                varRegex.lastIndex = 0;
+                snippet.appendText(`${tabs}\t${key} = "`);
+                let currIndex = 0;
+                let match: RegExpExecArray;
+                while ((match = varRegex.exec(metaValue)) !== null) {
+                    // if we have a match after our previous append, then
+                    // ... append all the characters from the previous position up to the match
+                    snippet.appendText(metaValue.substring(currIndex, match.index));
+                    const variableMatch: string = match.shift();
+                    const variableName: string = getVariableNameFromString(variableMatch);
+                    snippet.appendVariable(variableName, '');
+                    // move the index up to just after the variable
+                    currIndex = varRegex.lastIndex;
+                }
+                snippet.appendText(`"\n`);
+            }
+            else {
+                snippet.appendText(`${tabs}\t${key} = "${metaValue}"\n`);
+            }
+        });
+    }
+    // TODO: it would be really cool to just hit enter here and keep generating metadata snippet entries
+    // ... not sure how to identify when a user just wants a newline though
     // remove any extra newlines that may have popped up
     snippet.value = snippet.value.trim();
     return snippet;
