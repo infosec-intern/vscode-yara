@@ -20,7 +20,6 @@ suite("YARA: Provider", function () {
         // line numbers start at 0, so we have to subtract one for the lookup
         const pos: vscode.Position = new vscode.Position(42, 14);
         vscode.commands.executeCommand("vscode.executeDefinitionProvider", uri, pos).then((definitions: vscode.Location[]) => {
-                // console.log(`rule definitions: ${JSON.stringify(definitions)}`);
                 assert.equal(definitions.length, 1);
                 definitions.forEach((definition: vscode.Location) => {
                     assert.equal(definition.uri.fsPath, filepath);
@@ -38,7 +37,6 @@ suite("YARA: Provider", function () {
         // line numbers start at 0, so we have to subtract one for the lookup
         const pos: vscode.Position = new vscode.Position(24, 14);
         vscode.commands.executeCommand("vscode.executeDefinitionProvider", uri, pos).then((definitions: vscode.Location[]) => {
-            // console.log(`variable definitions: ${JSON.stringify(definitions)}`);
             assert.equal(definitions.length, 1);
             definitions.forEach((definition: vscode.Location) => {
                 assert.equal(definition.uri.fsPath, filepath);
@@ -56,7 +54,6 @@ suite("YARA: Provider", function () {
         const pos: vscode.Position = new vscode.Position(21, 11);
         const acceptableLines: Set<number> = new Set([21, 28, 29]);
         vscode.commands.executeCommand("vscode.executeReferenceProvider", uri, pos).then((references: vscode.Location[]) => {
-            // console.log(`symbol references: ${JSON.stringify(references)}`);
             assert.equal(references.length, 3);
             references.forEach((reference: vscode.Location) => {
                 assert.equal(reference.uri.fsPath, filepath);
@@ -75,7 +72,6 @@ suite("YARA: Provider", function () {
         const pos: vscode.Position = new vscode.Position(30, 11);
         const acceptableLines: Set<number> = new Set([19, 20, 24]);
         vscode.commands.executeCommand("vscode.executeReferenceProvider", uri, pos).then((references: vscode.Location[]) => {
-            // console.log(`wildcard references: ${JSON.stringify(references)}`);
             assert.equal(references.length, 3);
             references.forEach((reference: vscode.Location) => {
                 assert.equal(reference.uri.fsPath, filepath);
@@ -102,7 +98,6 @@ suite("YARA: Provider", function () {
         const pos: vscode.Position = new vscode.Position(19, 11);
         const acceptableLines: Set<number> = new Set([19, 24, 40, 42]);
         vscode.commands.executeCommand("vscode.executeReferenceProvider", uri, pos).then((references: vscode.Location[]) => {
-            // console.log(`issue 17: ${JSON.stringify(references)}`);
             assert.equal(references.length, 4);
             references.forEach((reference: vscode.Location) => {
                 assert.equal(reference.uri.fsPath, filepath);
@@ -130,7 +125,6 @@ suite("YARA: Provider", function () {
         // my_private_rule: Line 10, Col 14
         const pos: vscode.Position = new vscode.Position(9, 14);
         vscode.commands.executeCommand("vscode.executeDefinitionProvider", uri, pos).then((references: vscode.Location[]) => {
-            // console.log(`issue 32: ${JSON.stringify(references)}`);
             assert.equal(references.length, 1);
             references.forEach((reference: vscode.Location) => {
                 assert.equal(reference.uri.fsPath, filepath);

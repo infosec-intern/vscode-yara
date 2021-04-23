@@ -1,7 +1,8 @@
 'use strict';
 
 import * as vscode from 'vscode';
-
+import { debug } from "./configuration";
+import { log } from "./helpers";
 
 const configName = 'yara';
 
@@ -14,6 +15,7 @@ function getVariableNameFromString(rawSnippet: string): string {
 }
 
 function generateConditionSnippet(snippet: vscode.SnippetString = new vscode.SnippetString(), numTabs = 0): vscode.SnippetString {
+    if (debug) { log("YaraSnippetCompletionItemProvider: Generating 'condition' snippet"); }
     const tabs = '\t'.repeat(numTabs);
     snippet.appendText(`${tabs}condition:\n`);
     snippet.appendText(`${tabs}\t`);
@@ -22,6 +24,7 @@ function generateConditionSnippet(snippet: vscode.SnippetString = new vscode.Sni
 }
 
 function generateMetaSnippet(snippet: vscode.SnippetString = new vscode.SnippetString(), numTabs = 0): vscode.SnippetString {
+    if (debug) { log("YaraSnippetCompletionItemProvider: Generating 'meta' snippet"); }
     const tabs = '\t'.repeat(numTabs);
     const varRegex = new RegExp('\\${[A-Z_]+?}', 'gi');
     const config: vscode.WorkspaceConfiguration = vscode.workspace.getConfiguration(configName);
@@ -81,6 +84,7 @@ function generateMetaSnippet(snippet: vscode.SnippetString = new vscode.SnippetS
 }
 
 function generateRuleSnippet(snippet: vscode.SnippetString = new vscode.SnippetString()): vscode.SnippetString {
+    if (debug) { log("YaraSnippetCompletionItemProvider: Generating 'rule' snippet"); }
     snippet.appendText('rule ');
     // TODO: Find a way to mix variables and placeholders, so TM_FILENAME_BASE can be the default and also a placeholder
     snippet.appendPlaceholder('my_rule');
@@ -97,6 +101,7 @@ function generateRuleSnippet(snippet: vscode.SnippetString = new vscode.SnippetS
 }
 
 function generateStringSnippet(snippet: vscode.SnippetString = new vscode.SnippetString(), numTabs = 0): vscode.SnippetString {
+    if (debug) { log("YaraSnippetCompletionItemProvider: Generating 'strings' snippet"); }
     const tabs = '\t'.repeat(numTabs);
     snippet.appendText(`${tabs}strings:\n`);
     snippet.appendText(`${tabs}\t`);
@@ -143,18 +148,22 @@ export class YaraSnippetCompletionItemProvider implements vscode.CompletionItemP
             stringsItem.documentation.appendCodeblock('strings:\n\tNAME = "STRING"');
             items.items.push(stringsItem);
         }
+        if (debug) { log(`YaraSnippetCompletionItemProvider: Generated ${items.items.length} snippets`); }
         return items;
     }
 
     public provideCompletionItems(doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken): vscode.ProviderResult<vscode.CompletionList> {
         return new Promise((resolve, reject) => {
-            token.onCancellationRequested(reject);
+            token.onCancellationRequested(() => {
+                if (debug) { log('YaraSnippetCompletionItemProvider: Task cancelled!'); }
+                resolve(undefined);
+            });
             try {
                 // TODO: Only provide sections when inside a rule
                 const items: vscode.CompletionList = this.generateBasicItems();
                 resolve(items);
             } catch (error) {
-                console.log(`YaraSnippetCompletionItemProvider: ${error}`);
+                log(`YaraSnippetCompletionItemProvider error: ${error}`);
                 reject();
             }
         });
@@ -178,7 +187,7 @@ export class YaraSnippetCompletionItemProvider implements vscode.CompletionItemP
                     snippet = generateStringSnippet();
                     break;
                 default:
-                    console.log(`I don't know what this snippet is: ${item.label} => ${JSON.stringify(item)}`);
+                    log(`Unrecognizable snippet: ${item.label} => ${JSON.stringify(item)}`);
                     break;
             }
             item.insertText = snippet;

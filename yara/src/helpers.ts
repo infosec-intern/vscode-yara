@@ -3,8 +3,16 @@
 import * as vscode from "vscode";
 
 
+export const output: vscode.OutputChannel = vscode.window.createOutputChannel("YARA");
 // variables have a few possible first characters - use these to identify vars vs. rules
 export const varFirstChar: Set<string> = new Set(["$", "#", "@", "!"]);
+
+/*
+    Send a given message to the output channel with a timestamp
+*/
+export function log(message: string): void {
+    output.appendLine(`[${new Date().toISOString()}] ${message}`);
+}
 
 /*
     Get the start and end boundaries for the current YARA rule based on a symbol's position

@@ -4,7 +4,8 @@ import * as fs from 'fs';
 import * as glob from 'glob';
 import * as path from 'path';
 import * as vscode from 'vscode';
-
+import { debug } from "./configuration";
+import { log } from "./helpers";
 
 type Module = Array<vscode.CompletionItem>;
 type ModuleSchema = Map<string,Module>;
@@ -20,6 +21,7 @@ function canCompleteTerm(schema: ModuleSchema, requestedModule: string, doc: vsc
         const imported_modules: Array<string> = doc.getText().split("\n").filter((line: string) => {
             return importRegexp.test(line);
         }).map<string>((line: string) => { return line.split("\"")[1]; });
+        if (debug) { log(`YaraCompletionItemProvider: Identified imported modules as: ${imported_modules.join(", ")}`); }
         // user requires modules to be imported before code completion can take effect
         return imported_modules.some((module: string) => { return module == requestedModule; });
     }
@@ -46,7 +48,7 @@ function getCompletionItemKind(schemaType: string): vscode.CompletionItemKind {
     else if (typeof schemaType !== 'object') {
         // Ignoring arbitrary JSON objects, if we get to this point someone has specified a type
         // ... that we don't have knowledge of - it's probably a typo
-        console.log(`got schema I don't recognize: ${JSON.stringify(schemaType)}`);
+        log(`YaraCompletionItemProvider: Recieved unrecognizable module schema: ${JSON.stringify(schemaType)}`);
     }
     return kind;
 }
@@ -107,10 +109,14 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
 
     public provideCompletionItems(doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken): vscode.ProviderResult<vscode.CompletionList> {
         return new Promise((resolve, reject) => {
-            token.onCancellationRequested(resolve);
+            token.onCancellationRequested(() => {
+                if (debug) { log('YaraCompletionItemProvider: Task cancelled!'); }
+                resolve(undefined);
+            });
             try {
                 const items: vscode.CompletionList = new vscode.CompletionList([]);
                 const fullTerm: string = doc.getText(doc.getWordRangeAtPosition(pos, this.wordDefinition));
+                if (debug) { log(`YaraCompletionItemProvider: Term to complete as a module entry: ${fullTerm}`); }
                 const terms: Array<string> = fullTerm.split('.');
                 const prefix = `${terms.slice(0, terms.length-1).join('.')}.`;
                 // first check if the first symbol in the term has been imported, if needed
@@ -146,12 +152,13 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
                             }
                             return entry;
                         });
+                        if (debug) { log(`YaraCompletionItemProvider: Resolving ${items.items.length} completion items`); }
                         resolve(items);
                     }
                 }
                 reject();
             } catch (error) {
-                console.log(`YaraCompletionItemProvider: ${error}`);
+                log(`YaraCompletionItemProvider error: ${error}`);
                 reject();
             }
         });
@@ -159,7 +166,10 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
 
     public resolveCompletionItem(item: vscode.CompletionItem, token: vscode.CancellationToken): vscode.ProviderResult<vscode.CompletionItem> {
         return new Promise((resolve) => {
-            token.onCancellationRequested(resolve);
+            token.onCancellationRequested(() => {
+                if (debug) { log('YaraCompletionItemProvider: Resolution task cancelled!'); }
+                resolve(undefined);
+            });
             // TODO: Add documentation - VT Filetypes would be a great place to start
             resolve(item);
         });

@@ -58,6 +58,11 @@
         "configuration": {
             "title": "YARA",
             "properties": {
+                "yara.debug": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Toggle debug logging to the YARA output channel"
+                },
                 "yara.requireImports": {
                     "type": "boolean",
                     "default": false,
