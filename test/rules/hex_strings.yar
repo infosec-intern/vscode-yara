@@ -51,7 +51,8 @@ rule AlternativesExample2
 {
     strings:
         $hex_string = { F4 23 ( 62 B4 | 56 | 45 ?? 67 ) 45 }
-        $hex_string = { F4 23 ( 62 B4 | 56 | 45 ?? 67 ) 45 }
+        $hex_string2 = {F423(62B4|56|45??67)45}
+        $webshell = { 24 5f (47 45|50 4f 53) 54 5b (27|22) 63 6d 64 (27|22) 5d }
 
     condition:
         $hex_string
