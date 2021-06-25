@@ -11,7 +11,7 @@ export class YaraHexStringHoverProvider implements vscode.HoverProvider {
     /*
         Convert a hex string into a human-readable character array, with certain reserved characters unchanged
     */
-    private convertHexToChar(hexString: string): string {
+    public convertHexToChar(hexString: string): string {
         let char = '';
         let charInt = 0;
         const result: Array<string> = new Array<string>();
@@ -48,6 +48,7 @@ export class YaraHexStringHoverProvider implements vscode.HoverProvider {
                 }
             }
         }
+        if (debug) { log(`Converted '${hexString}' to '${result.join("")}'`); }
         return result.join('');
     }
 

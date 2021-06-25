@@ -275,35 +275,18 @@
 		<!-- hex -->
 		<dict>
 			<key>contentName</key>
-			<string>string.other.hex.yara</string>
+			<string>string.hex.yara</string>
 			<key>begin</key>
 			<string>=\s*?{</string>
 			<key>end</key>
 			<string>}</string>
-			<key>match</key>
-			<string>[a-fA-F0-9?]</string>
-		</dict>
-		<!-- hex jumps -->
-		<dict>
-			<key>contentName</key>
-			<string>string.other.hexjmp.yara</string>
-			<key>begin</key>
-			<string>=\s*?{</string>
-			<key>end</key>
-			<string>}</string>
-			<key>match</key>
-			<string>\[[0-9]*\-[0-9]*\]</string>
-		</dict>
-		<!-- hex alternatives -->
-		<dict>
-			<key>contentName</key>
-			<string>string.other.hexalt.yara</string>
-			<key>begin</key>
-			<string>=\s*?{</string>
-			<key>end</key>
-			<string>}</string>
-			<key>match</key>
-			<string>[(|)]</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>[a-fA-F0-9?]</string>
+				</dict>
+			</array>
 		</dict>
 		<!-- Storage strings : mostly data types -->
 		<!-- Data Types - Other -->
