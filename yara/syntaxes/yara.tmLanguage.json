@@ -148,7 +148,7 @@
       "end": "\"",
       "patterns": [
         {
-          "name": "invalid.illegal.quoted.double.yara",
+          "name": "invalid.illegal.missing.escape.yara",
           "match": "[^\\\\]\\\\[^\\\\]"
         }
       ]
