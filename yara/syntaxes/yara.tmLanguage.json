@@ -145,11 +145,11 @@
     {
       "name": "string.quoted.double.yara",
       "begin": "\"",
-      "end": "\"",
+      "end": "(\")(?!.*\")",
       "patterns": [
         {
           "name": "invalid.illegal.missing.escape.yara",
-          "match": "[^\\\\]\\\\[^\\\\]"
+          "match": "[^\\\\]\\\\[^\\\\\"]"
         }
       ]
     },

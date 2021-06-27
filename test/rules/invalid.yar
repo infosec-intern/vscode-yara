@@ -12,8 +12,11 @@ rule InvalidString
     meta:
         description = "Example rule for vscode-yara issue #28"
     strings:
-        $invalid = "C:\Users"
-        $valid = "C:\\Users"
+        $invalid = "C:\Users" ascii wide
+        $valid = "C:\\Users" ascii wide
+        $valid_escape1 = "C:\"Users\"" ascii wide
+        $valid_escape2 = "C:\\\"Users\"" ascii wide
+        $valid_escape3 = "C:\\\" Users \"" ascii wide
     condition:
         any of them
 }
