@@ -151,11 +151,22 @@
       "match": "/.*?[^\\\\]/(i|c|x|t|s|m|p|w|n|J|U|d|b|e|q|x)*"
     },
     {
-      "contentName": "string.hex.yara",
+      "contentName": "entity.hex.yara",
       "begin": "=\\s*?{",
       "end": "}",
       "patterns": [
-        { "match": "\\s*[a-fA-F0-9?]+\\s*" }
+        {
+          "name": "string.other.hex.yara",
+          "match": "[a-fA-F0-9?]"
+        },
+        {
+          "name": "entity.special.hex.yara",
+          "match": "[(|)[-]]"
+        },
+        {
+          "name": "invalid.illegal.hex.yara",
+          "match": "[^(|)\\[\\-\\]a-fA-F0-9?]"
+        }
       ]
     },
     {
