@@ -4,7 +4,7 @@ on:
   release:
     types: [released]
 
-name: Deploy Extension
+name: publish
 jobs:
   deploy:
     runs-on: ubuntu-latest
