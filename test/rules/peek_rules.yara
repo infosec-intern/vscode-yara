@@ -52,7 +52,7 @@ rule Yara4Example
         $b64wname = "string" base64wide
     condition:
         any of them
-        and pe.pdb_path == "C:\fake_pdb_path"
+        and pe.pdb_path == "C:\\fake_pdb_path"
         and pe.dll_name == "library.dll"
         and pe.export_timestamp == 000000000
         and pe.exports_index(40)

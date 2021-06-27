@@ -144,7 +144,14 @@
     },
     {
       "name": "string.quoted.double.yara",
-      "match": "\\\"(\\\\.|[^\\\\\\\"])*?\\\""
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "invalid.illegal.quoted.double.yara",
+          "match": "[^\\\\]\\\\[^\\\\]"
+        }
+      ]
     },
     {
       "name": "string.regexp.yara",
@@ -158,10 +165,6 @@
         {
           "name": "string.other.hex.yara",
           "match": "[a-fA-F0-9?]"
-        },
-        {
-          "name": "entity.special.hex.yara",
-          "match": "[(|)[-]]"
         },
         {
           "name": "invalid.illegal.hex.yara",
