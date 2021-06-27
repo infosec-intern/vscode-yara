@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.6.0] 2021-06-27
+* Improved grammar matching for hex strings and quoted string escape sequences - invalid characters will be highlighted as such
+* Converted TextMate grammar from XML to JSON format to improve readability
+* Added hover provider to display hex strings in ASCII format
+
 ## [1.5.0] 2021-04-04
 * Rule sections - especially the `meta:` section - now generated based on configuration
 * Reorganized tests into multiple files to make them easier to read/find
@@ -98,3 +103,4 @@
 [1.4.0]: https://github.com/infosec-intern/vscode-yara/compare/v1.3.11...v1.4.0
 [1.4.1]: https://github.com/infosec-intern/vscode-yara/compare/v1.4.0...v1.4.1
 [1.5.0]: https://github.com/infosec-intern/vscode-yara/compare/v1.4.1...v1.5.0
+[1.6.0]: https://github.com/infosec-intern/vscode-yara/compare/v1.5.0...v1.6.0
