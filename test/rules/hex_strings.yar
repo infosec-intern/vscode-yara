@@ -55,7 +55,7 @@ rule AlternativesExample2
         $webshell = { 24 5f (47 45|50 4f 53) 54 5b (27|22) 63 6d 64 (27|22) 5d }
         $missing_closed_parens = { F4 23 ( 62 B4 | 56 | 45 ?? 67  45 }
         $missing_open_parens = { F4 23 62 B4 | 56 | 45 ?? 67 ) 45 }
-
+        $h = {ee ff gg hh ><}
     condition:
         $hex_string
 }
