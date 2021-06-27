@@ -46,7 +46,7 @@
             {
                 "language": "yara",
                 "scopeName": "source.yara",
-                "path": "yara/syntaxes/yara.tmLanguage"
+                "path": "yara/syntaxes/yara.tmLanguage.json"
             }
         ],
         "snippets": [
