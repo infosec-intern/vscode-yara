@@ -23,6 +23,11 @@ Provides completion suggestions for standard YARA modules, including `pe`, `elf`
 
 ![Code Completion](images/module_completion.PNG)
 
+### View Hex Strings as ASCII
+When hovering over a hex string, this feature converts the hex into ASCII characters and displays it just over the text. Wildcards and special characters are preserved in the conversion.
+
+![Hex String Hover](images/hexstring_hover.PNG)
+
 #### Looking to add or modify a module?
 All modules are stored as JSON under `yara/src/modules/`. Each module has its own file corresponding to the module name, and the JSON entries are key/value pairs where the key is the module entry, and the type of entry it is. Entry types are any of the following:
 
