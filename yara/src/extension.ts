@@ -8,6 +8,7 @@ import { YaraCompletionItemProvider } from "./completionProvider";
 import { YaraDefinitionProvider } from "./definitionProvider";
 import { YaraReferenceProvider } from "./referenceProvider";
 import { YaraSnippetCompletionItemProvider } from "./snippetProvider";
+import { YaraHexStringHoverProvider } from "./hoverProvider";
 
 
 export function activate(context: vscode.ExtensionContext): void {
@@ -29,6 +30,9 @@ export function activate(context: vscode.ExtensionContext): void {
     const snippetsDisposable: vscode.Disposable = vscode.languages.registerCompletionItemProvider(YARA, new YaraSnippetCompletionItemProvider());
     if (debug) { log("Registered snippet provider"); }
     context.subscriptions.push(snippetsDisposable);
+    const hoverDisposable: vscode.Disposable = vscode.languages.registerHoverProvider(YARA, new YaraHexStringHoverProvider());
+    if (debug) { log("Registered hover provider"); }
+    context.subscriptions.push(hoverDisposable);
     // watch configuration for changes to update log level
     const configWatcher: vscode.Disposable = vscode.workspace.onDidChangeConfiguration((e: vscode.ConfigurationChangeEvent) => {
         if (e.affectsConfiguration(configSection)) {
