@@ -9,7 +9,7 @@ rule SyntaxExample
         // Useful meta information examples to add
         description = "Test"
         author = "Test"
-        reference = "https://infosec-intern.github.io"
+        reference = "https://github.com/infosec-intern/vscode-yara/wiki"
         os = "mswindows"
         filetype = "pe"
         maltype = "trojan"
@@ -36,7 +36,7 @@ rule RuleReferenceExample
     meta:
         description = "Rule Reference Example"
         author = "Test"
-        reference = "https://infosec-intern.github.io"
+        reference = "https://github.com/infosec-intern/vscode-yara/wiki"
     strings:
         $hex_string = "test"
     condition:
