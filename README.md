@@ -23,8 +23,8 @@ More information can be found on the [Snippets wiki page](https://github.com/inf
 
 ## Problems?
 If you encounter an issue with the syntax, feel free to create an issue or pull request!
-Alternatively, check out some of the YARA syntaxes for Sublime and Atom, or the one bundled with YARA itself.
-They use the same syntax engine as VSCode and should work the same way.
+
+Alternatively, check out some of the YARA syntaxes for Sublime and Atom, such as blacktop's excellent [language-yara syntax](https://github.com/blacktop/language-yara).
 
 ## YARA Documentation
 https://yara.readthedocs.io/
