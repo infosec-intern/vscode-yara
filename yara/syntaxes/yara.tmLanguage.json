@@ -145,7 +145,7 @@
     {
       "name": "string.quoted.double.yara",
       "begin": "\"",
-      "end": "(\")(?!.*\")",
+      "end": "(\")(?![^/]*\")",
       "patterns": [
         {
           "name": "invalid.illegal.missing.escape.yara",
@@ -162,6 +162,12 @@
       "begin": "=\\s*?{",
       "end": "}",
       "patterns": [
+        {
+          "name": "constant.numeric.jump.range.yara",
+          "begin": "\\[",
+          "end": "\\]",
+          "match": "[0-9]*-[0-9]*"
+        },
         {
           "name": "string.other.hex.yara",
           "match": "[a-fA-F0-9?]"
