@@ -17,6 +17,8 @@ rule InvalidString
         $valid_escape1 = "C:\"Users\"" ascii wide
         $valid_escape2 = "C:\\\"Users\"" ascii wide
         $valid_escape3 = "C:\\\" Users \"" ascii wide
+        $valid_escape4 = "C:\\Users" ascii wide       // "quoted comment"
+        $valid_escape5 = "/root/users" ascii wide    // "quoted comment"
     condition:
         any of them
 }
