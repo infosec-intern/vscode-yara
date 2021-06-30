@@ -111,4 +111,4 @@
 [1.5.0]: https://github.com/infosec-intern/vscode-yara/compare/v1.4.1...v1.5.0
 [1.6.0]: https://github.com/infosec-intern/vscode-yara/compare/v1.5.0...v1.6.0
 [1.6.1]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.0...v1.6.1
-[1.6.2]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.0...v1.6.2
+[1.6.2]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.1...v1.6.2
