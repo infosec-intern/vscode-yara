@@ -18,9 +18,13 @@ jobs:
           node-version: 10
       - name: Build package
         run: |
-          echo running on branch ${{ github.head_ref }}
-          echo also running on branch ${GITHUB_REF#refs/tags/}
-          npm ci
+          if [[ "${GITHUB_REF#refs/tags/}" =~ v[0-9]+.[0-9]+.[0-9]+ ]]
+          then
+            npm ci
+          fi
+      - name: Check condition
+        if: success()
+        run: 'echo ran anyway'
       # - name: Publish to Open VSX Registry
       #   if: success()
       #   uses: HaaLeo/publish-vscode-extension@v0
