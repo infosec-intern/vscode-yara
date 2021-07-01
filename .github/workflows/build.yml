@@ -10,6 +10,7 @@ on:
     - 'releases/**/*'
     paths-ignore:
     - '.github/workflows/release.yml'
+    - '.github/workflows/publish.yml'
     - '.github/workflows/codeql-analysis.yml'
     - CHANGELOG.md
     - README.md
