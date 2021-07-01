@@ -1,4 +1,5 @@
 # This workflow will publish the extension to the VSCode and OpenVSX marketplaces when a non-draft release has been published
+# Steps taken from https://github.community/t/how-to-trigger-on-a-release-only-if-tag-name-matches-pattern/18514 (thank you brightran!)
 
 on:
   release:
@@ -9,7 +10,23 @@ on:
 
 name: publish
 jobs:
+  check_tag:
+    runs-on: ubuntu-latest
+    outputs:
+      run_other_jobs: ${{ steps.check-tag.outputs.run_jobs }}
+    steps:
+      - name: check tag ${{ github.ref }}
+        id: check-tag
+        run: |
+          if [[${{ github.ref }} =~ refs\/tags\/release\/v[0-9]+\.[0-9]+\.[0-9]+ ]]; then
+            echo "::set-output name=run_jobs::true"
+          else
+            echo "::set-output name=run_jobs::false"
+          fi
+
   deploy:
+    needs: check_tag
+    if: needs.check_tag.outputs.run_other_jobs == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,17 +34,14 @@ jobs:
         with:
           node-version: 10
       - name: Build package
-        if: startsWith(github.ref, 'refs/tags/v')
         run: |
           npm ci
       - name: Publish to Open VSX Registry
-        if: success()
         run: echo openvsx
       #   uses: HaaLeo/publish-vscode-extension@v0
       #   with:
       #     pat: ${{ secrets.OPENVSX_PUBLISHER }}
       - name: Publish to Visual Studio Marketplace
-        if: success()
         run: echo vscode
       #   uses: HaaLeo/publish-vscode-extension@v0
       #   with:
