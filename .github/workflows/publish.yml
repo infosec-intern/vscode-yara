@@ -19,7 +19,7 @@ jobs:
       - name: Build package
         run: |
           echo running on branch ${{ github.head_ref }}
-          echo also running on branch ${GITHUB_REF}
+          echo also running on branch ${GITHUB_REF#refs/tags/}
           npm ci
       # - name: Publish to Open VSX Registry
       #   if: success()
