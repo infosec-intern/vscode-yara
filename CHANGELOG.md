@@ -1,7 +1,12 @@
 # Changelog
 
+## [1.6.3] 2021-07-01
+* Regex is hard. Pretty sure double quotes are actually fixed in all reasonable cases
+* Added GitHub Action to auto-publish new extensions when releases are created
+
 ## [1.6.2] 2021-06-30
 * Fixed grammar for quotes in comments - previous change incorrectly treated them as part of the string
+* Modified syntax highlighting of jumps in hex strings - now they are treated as numbers instead of hex
 
 ## [1.6.1] 2021-06-27
 * Fixed grammar for escaped quotes in strings- previous change incorrectly treated escaped quotes as invalid
@@ -112,3 +117,4 @@
 [1.6.0]: https://github.com/infosec-intern/vscode-yara/compare/v1.5.0...v1.6.0
 [1.6.1]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.0...v1.6.1
 [1.6.2]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.1...v1.6.2
+[1.6.3]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.2...v1.6.3
