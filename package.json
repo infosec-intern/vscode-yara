@@ -20,6 +20,15 @@
     "engines": {
         "vscode": "^1.22.0"
     },
+    "capabilities": {
+        "untrustedWorkspaces": {
+            "supported": "limited",
+            "description": "Module and meta snippet completion are disabled in untrusted workspaces, as both require interpreting potentially malicious user input.",
+            "restrictedConfigurations": [
+                "yara.metaEntries"
+            ]
+        }
+    },
     "categories": [
         "Programming Languages",
         "Snippets"

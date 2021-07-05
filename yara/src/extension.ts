@@ -11,6 +11,12 @@ import { YaraSnippetCompletionItemProvider } from "./snippetProvider";
 import { YaraHexStringHoverProvider } from "./hoverProvider";
 
 
+function enableModuleCompletion(context: vscode.ExtensionContext, YARA: vscode.DocumentSelector) {
+    const completionDisposable: vscode.Disposable = vscode.languages.registerCompletionItemProvider(YARA, new YaraCompletionItemProvider(), '.');
+    if (debug) { log("Registered module completion provider"); }
+    context.subscriptions.push(completionDisposable);
+}
+
 export function activate(context: vscode.ExtensionContext): void {
     // clear output channel and set up appropriate level of logging
     helpers.output.clear();
@@ -24,9 +30,6 @@ export function activate(context: vscode.ExtensionContext): void {
     const referenceDisposable: vscode.Disposable = vscode.languages.registerReferenceProvider(YARA, new YaraReferenceProvider());
     if (debug) { log("Registered reference provider"); }
     context.subscriptions.push(referenceDisposable);
-    const completionDisposable: vscode.Disposable = vscode.languages.registerCompletionItemProvider(YARA, new YaraCompletionItemProvider(), '.');
-    if (debug) { log("Registered module completion provider"); }
-    context.subscriptions.push(completionDisposable);
     const snippetsDisposable: vscode.Disposable = vscode.languages.registerCompletionItemProvider(YARA, new YaraSnippetCompletionItemProvider());
     if (debug) { log("Registered snippet provider"); }
     context.subscriptions.push(snippetsDisposable);
@@ -41,6 +44,17 @@ export function activate(context: vscode.ExtensionContext): void {
     });
     context.subscriptions.push(configWatcher);
     if (debug) { log('Registered configuration watcher'); }
+    // check if this is a trusted workspace and watch for changes in it
+    if (vscode.workspace.isTrusted) {
+        enableModuleCompletion(context, YARA);
+    }
+    else {
+        const trustWatcher: vscode.Disposable = vscode.workspace.onDidGrantWorkspaceTrust(() => {
+            enableModuleCompletion(context, YARA);
+        });
+        context.subscriptions.push(trustWatcher);
+        if (debug) { log('Registered workspace trust watcher'); }
+    }
 }
 
 export function deactivate(context: vscode.ExtensionContext): void {
