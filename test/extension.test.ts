@@ -136,3 +136,27 @@ suite("YARA: Provider", function () {
         });
    });
 });
+
+suite("Workspace Trust", function () {
+    setup(async function () {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const extension: vscode.Extension<any> = vscode.extensions.getExtension(extensionId);
+        await extension.activate();
+    });
+
+    test.skip("Module completion is enabled when workspace is trusted", async function () {
+        // TODO
+    });
+
+    test.skip("Module completion is disabled when workspace is not trusted", async function () {
+        // TODO
+    });
+
+    test.skip("Custom meta section completion is enabled when workspace is trusted", async function () {
+        // TODO
+    });
+
+    test.skip("Custom meta section completion is disabled when workspace is not trusted", async function () {
+        // TODO
+    });
+});
