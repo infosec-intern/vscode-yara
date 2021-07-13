@@ -18,7 +18,7 @@ rule WildcardExample
         $hex_string = { E2 34 ?? C8 A? FB }
 
     condition:
-        $hex_string
+        any of them
 }
 rule JumpExample
 {
@@ -45,7 +45,7 @@ rule AlternativesExample1
         $hex_string = { F4 23 ( 62 B4 | 56 ) 45 }
 
     condition:
-        $hex_string
+        any of them
 }
 rule AlternativesExample2
 {
@@ -56,5 +56,14 @@ rule AlternativesExample2
         $missing_closed_parens = { F4 23 ( 62 B4 | 56 | 45 ?? 67  45 }
         $missing_open_parens = { F4 23 62 B4 | 56 | 45 ?? 67 ) 45 }
     condition:
-        $hex_string
+        any of them
+}
+rule HexStringWithComments {
+    strings:
+        $hex_string = {
+            AA BB       // embedded single comment
+            CC EE       /* embedded multi comment */
+        }
+    condition:
+        any of them
 }
