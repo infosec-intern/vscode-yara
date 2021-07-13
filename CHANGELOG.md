@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.6.4] 2021-07-13
+* Added support for comments embedded inside hex strings
+
 ## [1.6.3] 2021-07-01
 * Regex is hard. Pretty sure double quotes are actually fixed in all reasonable cases
 * Added GitHub Action to auto-publish new extensions when releases are created
@@ -118,3 +121,4 @@
 [1.6.1]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.0...v1.6.1
 [1.6.2]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.1...v1.6.2
 [1.6.3]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.2...v1.6.3
+[1.6.4]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.3...v1.6.4
