@@ -173,6 +173,15 @@
           "match": "[a-fA-F0-9?]"
         },
         {
+          "name": "comment.line.double-slash.hex.yara",
+          "match": "//.*\\n"
+        },
+        {
+          "name": "comment.block.hex.yara",
+          "begin": "/\\*",
+          "end": "\\*/"
+        },
+        {
           "name": "invalid.illegal.hex.yara",
           "match": "[^(|)\\[\\-\\]a-fA-F0-9?]"
         }
