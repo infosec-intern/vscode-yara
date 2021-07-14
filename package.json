@@ -2,7 +2,7 @@
     "name": "yara",
     "displayName": "YARA",
     "description": "Rich language support for the YARA pattern matching language",
-    "version": "1.6.4",
+    "version": "1.7.0",
     "icon": "images/logo.png",
     "galleryBanner": {
         "color": "#A4A4A4",
@@ -18,7 +18,7 @@
         "url": "https://github.com/infosec-intern/vscode-yara/issues"
     },
     "engines": {
-        "vscode": "^1.22.0"
+        "vscode": "^1.58.0"
     },
     "capabilities": {
         "untrustedWorkspaces": {

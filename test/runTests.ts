@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { runTests } from 'vscode-test';
+import { downloadAndUnzipVSCode, runTests } from 'vscode-test';
 
 async function main() {
   try {
@@ -13,7 +13,9 @@ async function main() {
     const testWorkspace = path.resolve(__dirname, 'rules');
 
     // Download VS Code, unzip it and run the integration test
+    const vscodeExecutablePath = await downloadAndUnzipVSCode('stable');
     await runTests({
+        vscodeExecutablePath,
         extensionDevelopmentPath,
         extensionTestsPath,
         launchArgs: [testWorkspace, '--disable-extensions', '--disable-gpu']

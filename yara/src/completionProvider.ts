@@ -124,12 +124,12 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
                     const desiredModule: Module = this.schema.get(terms[0]);
                     if (desiredModule !== undefined) {
                         items.items = desiredModule.filter((entry: vscode.CompletionItem) => {
-                            return entry.label.startsWith(fullTerm);
+                            return entry.label.toString().startsWith(fullTerm);
                         }).map<vscode.CompletionItem>((entry: vscode.CompletionItem) => {
                             // remove any leading characters that overlap with the term already in the document
                             // ... but keep full module path as a detail item and the text to filter by
-                            entry.filterText = entry.label;
-                            const insertText = entry.label.replace(prefix, '');
+                            entry.filterText = entry.label.toString();
+                            const insertText = entry.label.toString().replace(prefix, '');
                             if (entry.kind === getCompletionItemKind('method')) {
                                 entry.detail = `${entry.label}()`;
                                 entry.insertText = new vscode.SnippetString(`${insertText}($1)`);
@@ -142,9 +142,9 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
                                 entry.detail = `${entry.label}["key"]`
                                 entry.insertText = new vscode.SnippetString(`${insertText}["$\{1:key}"]`);
                             }
-                            else if (entry.label.includes('[].')) {
+                            else if (entry.label.toString().includes('[].')) {
                                 // sub-properties of array items
-                                entry.detail = entry.label.replace('[]', '[index]');
+                                entry.detail = entry.label.toString().replace('[]', '[index]');
                                 entry.insertText = new vscode.SnippetString(insertText.replace('[]', '[${1:index}]'));
                             }
                             else {
