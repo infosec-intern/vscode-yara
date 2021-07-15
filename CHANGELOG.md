@@ -1,10 +1,5 @@
 # Changelog
 
-## [1.7.0] 2021-07-14
-* Enabled limited support for Trusted Workspaces: Module and meta snippet completion are disabled in untrusted workspaces, as both require interpreting potentially malicious user input
-* Updated completion providers to allow for new CompletionItemLabel type
-* Bumped required engine version to 1.58.0 to account for newly available features
-
 ## [1.6.4] 2021-07-13
 * Added support for comments embedded inside hex strings
 
@@ -127,4 +122,3 @@
 [1.6.2]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.1...v1.6.2
 [1.6.3]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.2...v1.6.3
 [1.6.4]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.3...v1.6.4
-[1.7.0]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.4...v1.7.0
