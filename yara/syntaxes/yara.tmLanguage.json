@@ -148,8 +148,16 @@
       "end": "(?<=[^\\\\])(\\\\((\\\\\\\\)*\\\\))?\"",
       "patterns": [
         {
+          "name": "string.quoted.double.escape.sequence.yara",
+          "match": "\\\\[\"\\\\nrt]"
+        },
+        {
+          "name": "string.quoted.double.hex.yara",
+          "match": "\\\\x[a-fA-F0-9]{2}"
+        },
+        {
           "name": "invalid.illegal.missing.escape.yara",
-          "match": "[^\\\\]\\\\[^\\\\\"]"
+          "match": "\\\\."
         }
       ]
     },

@@ -37,8 +37,10 @@ rule EscapeSequences
         $double = "abc\"def"        // \" 	double quote
         $slash = "abc\\def"         // \\ 	backslash
         $newline = "abc\ndef"       // \n 	line feed - new line
+        $return = "abc\rdef"        // \r 	carriage return - available in 4.1.0+
         $tab = "abc\tdef"           // \t 	horizontal tab
         $hex = "abc\x12def"         // \xnn 	arbitrary hexadecimal value
+        $invalid_hex = "abc\x1Qdef"        // invalid hex sequence
     condition:
         any of them
 }
