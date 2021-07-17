@@ -1,16 +1,21 @@
-rule InvalidHexString
+rule HexStrings
 {
     meta:
-        description = "Example rule for vscode-yara issue #26"
+        description = "Example rule for vscode-yara issues #26 and #49"
     strings:
-        $h = {ee ff gg hh ><}
+        $invalid = {ee ff gg hh ><}
+        $valid_jmp = { 00 11 22 33 [-] 88 99 }
+        $valid_jmp1 = { 00 11 22 33 [4] 88 99 }
+        $valid_jmp2 = { 00 11 22 33 [4-] 88 99 }
+        $valid_jmp3 = { 00 11 22 33 [4-6] 88 99 }
+        $invalid_jmp = { 00 11 22 33 [6-4] 88 99 }
     condition:
         any of them
 }
-rule InvalidString
+rule TextStrings
 {
     meta:
-        description = "Example rule for vscode-yara issue #28"
+        description = "Example rule for vscode-yara issues #28 and #49"
     strings:
         $invalid = "C:\Users" ascii wide
         $valid = "C:\\Users" ascii wide
