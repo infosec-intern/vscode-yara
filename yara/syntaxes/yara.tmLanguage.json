@@ -203,7 +203,7 @@
           "match": "[a-fA-F0-9]"
         },
         {
-          "name": "constant.other.wildcard.hex.yara",
+          "name": "constant.other.placeholder.hex.yara",
           "match": "\\?"
         },
         {
