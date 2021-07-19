@@ -4,11 +4,16 @@ rule HexStrings
         description = "Example rule for vscode-yara issues #26 and #49"
     strings:
         $invalid = {ee ff gg hh ><}
+        $valid = { 00 11 22 33 44 55 AA FF }
         $valid_jmp = { 00 11 22 33 [-] 88 99 }
         $valid_jmp1 = { 00 11 22 33 [4] 88 99 }
         $valid_jmp2 = { 00 11 22 33 [4-] 88 99 }
         $valid_jmp3 = { 00 11 22 33 [4-6] 88 99 }
+        $valid_jmp4 = { 00 (11|22) 33 44 55 }
         $invalid_jmp = { 00 11 22 33 [6-4] 88 99 }
+        $invalid_jmp2 = { 00 11 22 33 [aa-bb] 88 99 }
+        $valid_wildcard = { 00 ?? ?? ?? ?? 88 99 }
+        $valid_wildcard2 = { 00 1? ?2 ?? ( 44 | 5? ) 88 99 }
     condition:
         any of them
 }

@@ -145,10 +145,10 @@
     {
       "name": "string.quoted.double.yara",
       "begin": "\"",
-      "end": "(?<=[^\\\\])(\\\\((\\\\\\\\)*\\\\))?\"",
+      "end": "\"",
       "patterns": [
         {
-          "name": "string.quoted.double.escape.sequence.yara",
+          "name": "constant.character.escape.yara",
           "match": "\\\\[\"\\\\nrt]"
         },
         {
@@ -166,20 +166,10 @@
       "match": "/.*?[^\\\\]/(i|c|x|t|s|m|p|w|n|J|U|d|b|e|q|x)*"
     },
     {
-      "contentName": "entity.hex.yara",
+      "contentName": "entity.name.hex.yara",
       "begin": "=\\s*?{",
       "end": "}",
       "patterns": [
-        {
-          "name": "constant.numeric.jump.range.yara",
-          "begin": "\\[",
-          "end": "\\]",
-          "match": "[0-9]*-[0-9]*"
-        },
-        {
-          "name": "string.other.hex.yara",
-          "match": "[a-fA-F0-9?]"
-        },
         {
           "name": "comment.line.double-slash.hex.yara",
           "match": "//.*\\n"
@@ -190,8 +180,39 @@
           "end": "\\*/"
         },
         {
+          "name": "entity.name.jump.hex.yara",
+          "begin": "\\[",
+          "end": "\\]",
+          "patterns": [
+            {
+              "name": "constant.numeric.jump.hex.yara",
+              "match": "[0-9]"
+            },
+            {
+              "name": "entity.other.dash.jump.hex.yara",
+              "match": "\\-"
+            },
+            {
+              "name": "invalid.illegal.jump.yara",
+              "match": "."
+            }
+          ]
+        },
+        {
+          "name": "string.other.hex.yara",
+          "match": "[a-fA-F0-9]"
+        },
+        {
+          "name": "variable.language.wildcard.hex.yara",
+          "match": "\\?"
+        },
+        {
+          "name": "entity.other.special.hex.yara",
+          "match": "[\\[\\]\\(\\)\\s|]"
+        },
+        {
           "name": "invalid.illegal.hex.yara",
-          "match": "[^(|)\\[\\-\\]a-fA-F0-9?]"
+          "match": "[^\\[\\]\\s]"
         }
       ]
     },
