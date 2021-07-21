@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.6.6] 2021-07-19
+* Syntax improvements for text strings and hex strings
+
 ## [1.6.5] 2021-07-14
 * Fixed Issue #47 - Merged @DissectMalware's fix for improperly escaped slashes in quoted strings
 
@@ -126,3 +129,4 @@
 [1.6.3]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.2...v1.6.3
 [1.6.4]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.3...v1.6.4
 [1.6.5]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.4...v1.6.5
+[1.6.6]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.5...v1.6.6
