@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.6.7] 2021-09-05
+* Merged "add yara 4.1 iequals keyword" from @wesinator
+
 ## [1.6.6] 2021-07-19
 * Syntax improvements for text strings and hex strings
 
@@ -130,3 +133,4 @@
 [1.6.4]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.3...v1.6.4
 [1.6.5]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.4...v1.6.5
 [1.6.6]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.5...v1.6.6
+[1.6.7]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.6...v1.6.7
