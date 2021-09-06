@@ -61,6 +61,10 @@
       "match": "\\bicontains\\b"
     },
     {
+      "name": "keyword.other.iequals.yara",
+      "match": "\\biequals\\b"
+    },
+    {
       "name": "keyword.other.startswith.yara",
       "match": "\\bstartswith\\b"
     },
