@@ -17,18 +17,41 @@
         },
         {
             "label": "install",
-            "command": "npm",
-            "args": ["install"]
+            "type": "npm",
+            "script": "install"
         },
         {
             "label": "update",
-            "command": "npm",
-            "args": ["update"]
+            "type": "npm",
+            "script": "update"
         },
         {
             "label": "test",
-            "command": "npm",
-            "args": ["run", "test"]
-        }
+            "type": "npm",
+            "script": "test",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+        },
+        {
+			"type": "npm",
+			"script": "compile-web",
+			"group": "build",
+			"problemMatcher": [
+				"$ts-webpack",
+				"$tslint-webpack"
+			]
+		},
+		{
+			"type": "npm",
+			"script": "watch-web",
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": [
+				"$ts-webpack-watch",
+				"$tslint-webpack-watch"
+			]
+		}
     ]
 }
