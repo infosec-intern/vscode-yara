@@ -103,7 +103,7 @@ function parseSchema(schemaPath: string): ModuleSchema {
 
 export class YaraCompletionItemProvider implements vscode.CompletionItemProvider {
     // path to the directory containing module data
-    schemaPath: string = path.join(__dirname, '..', '..', '..', 'yara', 'src', 'modules');
+    schemaPath: string = path.join(__dirname, '..', '..', '..', '..', 'yara', 'src', 'modules');
     schema: ModuleSchema = parseSchema(this.schemaPath);
     wordDefinition = new RegExp('[a-zA-Z0-9._]+');
 
