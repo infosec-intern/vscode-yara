@@ -2,7 +2,7 @@
 import * as assert from 'assert';
 import * as path from 'path';
 import * as vscode from 'vscode';
-import { YaraHexStringHoverProvider } from '../yara/src/common/hoverProvider';
+import { YaraHexStringHoverProvider } from '../yara/src/lib/hoverProvider';
 
 const extensionId = 'infosec-intern.yara';
 const workspace = path.join(__dirname, '..', '..', 'test', 'rules');
