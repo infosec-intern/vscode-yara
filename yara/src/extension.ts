@@ -1,14 +1,14 @@
 "use strict";
 
 import * as vscode from "vscode";
-import { configSection, debug, setDebugLogState } from "../lib/configuration";
-import { log } from "../lib/helpers";
-import * as helpers from "../lib/helpers";
-import { YaraCompletionItemProvider } from "../lib/completionProvider";
-import { YaraDefinitionProvider } from "../lib/definitionProvider";
-import { YaraReferenceProvider } from "../lib/referenceProvider";
-import { YaraSnippetCompletionItemProvider } from "../lib/snippetProvider";
-import { YaraHexStringHoverProvider } from "../lib/hoverProvider";
+import { configSection, debug, setDebugLogState } from "./lib/configuration";
+import { log } from "./lib/helpers";
+import * as helpers from "./lib/helpers";
+import { YaraCompletionItemProvider } from "./lib/completionProvider";
+import { YaraDefinitionProvider } from "./lib/definitionProvider";
+import { YaraReferenceProvider } from "./lib/referenceProvider";
+import { YaraSnippetCompletionItemProvider } from "./lib/snippetProvider";
+import { YaraHexStringHoverProvider } from "./lib/hoverProvider";
 
 
 export function activate(context: vscode.ExtensionContext): void {

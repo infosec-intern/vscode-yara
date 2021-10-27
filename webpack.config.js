@@ -19,7 +19,7 @@ const webExtensionConfig = {
 	// mode: 'production',
 	target: 'webworker',
 	entry: {
-		'extension': './yara/src/web/extension.ts',
+		'extension': './yara/src/extension.ts',
 	},
 	output: {
 		filename: '[name].js',
@@ -37,7 +37,8 @@ const webExtensionConfig = {
 			// Webpack 5 no longer polyfills Node.js core modules automatically.
 			// see https://webpack.js.org/configuration/resolve/#resolvefallback
 			// for the list of Node.js core module polyfills.
-			'assert': require.resolve('assert')
+			'assert': require.resolve('assert'),
+			'path': require.resolve('path-browserify')
 		}
 	},
 	module: {
