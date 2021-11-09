@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.6.8] 2021-11-09
+* Merged "Updated pe.json module completion" from @humpalum
+  * Includes updates to the PE and Math module schemas in preparation for YARA v4.2.0 as well as a typo fix for "MACHINE_POWERPCFP"
+
 ## [1.6.7] 2021-09-05
 * Merged "add yara 4.1 iequals keyword" from @wesinator
 
@@ -134,3 +138,4 @@
 [1.6.5]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.4...v1.6.5
 [1.6.6]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.5...v1.6.6
 [1.6.7]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.6...v1.6.7
+[1.6.8]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.7...v1.6.8
