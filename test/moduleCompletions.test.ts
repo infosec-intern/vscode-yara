@@ -101,11 +101,14 @@ suite("Module Completion", function () {
         const items: Array<vscode.CompletionItem> = completions.items.filter((item: vscode.CompletionItem) => {
             return item.kind !== vscode.CompletionItemKind.Snippet;
         });
-        assert.equal(items.length, 1);
-        assert.equal(items[0].label, "pe.version_info")
-        assert.equal(items[0].kind, vscode.CompletionItemKind.Struct);
-        assert.equal(items[0].detail, "pe.version_info[\"key\"]");
-        assert.deepEqual(items[0].insertText, new vscode.SnippetString('version_info["${1:key}"]'))
+        const versionInfo: Array<vscode.CompletionItem> = items.filter((item: vscode.CompletionItem) => {
+            return item.label == "pe.version_info";
+        });
+        assert.equal(versionInfo.length, 1);
+        assert.equal(versionInfo[0].label, "pe.version_info")
+        assert.equal(versionInfo[0].kind, vscode.CompletionItemKind.Struct);
+        assert.equal(versionInfo[0].detail, "pe.version_info[\"key\"]");
+        assert.deepEqual(versionInfo[0].insertText, new vscode.SnippetString('version_info["${1:key}"]'))
     });
 
     test("it provides a Unit kind when the JSON specifies a list", async function () {
