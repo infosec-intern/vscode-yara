@@ -57,7 +57,7 @@
     "regex": {
         "prefix": "$re",
         "body": [
-            "\\$re = /${CLIPBOARD/([\\\\\/\\\\^\\\\$\\|(){}\\[\\]*+?])|(\\n)|(\\t)|(\\r)/${1:+\\\\}${1}${2:+\\\\n}${3:+\\\\t}${4:+\\\\r}/g}/"
+            "\\$re = /${CLIPBOARD/([\\\\\/\\\\^\\\\$\\|(){}\\[\\]*+?\\\\.])|(\\n)|(\\t)|(\\r)/${1:+\\\\}${1}${2:+\\\\n}${3:+\\\\t}${4:+\\\\r}/g}/"
         ],
         "description": "Generate a regex string with the escaped content of your clipboard"
     },
@@ -71,7 +71,7 @@
     "pasteRegex": {
         "prefix": "pasteRegex",
         "body": [
-            "${CLIPBOARD/([\\\\\/\\\\^\\\\$\\|(){}\\[\\]*+?])|(\\n)|(\\t)|(\\r)/${1:+\\\\}${1}${2:+\\\\n}${3:+\\\\t}${4:+\\\\r}/g}"
+            "${CLIPBOARD/([\\\\\/\\\\^\\\\$\\|(){}\\[\\]*+?\\\\.])|(\\n)|(\\t)|(\\r)/${1:+\\\\}${1}${2:+\\\\n}${3:+\\\\t}${4:+\\\\r}/g}"
         ],
         "description": "Paste current clipboard escaped for yara regex"
     },
@@ -80,6 +80,6 @@
         "body": [
             "\\$c ={${CLIPBOARD/[\t]*(.+?)\\n/${1}\n\t\t\t  /g}}"
         ],
-        "description": "Generate a hex-string with the content of your Clipboard"
+        "description": "Generate a hex-string with the content of your clipboard"
     }
 }
