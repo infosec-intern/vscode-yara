@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 import vscode = require('vscode');
 import { log } from './helpers';

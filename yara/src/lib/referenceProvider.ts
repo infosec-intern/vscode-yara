@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
 import vscode = require('vscode');
-import { debug } from "./configuration";
-import { log, GetRuleRange, varFirstChar } from "./helpers";
+import { debug } from './configuration';
+import { log, GetRuleRange, varFirstChar } from './helpers';
 
 
 export class YaraReferenceProvider implements vscode.ReferenceProvider {
@@ -29,7 +29,7 @@ export class YaraReferenceProvider implements vscode.ReferenceProvider {
                 const possibleWildcardEnd: vscode.Position = new vscode.Position(range.end.line, range.end.character + 1);
                 const possibleWildcardRange: vscode.Range = new vscode.Range(possibleVarStart, possibleWildcardEnd);
                 const possibleWildcard: string = doc.getText(possibleWildcardRange);
-                if (possibleWildcard.slice(-1) == "*") {
+                if (possibleWildcard.slice(-1) == '*') {
                     // treat like a wildcard and search only the local rule
                     varRegexp = `[$#@!]${symbol}[a-zA-Z0-9_]+`;
                     const ruleRange = GetRuleRange(lines, pos);

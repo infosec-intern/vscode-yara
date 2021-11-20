@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
 import vscode = require('vscode');
-import { debug } from "./configuration";
-import {log, GetRuleRange, varFirstChar, IsRuleStart} from "./helpers";
+import { debug } from './configuration';
+import {log, GetRuleRange, varFirstChar, IsRuleStart} from './helpers';
 
 
 export class YaraDefinitionProvider implements vscode.DefinitionProvider {

@@ -1,11 +1,11 @@
-"use strict";
+'use strict';
 
-import * as fs from 'fs';
-import * as glob from 'glob';
-import * as path from 'path';
+import fs = require('fs');
+import glob = require('glob');
+import path = require('path');
 import vscode = require('vscode');
-import { debug } from "./configuration";
-import { log } from "./helpers";
+import { debug } from './configuration';
+import { log } from './helpers';
 
 type Module = Array<vscode.CompletionItem>;
 type ModuleSchema = Map<string,Module>;
@@ -14,14 +14,14 @@ type ModuleSchema = Map<string,Module>;
     Parse a string in a TextDocument and determine if an associated module has been imported for Code Completion
 */
 function canCompleteTerm(schema: ModuleSchema, requestedModule: string, doc: vscode.TextDocument): boolean {
-    if (vscode.workspace.getConfiguration("yara").get("requireImports")) {
+    if (vscode.workspace.getConfiguration('yara').get('requireImports')) {
         // should match every line starting with 'import "<module>"'
         const moduleNames: Array<string> = Array.from(schema.keys());
         const importRegexp = RegExp(`^import "(${moduleNames.join('|')})"`);
         const imported_modules: Array<string> = doc.getText().split("\n").filter((line: string) => {
             return importRegexp.test(line);
         }).map<string>((line: string) => { return line.split("\"")[1]; });
-        if (debug) { log(`YaraCompletionItemProvider: Identified imported modules as: ${imported_modules.join(", ")}`); }
+        if (debug) { log(`YaraCompletionItemProvider: Identified imported modules as: ${imported_modules.join(', ')}`); }
         // user requires modules to be imported before code completion can take effect
         return imported_modules.some((module: string) => { return module == requestedModule; });
     }

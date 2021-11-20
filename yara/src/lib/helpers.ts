@@ -1,11 +1,11 @@
-"use strict";
+'use strict';
 
 import vscode = require('vscode');
 
 
-export const output: vscode.OutputChannel = vscode.window.createOutputChannel("YARA");
+export const output: vscode.OutputChannel = vscode.window.createOutputChannel('YARA');
 // variables have a few possible first characters - use these to identify vars vs. rules
-export const varFirstChar: Set<string> = new Set(["$", "#", "@", "!"]);
+export const varFirstChar: Set<string> = new Set(['$', '#', '@', '!']);
 
 /*
     Send a given message to the output channel with a timestamp
@@ -20,7 +20,7 @@ export function log(message: string): void {
 export function GetRuleRange(lines: string[], symbol: vscode.Position): vscode.Range {
     let begin: vscode.Position | null = null;
     let end: vscode.Position | null = null;
-    // find the nearest reference to "rule" by traversing the lines in reverse order
+    // find the nearest reference to 'rule' by traversing the lines in reverse order
     for (let lineNo = symbol.line; lineNo >= 0; lineNo--) {
         if (IsRuleStart(lines[lineNo])) {
             begin = new vscode.Position(lineNo, 0);
@@ -42,12 +42,12 @@ export function GetRuleRange(lines: string[], symbol: vscode.Position): vscode.R
     Determine if the given line is the start of a YARA rule or not
 */
 export function IsRuleStart(line: string): boolean {
-    return new RegExp("^(private )?rule ").test(line);
+    return new RegExp('^(private )?rule ').test(line);
 }
 
 /*
     Determine if the given line is the end of a YARA rule or not
 */
 export function IsRuleEnd(line: string): boolean {
-    return new RegExp("^}").test(line);
+    return new RegExp('^}').test(line);
 }
