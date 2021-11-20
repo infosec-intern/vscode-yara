@@ -46,5 +46,40 @@
         "prefix": "header_macho",
         "body": "uint32(0) == 0xFEEDFACF ",
         "description": "Generate a condition to check for a Mach-O file header"
+    },
+    "string": {
+        "prefix": "$s",
+        "body": [
+            "\\$s = \"${CLIPBOARD/([\\\"\\\\])/\\$1/g}\" ${1|ascii,wide|} ${2:fullword}"
+        ],
+        "description": "Generate a string with the escaped content of your clipboard"
+    },
+    "regex": {
+        "prefix": "$re",
+        "body": [
+            "\\$re = /${CLIPBOARD/([\\\\\/\\\\^\\\\$\\|(){}\\[\\]*+?\\\\.])|(\\n)|(\\t)|(\\r)/${1:+\\\\}${1}${2:+\\\\n}${3:+\\\\t}${4:+\\\\r}/g}/"
+        ],
+        "description": "Generate a regex string with the escaped content of your clipboard"
+    },
+    "pasteString": {
+        "prefix": "pasteString",
+        "body": [
+            "${CLIPBOARD/([\\\"\\\\])/\\$1/g}"
+            ],
+            "description": "Paste current clipboard escaped for yara strings"
+        },
+    "pasteRegex": {
+        "prefix": "pasteRegex",
+        "body": [
+            "${CLIPBOARD/([\\\\\/\\\\^\\\\$\\|(){}\\[\\]*+?\\\\.])|(\\n)|(\\t)|(\\r)/${1:+\\\\}${1}${2:+\\\\n}${3:+\\\\t}${4:+\\\\r}/g}"
+        ],
+        "description": "Paste current clipboard escaped for yara regex"
+    },
+    "hex": {
+        "prefix": "$c",
+        "body": [
+            "\\$c ={${CLIPBOARD/[\t]*(.+?)\\n/${1}\n\t\t\t  /g}}"
+        ],
+        "description": "Generate a hex-string with the content of your clipboard"
     }
 }
