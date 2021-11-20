@@ -50,7 +50,7 @@ suite('Condition Snippet', function () {
         const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'condition'; });
         assert.equal(item.label, 'condition');
         assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
-        assert.equal(item.detail, 'Generate a \'condition\' section (YARA)');
+        assert.equal(item.detail, 'Generate a condition section (YARA)');
         const expectedInsertText: vscode.SnippetString = new vscode.SnippetString('condition:\n\t${1:conditions}');
         assert.deepEqual(item.insertText, expectedInsertText);
         const expectedDocs: vscode.MarkdownString = new vscode.MarkdownString('');
@@ -70,7 +70,7 @@ suite('Condition Snippet', function () {
         const item: vscode.CompletionItem = items.find((value: vscode.CompletionItem) => { return value.label === 'condition'; });
         assert.equal(item.label, 'condition');
         assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
-        assert.equal(item.detail, 'Generate a \'condition\' section (YARA)');
+        assert.equal(item.detail, 'Generate a condition section (YARA)');
         const expectedInsertText: vscode.SnippetString = new vscode.SnippetString('condition:\n\t${1:any of them}');
         assert.deepEqual(item.insertText, expectedInsertText);
         const expectedDocs: vscode.MarkdownString = new vscode.MarkdownString('');
@@ -118,7 +118,7 @@ suite('Metadata Snippet', function () {
         const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'meta'; });
         assert.equal(item.label, 'meta');
         assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
-        assert.equal(item.detail, 'Generate a \'meta\' section (YARA)');
+        assert.equal(item.detail, 'Generate a meta section (YARA)');
         const expectedInsertText: vscode.SnippetString = new vscode.SnippetString('meta:\n\t$1 = "$2"');
         assert.deepEqual(item.insertText, expectedInsertText);
         const expectedDocs: vscode.MarkdownString = new vscode.MarkdownString('');
@@ -140,7 +140,7 @@ suite('Metadata Snippet', function () {
         const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'meta'; });
         assert.equal(item.label, 'meta');
         assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
-        assert.equal(item.detail, 'Generate a \'meta\' section (YARA)');
+        assert.equal(item.detail, 'Generate a meta section (YARA)');
         const rawInsertText = 'meta:\n\t${1:KEY} = ${2:"VALUE"}';
         const expectedInsertText: vscode.SnippetString = new vscode.SnippetString(rawInsertText);
         assert.deepEqual(item.insertText, expectedInsertText);
@@ -161,7 +161,7 @@ suite('Metadata Snippet', function () {
         const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'meta'; });
         assert.equal(item.label, 'meta');
         assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
-        assert.equal(item.detail, 'Generate a \'meta\' section (YARA)');
+        assert.equal(item.detail, 'Generate a meta section (YARA)');
         const rawInsertText = `meta:\n\tauthor = "${testConfig['author']}"\n\thash = "$1"`;
         const expectedInsertText: vscode.SnippetString = new vscode.SnippetString(rawInsertText);
         assert.deepEqual(item.insertText, expectedInsertText);
@@ -182,7 +182,7 @@ suite('Metadata Snippet', function () {
         const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'meta'; });
         assert.equal(item.label, 'meta');
         assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
-        assert.equal(item.detail, 'Generate a \'meta\' section (YARA)');
+        assert.equal(item.detail, 'Generate a meta section (YARA)');
         const rawInsertText = `meta:\n\tauthor = "$1"`;
         const expectedInsertText: vscode.SnippetString = new vscode.SnippetString(rawInsertText);
         assert.deepEqual(item.insertText, expectedInsertText);
@@ -203,7 +203,7 @@ suite('Metadata Snippet', function () {
         const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'meta'; });
         assert.equal(item.label, 'meta');
         assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
-        assert.equal(item.detail, 'Generate a \'meta\' section (YARA)');
+        assert.equal(item.detail, 'Generate a meta section (YARA)');
         const rawInsertText = `meta:\n\tfilename = "snippets.yar"`;
         const expectedInsertText: vscode.SnippetString = new vscode.SnippetString(rawInsertText);
         // TODO: Figure out how to resolve the variable in insertText, since VSCode only does it when the snippet has been chosen
@@ -225,7 +225,7 @@ suite('Metadata Snippet', function () {
         const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'meta'; });
         assert.equal(item.label, 'meta');
         assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
-        assert.equal(item.detail, 'Generate a \'meta\' section (YARA)');
+        assert.equal(item.detail, 'Generate a meta section (YARA)');
         const rawInsertText = `meta:\n\tauthor = "$1"`;
         const expectedInsertText: vscode.SnippetString = new vscode.SnippetString(rawInsertText);
         assert.deepEqual(item.insertText, expectedInsertText);
@@ -247,7 +247,7 @@ suite('Metadata Snippet', function () {
         const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'meta'; });
         assert.equal(item.label, 'meta');
         assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
-        assert.equal(item.detail, 'Generate a \'meta\' section (YARA)');
+        assert.equal(item.detail, 'Generate a meta section (YARA)');
         const rawInsertText = `meta:\n\ta = "first"\n\tb = "second"\n\tc = "third"\n\td = "fourth"`;
         const expectedInsertText: vscode.SnippetString = new vscode.SnippetString(rawInsertText);
         assert.deepEqual(item.insertText, expectedInsertText);
@@ -269,7 +269,7 @@ suite('Metadata Snippet', function () {
         const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'meta'; });
         assert.equal(item.label, 'meta');
         assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
-        assert.equal(item.detail, 'Generate a \'meta\' section (YARA)');
+        assert.equal(item.detail, 'Generate a meta section (YARA)');
         const rawInsertText = `meta:\n\tc = "third"\n\ta = "first"\n\td = "fourth"\n\tb = "second"`;
         const expectedInsertText: vscode.SnippetString = new vscode.SnippetString(rawInsertText);
         assert.deepEqual(item.insertText, expectedInsertText);
@@ -393,7 +393,7 @@ suite('Strings Snippet', function () {
         const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'strings'; });
         assert.equal(item.label, 'strings');
         assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
-        assert.equal(item.detail, 'Generate a \'strings\' section (YARA)');
+        assert.equal(item.detail, 'Generate a strings section (YARA)');
         const expectedInsertText: vscode.SnippetString = new vscode.SnippetString('strings:\n\t${1:name} = "${2:string}"');
         assert.deepEqual(item.insertText, expectedInsertText);
         const expectedDocs: vscode.MarkdownString = new vscode.MarkdownString('');
@@ -412,7 +412,7 @@ suite('Strings Snippet', function () {
         const item: vscode.CompletionItem = completions.items.find((value: vscode.CompletionItem) => { return value.label === 'strings'; });
         assert.equal(item.label, 'strings');
         assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
-        assert.equal(item.detail, 'Generate a \'strings\' section (YARA)');
+        assert.equal(item.detail, 'Generate a strings section (YARA)');
         const expectedInsertText: vscode.SnippetString = new vscode.SnippetString('strings:\n\t${1:name} = ${2|"string",/regex/,{ HEX \\}|}');
         assert.deepEqual(item.insertText, expectedInsertText);
         const expectedDocs: vscode.MarkdownString = new vscode.MarkdownString('');
