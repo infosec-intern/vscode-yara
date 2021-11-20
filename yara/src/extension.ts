@@ -3,7 +3,7 @@
 import vscode = require('vscode');
 import { configSection, debug, setDebugLogState } from './lib/configuration';
 import { log, output } from './lib/helpers';
-// import { YaraCompletionItemProvider } from './lib/completionProvider';
+import { YaraCompletionItemProvider } from './lib/completionProvider';
 import { YaraDefinitionProvider } from './lib/definitionProvider';
 import { YaraReferenceProvider } from './lib/referenceProvider';
 import { YaraSnippetCompletionItemProvider } from './lib/snippetProvider';
@@ -23,9 +23,9 @@ export function activate(context: vscode.ExtensionContext): void {
     const referenceDisposable: vscode.Disposable = vscode.languages.registerReferenceProvider(YARA, new YaraReferenceProvider());
     if (debug) { log('Registered reference provider'); }
     context.subscriptions.push(referenceDisposable);
-    // const completionDisposable: vscode.Disposable = vscode.languages.registerCompletionItemProvider(YARA, new YaraCompletionItemProvider(), '.');
-    // if (debug) { log('Registered module completion provider'); }
-    // context.subscriptions.push(completionDisposable);
+    const completionDisposable: vscode.Disposable = vscode.languages.registerCompletionItemProvider(YARA, new YaraCompletionItemProvider(context.extensionUri), '.');
+    if (debug) { log('Registered module completion provider'); }
+    context.subscriptions.push(completionDisposable);
     const snippetsDisposable: vscode.Disposable = vscode.languages.registerCompletionItemProvider(YARA, new YaraSnippetCompletionItemProvider());
     if (debug) { log('Registered snippet provider'); }
     context.subscriptions.push(snippetsDisposable);
