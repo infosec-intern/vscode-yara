@@ -1,7 +1,7 @@
 'use strict';
 import * as assert from 'assert';
 import * as path from 'path';
-import * as vscode from 'vscode';
+import vscode = require('vscode');
 
 const extensionId = 'infosec-intern.yara';
 const workspace = path.join(__dirname, '..', '..', 'test', 'rules');

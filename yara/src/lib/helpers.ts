@@ -1,6 +1,6 @@
 "use strict";
 
-import * as vscode from "vscode";
+import vscode = require('vscode');
 
 
 export const output: vscode.OutputChannel = vscode.window.createOutputChannel("YARA");

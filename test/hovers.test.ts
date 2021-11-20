@@ -1,7 +1,7 @@
 'use strict';
 import * as assert from 'assert';
 import * as path from 'path';
-import * as vscode from 'vscode';
+import vscode = require('vscode');
 import { YaraHexStringHoverProvider } from '../yara/src/lib/hoverProvider';
 
 const extensionId = 'infosec-intern.yara';

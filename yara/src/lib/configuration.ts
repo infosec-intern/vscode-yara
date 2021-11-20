@@ -1,6 +1,6 @@
 "use strict";
 
-import * as vscode from 'vscode';
+import vscode = require('vscode');
 import { log } from './helpers';
 
 export const configSection = 'yara';

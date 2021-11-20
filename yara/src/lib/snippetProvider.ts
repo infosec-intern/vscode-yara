@@ -1,6 +1,6 @@
 'use strict';
 
-import * as vscode from 'vscode';
+import vscode = require('vscode');
 import { debug } from "./configuration";
 import { log } from "./helpers";
 
