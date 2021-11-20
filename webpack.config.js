@@ -38,7 +38,6 @@ const webExtensionConfig = {
 			// see https://webpack.js.org/configuration/resolve/#resolvefallback
 			// for the list of Node.js core module polyfills.
 			'assert': require.resolve('assert'),
-			'path': require.resolve('path-browserify')
 		}
 	},
 	module: {
@@ -64,4 +63,47 @@ const webExtensionConfig = {
 	devtool: 'nosources-source-map' // create a source map that points to the original source file
 };
 
-module.exports = [ webExtensionConfig ];
+/** @type WebpackConfig */
+const nodeExtensionConfig = {
+	mode: 'none',
+	// mode: 'production',
+	target: 'webworker',
+	entry: {
+		'extension': './yara/src/extension.ts',
+	},
+	output: {
+		filename: '[name].js',
+		path: path.join(__dirname, './dist/host'),
+		libraryTarget: 'commonjs',
+		devtoolModuleFilenameTemplate: '../../[resource-path]'
+	},
+	resolve: {
+		mainFields: ['module', 'main'],
+		extensions: ['.ts', '.js'],
+		alias: {
+			// provides alternate implementation for node module and source files
+		},
+		fallback: {
+		}
+	},
+	module: {
+		rules: [{
+			test: /\.ts$/,
+			exclude: /node_modules/,
+			use: [{
+				loader: 'ts-loader'
+			}]
+		}]
+	},
+	plugins: [
+	],
+	externals: {
+		'vscode': 'commonjs vscode',
+	},
+	performance: {
+		hints: false
+	},
+	devtool: 'nosources-source-map'
+};
+
+module.exports = [ webExtensionConfig, nodeExtensionConfig ];
