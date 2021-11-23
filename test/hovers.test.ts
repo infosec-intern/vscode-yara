@@ -1,20 +1,21 @@
 'use strict';
 import * as assert from 'assert';
-import * as path from 'path';
-import vscode = require('vscode');
+import * as vscode from 'vscode';
 import { YaraHexStringHoverProvider } from '../yara/src/lib/hoverProvider';
+import { getWorkspacePath } from './helpers';
 
 const extensionId = 'infosec-intern.yara';
-const workspace = path.join(__dirname, '..', '..', 'test', 'rules');
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let extension: vscode.Extension<any>;
 
 suite("Hex String Hovers", function () {
-    const filepath: string = path.join(workspace, "hex_strings.yar");
-    const uri: vscode.Uri = vscode.Uri.file(filepath);
+    let uri: vscode.Uri;
 
     setup(async function () {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const extension: vscode.Extension<any> = vscode.extensions.getExtension(extensionId);
+        extension = vscode.extensions.getExtension(extensionId);
         await extension.activate();
+        uri = getWorkspacePath(extension.extensionUri, 'hex_strings.yar');
     });
 
     test("it provides a hover for simple hex strings", async function () {
