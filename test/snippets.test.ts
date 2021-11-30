@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use strict';
 import * as assert from 'assert';
 import * as vscode from 'vscode';
@@ -5,10 +6,9 @@ import { getWorkspacePath } from './helpers';
 
 const configName = 'yara';
 const extensionId = 'infosec-intern.yara';
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let extension: vscode.Extension<any>;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function setTestConfig(id:string, value: any, configuration: vscode.WorkspaceConfiguration): Promise<void> {
     return configuration.update(id, value, vscode.ConfigurationTarget.Global);
 }
