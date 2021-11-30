@@ -114,7 +114,7 @@ export class YaraCompletionItemProvider implements vscode.CompletionItemProvider
     wordDefinition = new RegExp('[a-zA-Z0-9._]+');
 
     constructor(extensionUri: vscode.Uri) {
-        const moduleDir = vscode.Uri.joinPath(extensionUri, 'yara', 'src', 'modules');
+        const moduleDir = vscode.Uri.joinPath(extensionUri, 'yara', 'modules');
         this.schema = parseSchema(moduleDir);
     }
 
