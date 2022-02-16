@@ -42,6 +42,7 @@
     "ET_DYN": "enum",
     "ET_CORE": "enum",
     "EM_M32": "enum",
+    "EM_NONE": "enum",
     "EM_SPARC": "enum",
     "EM_386": "enum",
     "EM_68K": "enum",

@@ -6,5 +6,10 @@
     "mean": "method",
     "min": "method",
     "monte_carlo_pi": "method",
-    "serial_correlation": "method"
+    "serial_correlation": "method",
+    "to_number": "method",
+    "abs": "method",
+    "count": "method",
+    "percentage": "method",
+    "mode": "method"
 }
