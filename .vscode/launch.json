@@ -22,6 +22,7 @@
             "name": "Launch Tests",
             "type": "extensionHost",
             "request": "launch",
+            "preLaunchTask": "npm: compile-tests",
             "runtimeExecutable": "${execPath}",
             "args": [
                 "--disable-extensions",

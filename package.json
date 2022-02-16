@@ -111,14 +111,14 @@
     "scripts": {
         "vscode:prepublish": "npm run compile && npm run package-web",
         "compile": "webpack",
+        "compile-tests": "tsc -p ./",
+        "compile-watch": "webpack --watch",
         "lint": "eslint yara/src --ext ts",
-        "linttests": "eslint test --ext ts",
-        "package-web": "webpack --mode production --devtool hidden-source-map",
+        "lint-tests": "eslint test --ext ts",
+        "package": "webpack --mode production --devtool hidden-source-map",
         "run-in-browser": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. .",
         "test": "node ./out/test/runTests.js",
-        "test-compile": "tsc -p ./",
-        "test-web": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. --extensionTestsPath=dist/web/test/suite/index.js",
-        "watch-web": "webpack --watch"
+        "test-web": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. --extensionTestsPath=dist/web/test/suite/index.js"
     },
     "devDependencies": {
         "@types/mocha": "^2.2.32",
