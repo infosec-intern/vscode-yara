@@ -51,6 +51,53 @@ function getCompletionItemKind(schemaType: string): vscode.CompletionItemKind {
 }
 
 /*
+    Convert a single module JSON schema to a flattened list of CompletionItems
+*/
+function parseModule(moduleUri: vscode.Uri, moduleName: string): Module {
+    const yaraModule: Module = [];
+    vscode.workspace.fs.readFile(moduleUri).then((data: Uint8Array) => {
+        try {
+            const content: Record<string,unknown> = JSON.parse(String.fromCharCode.apply(null, data));
+            Object.keys(content).forEach((attribute: string) => {
+                let item: vscode.CompletionItem|undefined = undefined;
+                const itemKind: string|unknown = content[attribute];
+                if (itemKind instanceof Array) {
+                    // module arrays (e.g. pe.sections[], dotnet.guids[])
+                    if (itemKind.length === 0) {
+                        item = new vscode.CompletionItem(`${moduleName}.${attribute}`, getCompletionItemKind('array'));
+                        yaraModule.push(item);
+                    }
+                    else {
+                        // possibly includes sub-fields on each array entry (e.g. pe.sections[].name)
+                        itemKind.forEach((property: Map<string,string>) => {
+                            Object.keys(property).forEach((subField: string) => {
+                                item = new vscode.CompletionItem(`${moduleName}.${attribute}[].${subField}`, getCompletionItemKind(property[subField]));
+                                yaraModule.push(item);
+                            });
+                        });
+                    }
+                }
+                else if (typeof itemKind === 'string') {
+                    // simple module fields (e.g. pe.number_of_sections, hash.md5)
+                    item = new vscode.CompletionItem(`${moduleName}.${attribute}`, getCompletionItemKind(itemKind));
+                    yaraModule.push(item);
+                }
+                else if (typeof itemKind === 'object') {
+                    // module fields with their own sub-fields (e.g. cuckoo.network.http_request)
+                    Object.keys(itemKind).forEach((subField: string) => {
+                        item = new vscode.CompletionItem(`${moduleName}.${attribute}.${subField}`, getCompletionItemKind(itemKind[subField]));
+                        yaraModule.push(item);
+                    });
+                }
+            });
+        } catch (err) {
+            log(`Could not parse invalid JSON from ${moduleUri.fsPath}: ${err}`);
+        }
+    });
+    return yaraModule;
+}
+
+/*
     Convert a directory of module JSON schemas to a map of Modules to flattened lists of CompletionItems
 */
 function parseSchema(moduleDir: vscode.Uri): ModuleSchema {
@@ -60,48 +107,8 @@ function parseSchema(moduleDir: vscode.Uri): ModuleSchema {
             if (entryType == vscode.FileType.File && entryName.endsWith('.json')) {
                 const moduleUri: vscode.Uri = vscode.Uri.joinPath(moduleDir, entryName);
                 const moduleName: string = entryName.split('.').shift();
-                vscode.workspace.fs.readFile(moduleUri).then((data: Uint8Array) => {
-                    try {
-                        const yaraModule: Module = [];
-                        const content: Record<string,unknown> = JSON.parse(String.fromCharCode.apply(null, data));
-                        Object.keys(content).forEach((attribute: string) => {
-                            let item: vscode.CompletionItem|undefined = undefined;
-                            const itemKind: string|unknown = content[attribute];
-                            if (itemKind instanceof Array) {
-                                // module arrays (e.g. pe.sections[], dotnet.guids[])
-                                if (itemKind.length === 0) {
-                                    item = new vscode.CompletionItem(`${moduleName}.${attribute}`, getCompletionItemKind('array'));
-                                    yaraModule.push(item);
-                                }
-                                else {
-                                    // possibly includes sub-fields on each array entry (e.g. pe.sections[].name)
-                                    itemKind.forEach((property: Map<string,string>) => {
-                                        Object.keys(property).forEach((subField: string) => {
-                                            item = new vscode.CompletionItem(`${moduleName}.${attribute}[].${subField}`, getCompletionItemKind(property[subField]));
-                                            yaraModule.push(item);
-                                        });
-                                    });
-                                }
-                            }
-                            else if (typeof itemKind === 'string') {
-                                // simple module fields (e.g. pe.number_of_sections, hash.md5)
-                                item = new vscode.CompletionItem(`${moduleName}.${attribute}`, getCompletionItemKind(itemKind));
-                                yaraModule.push(item);
-                            }
-                            else if (typeof itemKind === 'object') {
-                                // module fields with their own sub-fields (e.g. cuckoo.network.http_request)
-                                Object.keys(itemKind).forEach((subField: string) => {
-                                    item = new vscode.CompletionItem(`${moduleName}.${attribute}.${subField}`, getCompletionItemKind(itemKind[subField]));
-                                    yaraModule.push(item);
-                                });
-                            }
-                        });
-                        schema.set(moduleName, yaraModule);
-                    } catch (err) {
-                        log(`Could not parse invalid JSON from ${moduleUri.fsPath}: ${err}`);
-                        throw err;
-                    }
-                });
+                const module: Module = parseModule(moduleUri, moduleName);
+                schema.set(moduleName, module);
             }
         });
     });
@@ -109,7 +116,6 @@ function parseSchema(moduleDir: vscode.Uri): ModuleSchema {
 }
 
 export class YaraCompletionItemProvider implements vscode.CompletionItemProvider {
-    // path to the directory containing module data
     schema: ModuleSchema;
     wordDefinition = new RegExp('[a-zA-Z0-9._]+');
 
