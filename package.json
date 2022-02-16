@@ -18,7 +18,7 @@
         "url": "https://github.com/infosec-intern/vscode-yara/issues"
     },
     "engines": {
-        "vscode": "^1.22.0"
+        "vscode": "^1.60.0"
     },
     "categories": [
         "Programming Languages",
