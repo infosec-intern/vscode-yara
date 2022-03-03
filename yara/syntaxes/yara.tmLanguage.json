@@ -57,6 +57,10 @@
       "match": "\\bcontains\\b"
     },
     {
+      "name": "keyword.other.defined.yara",
+      "match": "\\bdefined\\b"
+    },
+    {
       "name": "keyword.other.icontains.yara",
       "match": "\\bicontains\\b"
     },
