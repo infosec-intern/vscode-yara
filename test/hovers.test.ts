@@ -1,6 +1,7 @@
 'use strict';
+
+import vscode = require('vscode');
 import * as assert from 'assert';
-import * as vscode from 'vscode';
 import { YaraHexStringHoverProvider } from '../yara/src/lib/hoverProvider';
 import { getWorkspacePath } from './helpers';
 

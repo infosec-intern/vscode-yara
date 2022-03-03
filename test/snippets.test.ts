@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use strict';
+
+import vscode = require('vscode');
 import * as assert from 'assert';
-import * as vscode from 'vscode';
 import { getWorkspacePath } from './helpers';
 
 const configName = 'yara';

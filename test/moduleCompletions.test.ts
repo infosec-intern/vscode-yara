@@ -1,6 +1,7 @@
 'use strict';
+
+import vscode = require('vscode');
 import * as assert from 'assert';
-import * as vscode from 'vscode';
 import { getWorkspacePath } from './helpers';
 
 const extensionId = 'infosec-intern.yara';
