@@ -1,11 +1,11 @@
 {
     "Import": {
         "prefix": "import",
-        "body": "import \"${1|pe,elf,cuckoo,magic,hash,math,dotnet,time|}\"",
+        "body": "import \"${1|pe,elf,cuckoo,magic,hash,math,dotnet,time,console|}\"",
         "description": "Import a YARA module"
     },
     "for..of": {
-        "prefix": "for..of",
+        "prefix": "for_of",
         "body": [
             "for ${1:any} of ${2:them} : (",
              "\t${3:boolean_expression}",
@@ -14,7 +14,7 @@
         "description": "Apply the same condition to many strings"
     },
     "for..in": {
-        "prefix": "for..in",
+        "prefix": "for_in",
         "body": [
             "for ${1:any i} in ( ${2:them} ) : (",
             "\t${3:boolean_expression}",
