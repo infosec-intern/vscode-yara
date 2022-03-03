@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
-import * as vscode from 'vscode';
-import { debug } from "./configuration";
-import { log } from "./helpers";
+import vscode = require('vscode');
+import { debug } from './configuration';
+import { log } from './helpers';
 
 
 export class YaraHexStringHoverProvider implements vscode.HoverProvider {
@@ -48,7 +48,7 @@ export class YaraHexStringHoverProvider implements vscode.HoverProvider {
                 }
             }
         }
-        if (debug) { log(`YaraHexStringHoverProvider: Converted '${hexString}' to '${result.join("")}'`); }
+        if (debug) { log(`YaraHexStringHoverProvider: Converted '${hexString}' to '${result.join('')}'`); }
         return result.join('');
     }
 

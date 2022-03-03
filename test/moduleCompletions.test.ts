@@ -1,21 +1,22 @@
 'use strict';
+
+import vscode = require('vscode');
 import * as assert from 'assert';
-import * as path from 'path';
-import * as vscode from 'vscode';
+import { getWorkspacePath } from './helpers';
 
 const extensionId = 'infosec-intern.yara';
-const workspace = path.join(__dirname, '..', '..', 'test', 'rules');
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let extension: vscode.Extension<any>;
 
 suite("Module Completion", function () {
     setup(async function () {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const extension: vscode.Extension<any> = vscode.extensions.getExtension(extensionId);
+        extension = vscode.extensions.getExtension(extensionId);
         await extension.activate();
     });
 
     test("it provides the first level of labels with module name", async function () {
-        const filepath: string = path.join(workspace, "code_completion.yara");
-        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const uri: vscode.Uri = getWorkspacePath(extension.extensionUri, 'code_completion.yara');
         const pos: vscode.Position = new vscode.Position(12, 14);    // time.
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, '.');
         assert.equal(completions.isIncomplete, false);
@@ -27,8 +28,7 @@ suite("Module Completion", function () {
     });
 
     test("it provides the second level of labels with module + first level", async function () {
-        const filepath: string = path.join(workspace, "code_completion.yara");
-        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const uri: vscode.Uri = getWorkspacePath(extension.extensionUri, 'code_completion.yara');
         const pos: vscode.Position = new vscode.Position(13, 24);   // cuckoo.network.
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, '.');
         assert.equal(completions.isIncomplete, false);
@@ -47,8 +47,7 @@ suite("Module Completion", function () {
     });
 
     test("it does not provide completion items for non-existent modules", async function () {
-        const filepath: string = path.join(workspace, "code_completion.yara");
-        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const uri: vscode.Uri = getWorkspacePath(extension.extensionUri, 'code_completion.yara');
         const pos: vscode.Position = new vscode.Position(14, 16);   // foobar.
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, '.');
         assert.equal(completions.isIncomplete, false);
@@ -61,8 +60,7 @@ suite("Module Completion", function () {
     });
 
     test("it provides an Enum kind when the JSON specifies an enum", async function () {
-        const filepath: string = path.join(workspace, "code_completion.yara");
-        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const uri: vscode.Uri = getWorkspacePath(extension.extensionUri, 'code_completion.yara');
         const pos: vscode.Position = new vscode.Position(15, 25);   // pe.AGGRESIVE_WS_
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, '.');
         assert.equal(completions.isIncomplete, false);
@@ -77,8 +75,7 @@ suite("Module Completion", function () {
     });
 
     test("it provides a Property kind when the JSON specifies a property", async function () {
-        const filepath: string = path.join(workspace, "code_completion.yara");
-        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const uri: vscode.Uri = getWorkspacePath(extension.extensionUri, 'code_completion.yara');
         const pos: vscode.Position = new vscode.Position(16, 21);   // pe.character
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, '.');
         assert.equal(completions.isIncomplete, false);
@@ -93,8 +90,7 @@ suite("Module Completion", function () {
     });
 
     test("it provides a Struct kind when the JSON specifies a dictionary", async function () {
-        const filepath: string = path.join(workspace, "code_completion.yara");
-        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const uri: vscode.Uri = getWorkspacePath(extension.extensionUri, 'code_completion.yara');
         const pos: vscode.Position = new vscode.Position(17, 22);   // pe.version_in
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, '.');
         assert.equal(completions.isIncomplete, false);
@@ -112,8 +108,7 @@ suite("Module Completion", function () {
     });
 
     test("it provides a Unit kind when the JSON specifies a list", async function () {
-        const filepath: string = path.join(workspace, "code_completion.yara");
-        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const uri: vscode.Uri = getWorkspacePath(extension.extensionUri, 'code_completion.yara');
         const pos: vscode.Position = new vscode.Position(18, 21);   // dotnet.guids
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, '.');
         assert.equal(completions.isIncomplete, false);
@@ -128,8 +123,7 @@ suite("Module Completion", function () {
     });
 
     test("it provides sub fields when the JSON specifies a list of objects", async function () {
-        const filepath: string = path.join(workspace, "code_completion.yara");
-        const uri: vscode.Uri = vscode.Uri.file(filepath);
+        const uri: vscode.Uri = getWorkspacePath(extension.extensionUri, 'code_completion.yara');
         const pos: vscode.Position = new vscode.Position(19, 25);   // pe.data_director
         const completions: vscode.CompletionList = await vscode.commands.executeCommand('vscode.executeCompletionItemProvider', uri, pos, '.');
         assert.equal(completions.isIncomplete, false);

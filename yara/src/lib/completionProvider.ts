@@ -1,11 +1,8 @@
-"use strict";
+'use strict';
 
-import * as fs from 'fs';
-import * as glob from 'glob';
-import * as path from 'path';
-import * as vscode from 'vscode';
-import { debug } from "./configuration";
-import { log } from "./helpers";
+import vscode = require('vscode');
+import { debug } from './configuration';
+import { log } from './helpers';
 
 type Module = Array<vscode.CompletionItem>;
 type ModuleSchema = Map<string,Module>;
@@ -14,14 +11,14 @@ type ModuleSchema = Map<string,Module>;
     Parse a string in a TextDocument and determine if an associated module has been imported for Code Completion
 */
 function canCompleteTerm(schema: ModuleSchema, requestedModule: string, doc: vscode.TextDocument): boolean {
-    if (vscode.workspace.getConfiguration("yara").get("requireImports")) {
+    if (vscode.workspace.getConfiguration('yara').get('requireImports')) {
         // should match every line starting with 'import "<module>"'
         const moduleNames: Array<string> = Array.from(schema.keys());
         const importRegexp = RegExp(`^import "(${moduleNames.join('|')})"`);
         const imported_modules: Array<string> = doc.getText().split("\n").filter((line: string) => {
             return importRegexp.test(line);
         }).map<string>((line: string) => { return line.split("\"")[1]; });
-        if (debug) { log(`YaraCompletionItemProvider: Identified imported modules as: ${imported_modules.join(", ")}`); }
+        if (debug) { log(`YaraCompletionItemProvider: Identified imported modules as: ${imported_modules.join(', ')}`); }
         // user requires modules to be imported before code completion can take effect
         return imported_modules.some((module: string) => { return module == requestedModule; });
     }
@@ -54,58 +51,78 @@ function getCompletionItemKind(schemaType: string): vscode.CompletionItemKind {
 }
 
 /*
-    Convert a directory of module JSON schemas to a map of Modules to flattened lists of CompletionItems
+    Convert a single module JSON schema to a flattened list of CompletionItems
 */
-function parseSchema(schemaPath: string): ModuleSchema {
-    const matches: Array<string> = glob.sync('*.json', {cwd: schemaPath});
-    const schema: ModuleSchema = new Map<string,Module>();
-    matches.forEach((match: string) => {
-        const moduleName: string = path.parse(match).name;
-        const fullPath: string = path.join(schemaPath, match);
-        const content: Record<string,unknown> = JSON.parse(fs.readFileSync(fullPath).toString());
-        const yaraModule: Module = [];
-        Object.keys(content).forEach((attribute: string) => {
-            let item: vscode.CompletionItem|undefined = undefined;
-            const itemKind: string|unknown = content[attribute];
-            if (itemKind instanceof Array) {
-                // module arrays (e.g. pe.sections[], dotnet.guids[])
-                if (itemKind.length === 0) {
-                    item = new vscode.CompletionItem(`${moduleName}.${attribute}`, getCompletionItemKind('array'));
+function parseModule(moduleUri: vscode.Uri, moduleName: string): Module {
+    const yaraModule: Module = [];
+    vscode.workspace.fs.readFile(moduleUri).then((data: Uint8Array) => {
+        try {
+            const content: Record<string,unknown> = JSON.parse(String.fromCharCode.apply(null, data));
+            Object.keys(content).forEach((attribute: string) => {
+                let item: vscode.CompletionItem|undefined = undefined;
+                const itemKind: string|unknown = content[attribute];
+                if (itemKind instanceof Array) {
+                    // module arrays (e.g. pe.sections[], dotnet.guids[])
+                    if (itemKind.length === 0) {
+                        item = new vscode.CompletionItem(`${moduleName}.${attribute}`, getCompletionItemKind('array'));
+                        yaraModule.push(item);
+                    }
+                    else {
+                        // possibly includes sub-fields on each array entry (e.g. pe.sections[].name)
+                        itemKind.forEach((property: Map<string,string>) => {
+                            Object.keys(property).forEach((subField: string) => {
+                                item = new vscode.CompletionItem(`${moduleName}.${attribute}[].${subField}`, getCompletionItemKind(property[subField]));
+                                yaraModule.push(item);
+                            });
+                        });
+                    }
+                }
+                else if (typeof itemKind === 'string') {
+                    // simple module fields (e.g. pe.number_of_sections, hash.md5)
+                    item = new vscode.CompletionItem(`${moduleName}.${attribute}`, getCompletionItemKind(itemKind));
                     yaraModule.push(item);
                 }
-                else {
-                    // possibly includes sub-fields on each array entry (e.g. pe.sections[].name)
-                    itemKind.forEach((property: Map<string,string>) => {
-                        Object.keys(property).forEach((subField: string) => {
-                            item = new vscode.CompletionItem(`${moduleName}.${attribute}[].${subField}`, getCompletionItemKind(property[subField]));
-                            yaraModule.push(item);
-                        });
+                else if (typeof itemKind === 'object') {
+                    // module fields with their own sub-fields (e.g. cuckoo.network.http_request)
+                    Object.keys(itemKind).forEach((subField: string) => {
+                        item = new vscode.CompletionItem(`${moduleName}.${attribute}.${subField}`, getCompletionItemKind(itemKind[subField]));
+                        yaraModule.push(item);
                     });
                 }
-            }
-            else if (typeof itemKind === 'string') {
-                // simple module fields (e.g. pe.number_of_sections, hash.md5)
-                item = new vscode.CompletionItem(`${moduleName}.${attribute}`, getCompletionItemKind(itemKind));
-                yaraModule.push(item);
-            }
-            else if (typeof itemKind === 'object') {
-                // module fields with their own sub-fields (e.g. cuckoo.network.http_request)
-                Object.keys(itemKind).forEach((subField: string) => {
-                    item = new vscode.CompletionItem(`${moduleName}.${attribute}.${subField}`, getCompletionItemKind(itemKind[subField]));
-                    yaraModule.push(item);
-                });
+            });
+        } catch (err) {
+            log(`Could not parse invalid JSON from ${moduleUri.fsPath}: ${err}`);
+        }
+    });
+    return yaraModule;
+}
+
+/*
+    Convert a directory of module JSON schemas to a map of Modules to flattened lists of CompletionItems
+*/
+function parseSchema(moduleDir: vscode.Uri): ModuleSchema {
+    const schema: ModuleSchema = new Map<string,Module>();
+    vscode.workspace.fs.readDirectory(moduleDir).then((entries: [string, vscode.FileType][]) => {
+        entries.forEach(([entryName, entryType]: [string, vscode.FileType]) => {
+            if (entryType == vscode.FileType.File && entryName.endsWith('.json')) {
+                const moduleUri: vscode.Uri = vscode.Uri.joinPath(moduleDir, entryName);
+                const moduleName: string = entryName.split('.').shift();
+                const module: Module = parseModule(moduleUri, moduleName);
+                schema.set(moduleName, module);
             }
         });
-        schema.set(moduleName, yaraModule);
     });
     return schema;
 }
 
 export class YaraCompletionItemProvider implements vscode.CompletionItemProvider {
-    // path to the directory containing module data
-    schemaPath: string = path.join(__dirname, '..', '..', '..', 'yara', 'src', 'modules');
-    schema: ModuleSchema = parseSchema(this.schemaPath);
+    schema: ModuleSchema;
     wordDefinition = new RegExp('[a-zA-Z0-9._]+');
+
+    constructor(extensionUri: vscode.Uri) {
+        const moduleDir = vscode.Uri.joinPath(extensionUri, 'yara', 'modules');
+        this.schema = parseSchema(moduleDir);
+    }
 
     public provideCompletionItems(doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken): vscode.ProviderResult<vscode.CompletionList> {
         return new Promise((resolve, reject) => {

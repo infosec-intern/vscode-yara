@@ -5,30 +5,53 @@
     "echoCommand": true,
     "tasks": [
         {
-            "label": "tsc",
-            "command": "${workspaceRoot}/node_modules/.bin/tsc",
-            "type": "shell",
-            "args": ["-p", "${workspaceRoot}", "--watch"],
+            "type": "npm",
+            "script": "compile-tests",
             "problemMatcher": "$tsc",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-              }
+            "group": "build"
         },
         {
             "label": "install",
-            "command": "npm",
-            "args": ["install"]
+            "type": "npm",
+            "script": "install"
         },
         {
             "label": "update",
-            "command": "npm",
-            "args": ["update"]
+            "type": "npm",
+            "script": "update"
         },
         {
             "label": "test",
-            "command": "npm",
-            "args": ["run", "test"]
+            "type": "npm",
+            "script": "test",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "detail": "node ./out/test/runTests.js"
+        },
+        {
+            "type": "npm",
+            "script": "compile",
+            "group": "build",
+            "problemMatcher": [
+                "$ts-webpack",
+                "$tslint-webpack"
+            ]
+        },
+        {
+            "type": "npm",
+            "script": "compile-watch",
+            "group": {
+                "isDefault": true,
+                "kind": "build"
+            },
+            "isBackground": true,
+            "problemMatcher": [
+                "$ts-webpack-watch",
+                "$tslint-webpack-watch"
+            ]
         }
     ]
 }

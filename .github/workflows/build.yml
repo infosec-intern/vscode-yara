@@ -34,8 +34,8 @@ jobs:
         node-version: 14
     - run: npm ci
     - run: npm run lint
-    - run: npm run linttests
-    - run: npm run compile
+    - run: npm run lint-tests
+    - run: npm run compile && npm run compile-tests
     - run: xvfb-run -a npm test
       if: runner.os == 'Linux'
     - run: npm test

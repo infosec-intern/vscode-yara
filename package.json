@@ -18,7 +18,7 @@
         "url": "https://github.com/infosec-intern/vscode-yara/issues"
     },
     "engines": {
-        "vscode": "^1.22.0"
+        "vscode": "^1.60.0"
     },
     "categories": [
         "Programming Languages",
@@ -103,16 +103,22 @@
             }
         }
     },
-    "main": "out/yara/src/extension",
+    "main": "./dist/host/extension.js",
+    "browser": "./dist/web/extension.js",
     "activationEvents": [
         "onLanguage:yara"
     ],
     "scripts": {
-        "vscode:prepublish": "tsc -p ./",
-        "compile": "tsc -p ./",
+        "vscode:prepublish": "npm run package",
+        "compile": "webpack",
+        "compile-tests": "tsc -p ./",
+        "compile-watch": "webpack --watch",
         "lint": "eslint yara/src --ext ts",
-        "linttests": "eslint test --ext ts",
-        "test": "node ./out/test/runTests.js"
+        "lint-tests": "eslint test --ext ts",
+        "package": "webpack --mode production --devtool hidden-source-map",
+        "run-in-browser": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. .",
+        "test": "node ./out/test/runTests.js",
+        "test-web": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=. --extensionTestsPath=dist/web/test/suite/index.js"
     },
     "devDependencies": {
         "@types/mocha": "^2.2.32",
@@ -121,11 +127,13 @@
         "@typescript-eslint/parser": "^4.17.0",
         "eslint": "^7.21.0",
         "mocha": "^8.3.1",
+        "ts-loader": "^9.2.6",
         "typescript": "^3.7.5",
-        "vscode-test": "^1.5.1"
+        "vscode-test": "^1.5.1",
+        "webpack": "^5.64.2",
+        "webpack-cli": "^4.9.1"
     },
     "dependencies": {
-        "@types/vscode": "^1.54.0",
-        "glob": "^7.1.6"
+        "@types/vscode": "^1.54.0"
     }
 }

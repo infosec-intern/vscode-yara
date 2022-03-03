@@ -1,8 +1,8 @@
 'use strict';
 
-import * as vscode from 'vscode';
-import { debug } from "./configuration";
-import { log } from "./helpers";
+import vscode = require('vscode');
+import { debug } from './configuration';
+import { log } from './helpers';
 
 const configName = 'yara';
 
@@ -15,7 +15,7 @@ function getVariableNameFromString(rawSnippet: string): string {
 }
 
 function generateConditionSnippet(snippet: vscode.SnippetString = new vscode.SnippetString(), numTabs = 0): vscode.SnippetString {
-    if (debug) { log("YaraSnippetCompletionItemProvider: Generating 'condition' snippet"); }
+    if (debug) { log('YaraSnippetCompletionItemProvider: Generating condition snippet'); }
     const tabs = '\t'.repeat(numTabs);
     snippet.appendText(`${tabs}condition:\n`);
     snippet.appendText(`${tabs}\t`);
@@ -24,7 +24,7 @@ function generateConditionSnippet(snippet: vscode.SnippetString = new vscode.Sni
 }
 
 function generateMetaSnippet(snippet: vscode.SnippetString = new vscode.SnippetString(), numTabs = 0): vscode.SnippetString {
-    if (debug) { log("YaraSnippetCompletionItemProvider: Generating 'meta' snippet"); }
+    if (debug) { log('YaraSnippetCompletionItemProvider: Generating meta snippet'); }
     const tabs = '\t'.repeat(numTabs);
     const varRegex = new RegExp('\\${[A-Z_]+?}', 'gi');
     const config: vscode.WorkspaceConfiguration = vscode.workspace.getConfiguration(configName);
@@ -84,7 +84,7 @@ function generateMetaSnippet(snippet: vscode.SnippetString = new vscode.SnippetS
 }
 
 function generateRuleSnippet(snippet: vscode.SnippetString = new vscode.SnippetString()): vscode.SnippetString {
-    if (debug) { log("YaraSnippetCompletionItemProvider: Generating 'rule' snippet"); }
+    if (debug) { log('YaraSnippetCompletionItemProvider: Generating rule snippet'); }
     snippet.appendText('rule ');
     // TODO: Find a way to mix variables and placeholders, so TM_FILENAME_BASE can be the default and also a placeholder
     snippet.appendPlaceholder('my_rule');
@@ -101,7 +101,7 @@ function generateRuleSnippet(snippet: vscode.SnippetString = new vscode.SnippetS
 }
 
 function generateStringSnippet(snippet: vscode.SnippetString = new vscode.SnippetString(), numTabs = 0): vscode.SnippetString {
-    if (debug) { log("YaraSnippetCompletionItemProvider: Generating 'strings' snippet"); }
+    if (debug) { log('YaraSnippetCompletionItemProvider: Generating strings snippet'); }
     const tabs = '\t'.repeat(numTabs);
     snippet.appendText(`${tabs}strings:\n`);
     snippet.appendText(`${tabs}\t`);
@@ -118,7 +118,7 @@ export class YaraSnippetCompletionItemProvider implements vscode.CompletionItemP
         const items: vscode.CompletionList = new vscode.CompletionList();
         if (config.get('snippets.condition')) {
             const conditionItem: vscode.CompletionItem = new vscode.CompletionItem('condition', vscode.CompletionItemKind.Snippet);
-            conditionItem.detail = 'Generate a \'condition\' section (YARA)';
+            conditionItem.detail = 'Generate a condition section (YARA)';
             conditionItem.insertText = new vscode.SnippetString('condition:\n\t${1:conditions}');
             conditionItem.documentation = new vscode.MarkdownString('');
             conditionItem.documentation.appendCodeblock('condition:\n\tCONDITIONS');
@@ -126,7 +126,7 @@ export class YaraSnippetCompletionItemProvider implements vscode.CompletionItemP
         }
         if (config.get('snippets.meta')) {
             const metaItem: vscode.CompletionItem = new vscode.CompletionItem('meta', vscode.CompletionItemKind.Snippet);
-            metaItem.detail = 'Generate a \'meta\' section (YARA)';
+            metaItem.detail = 'Generate a meta section (YARA)';
             metaItem.insertText = new vscode.SnippetString('meta:\n\t$1 = "$2"');
             metaItem.documentation = new vscode.MarkdownString('');
             metaItem.documentation.appendCodeblock('meta:\n\tKEY = "VALUE"');
@@ -142,7 +142,7 @@ export class YaraSnippetCompletionItemProvider implements vscode.CompletionItemP
         }
         if (config.get('snippets.strings')) {
             const stringsItem: vscode.CompletionItem = new vscode.CompletionItem('strings', vscode.CompletionItemKind.Snippet);
-            stringsItem.detail = 'Generate a \'strings\' section (YARA)';
+            stringsItem.detail = 'Generate a strings section (YARA)';
             stringsItem.insertText = new vscode.SnippetString('strings:\n\t${1:name} = "${2:string}"');
             stringsItem.documentation = new vscode.MarkdownString('');
             stringsItem.documentation.appendCodeblock('strings:\n\tNAME = "STRING"');
