@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.0.0] 2022-03-03
+* Add web extension capability
+  * Large changes required to switch Node.js dependencies such as `path` and `os` modules to VSCode API
+  * Internal workings are very different, but extension capabilities should look exactly the same as before
+  * Update compiler from `tsc` to `webpack`
+* Add YARA v4.2.0-rc1 syntax changes
+  * `console` module schema added
+  * `defined` operator added
+
 ## [1.6.9] 2021-11-20
 * Merged "New Snippets for escaped strings" from @humpalum
   * Multiple snippets for creating new, properly escaped strings based on clipboard contents
@@ -146,3 +155,4 @@
 [1.6.7]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.6...v1.6.7
 [1.6.8]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.7...v1.6.8
 [1.6.9]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.8...v1.6.9
+[2.0.0]: https://github.com/infosec-intern/vscode-yara/compare/v1.6.9...v2.0.0
