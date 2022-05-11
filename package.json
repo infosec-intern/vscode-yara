@@ -39,7 +39,11 @@
                     ".yara",
                     ".yar"
                 ],
-                "configuration": "yara/yara.configuration.json"
+                "configuration": "yara/yara.configuration.json",
+                "icon": {
+                    "light": "./images/icon.PNG",
+                    "dark": "./images/icon.PNG"
+                }
             }
         ],
         "grammars": [
