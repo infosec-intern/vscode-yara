@@ -47,6 +47,47 @@
         "body": "uint32(0) == 0xFEEDFACF ",
         "description": "Generate a condition to check for a Mach-O file header"
     },
+    "LNK Header": {
+        "prefix": "header_LNK",
+        "body": "uint16(0) == 0x004c and uint32(4) == 0x00021401 ",
+        "description": "Generate a condition to check for a LNK file header"
+    },
+    "Doc Header": {
+        "prefix": "header_Doc",
+        "body": [
+            "\t\tuint32be(0) == 0x09081000 or // XLS",
+             "\t\t// uint32be(0) == 0x25504446 or // PDF",
+             "\t\t// DOCX, XLSX, PPTX - Microsoft Office Open XML Format (OOXML)",
+             "\t\t( uint32be(0) == 0x504b0304 and $s1 in (0..100) ) or",
+             "\t\tuint32be(0) == 0x7b5c7274 or // RTF",
+             "\t\t// DOC, DOT, PPS, PPT, XLA, XLS, WIZ",
+             "\t\t( uint32be(0) == 0xd0cf11e0 and not $r1 ) or",
+             "\t\tuint32be(512) == 0xeca5c100 or // DOC",
+             "\t\tuint32be(512) == 0xa0461df0 or // PPT",
+             "\t\tuint32be(512) == 0x0f00e803    // PPT"
+            ],
+        "description": "Generate a condition to check for a Doc file header"
+    },
+    "PDF Header": {
+        "prefix": "header_PDF",
+        "body": "uint32(0) == 0x46445025 ",
+        "description": "Generate a condition to check for a PDF file header"
+    },
+    "RTF Header": {
+        "prefix": "header_RTF",
+        "body": "uint32be(0) == 0x7B5C7274 ",
+        "description": "Generate a condition to check for a RTF file header"
+    },
+    "gzip Header": {
+        "prefix": "header_gzip",
+        "body": "uint16(0) == 0x8B1F ",
+        "description": "Generate a condition to check for a gzip file header"
+    },
+    "pkzip Header": {
+        "prefix": "header_pkzip",
+        "body": "uint16(0) == 0x4b50 ",
+        "description": "Generate a condition to check for a pkzip file header"
+    },  
     "string": {
         "prefix": "$s",
         "body": [
