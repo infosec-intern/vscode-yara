@@ -58,10 +58,10 @@
             "\t\tuint32be(0) == 0x09081000 or // XLS",
              "\t\t// uint32be(0) == 0x25504446 or // PDF",
              "\t\t// DOCX, XLSX, PPTX - Microsoft Office Open XML Format (OOXML)",
-             "\t\t( uint32be(0) == 0x504b0304 and $s1 in (0..100) ) or",
+             "\t\t( uint32be(0) == 0x504b0304 and \\$s1 in (0..100) ) or",
              "\t\tuint32be(0) == 0x7b5c7274 or // RTF",
              "\t\t// DOC, DOT, PPS, PPT, XLA, XLS, WIZ",
-             "\t\t( uint32be(0) == 0xd0cf11e0 and not $r1 ) or",
+             "\t\t( uint32be(0) == 0xd0cf11e0 and not \\$r1 ) or",
              "\t\tuint32be(512) == 0xeca5c100 or // DOC",
              "\t\tuint32be(512) == 0xa0461df0 or // PPT",
              "\t\tuint32be(512) == 0x0f00e803    // PPT"
