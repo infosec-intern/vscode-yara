@@ -44,7 +44,7 @@
     },
     "Mach-O Header": {
         "prefix": "header_macho",
-        "body": "uint32(0) == 0xFEEDFACF ",
+        "body": "(uint16(0) == 0xfeca or uint16(0) == 0xfacf) ",
         "description": "Generate a condition to check for a Mach-O file header"
     },
     "LNK Header": {
