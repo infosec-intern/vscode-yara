@@ -1,8 +1,13 @@
 {
     "Import": {
         "prefix": "import",
-        "body": "import \"${1|pe,elf,cuckoo,magic,hash,math,dotnet,time,console|}\"",
+        "body": "import \"${1|pe,elf,cuckoo,magic,hash,math,dotnet,time,console,vt|}\"",
         "description": "Import a YARA module"
+    },
+    "Include": {
+        "prefix": "include",
+        "body": "include \"external_rules.yara\"",
+        "description": "Include an external YARA file"
     },
     "for..of": {
         "prefix": "for_of",

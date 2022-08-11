@@ -105,7 +105,7 @@ function generateStringSnippet(snippet: vscode.SnippetString = new vscode.Snippe
     const tabs = '\t'.repeat(numTabs);
     snippet.appendText(`${tabs}strings:\n`);
     snippet.appendText(`${tabs}\t`);
-    snippet.appendPlaceholder('name');
+    snippet.appendPlaceholder('\$name');
     snippet.appendText(' = ');
     // TODO: Find a way to mix choices and placeholders, so user can just hit TAB to replace the value
     snippet.appendChoice(['"string"', '/regex/', '{ HEX }']);
@@ -143,9 +143,9 @@ export class YaraSnippetCompletionItemProvider implements vscode.CompletionItemP
         if (config.get('snippets.strings')) {
             const stringsItem: vscode.CompletionItem = new vscode.CompletionItem('strings', vscode.CompletionItemKind.Snippet);
             stringsItem.detail = 'Generate a strings section (YARA)';
-            stringsItem.insertText = new vscode.SnippetString('strings:\n\t${1:name} = "${2:string}"');
+            stringsItem.insertText = new vscode.SnippetString('strings:\n\t\$${1:name} = "${2:string}"');
             stringsItem.documentation = new vscode.MarkdownString('');
-            stringsItem.documentation.appendCodeblock('strings:\n\tNAME = "STRING"');
+            stringsItem.documentation.appendCodeblock('strings:\n\t$NAME = "STRING"');
             items.items.push(stringsItem);
         }
         if (debug) { log(`YaraSnippetCompletionItemProvider: Generated ${items.items.length} snippets`); }
