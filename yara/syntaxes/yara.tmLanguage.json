@@ -105,7 +105,7 @@
       "name": "support.other.meta-name.strings.yara",
       "match": "\\b([A-Z_a-z][0-9A-Z_a-z]{0,127})\\s*(=)\\s*(true|false)",
       "captures": {
-        "1": {"name": "keyword.other.identifier.yara"},
+        "1": {"name": "entity.other.meta.identifier.yara"},
         "2": {"name": "keyword.operator.assignment.yara"},
         "3": {"name": "constant.language.yara"}
       }
@@ -114,7 +114,7 @@
       "name": "support.other.meta-name.strings.yara",
       "match": "\\b([A-Z_a-z][0-9A-Z_a-z]{0,127})\\s*(=)\\s*([0-9]+)(KB|MB)?",
       "captures": {
-        "1": {"name": "keyword.other.identifier.yara"},
+        "1": {"name": "entity.other.meta.identifier.yara"},
         "2": {"name": "keyword.operator.assignment.yara"},
         "3": {"name": "constant.numeric.yara"},
         "4": {"name": "storage.type.number.postfix.yara"}
@@ -125,7 +125,7 @@
       "begin": "\\b([A-Z_a-z][0-9A-Z_a-z]{0,127})\\s*(=)\\s*(?=\")",
       "end": "(?<=\")", 
       "beginCaptures": {
-        "1": {"name": "keyword.other.identifier.yara"},
+        "1": {"name": "entity.other.meta.identifier.yara"},
         "2": {"name": "keyword.operator.assignment.yara"}
       },
       "patterns": [
@@ -144,17 +144,19 @@
         {"include": "#comments"},
         {"include": "#string-assignment-text"},
         {"include": "#string-assignment-regex"},
-        {"include": "#string-assignment-hex"}
+        {"include": "#string-assignment-hex"},
+        {"include": "#unmatched-characters"}
       ]
     },
     "string-assignment-text": {
       "name": "support.other.attribute-name.strings.yara",
-      "begin": "(\\$([0-9A-Z_a-z]+\\b)?)\\s*(=)(?=\\s*\")",
+      "begin": "(\\$)([0-9A-Z_a-z]+\\b)?+\\s*+([^\\n\\s=][^=]*)?(=)(?=\\s*\")",
       "end": "(?=\\b(condition)\\b|\\$)",
       "beginCaptures": {
-        "1": {"name": "keyword.other.string.identifier.name.yara"},
-        "2": {"name": "keyword.other.string.identifier.yara"},
-        "3": {"name": "keyword.operator.assignment.yara"}
+        "1": {"name": "variable.language.string.identifier.yara"},
+        "2": {"name": "variable.other.string.identifier.yara"},
+        "3": {"name": "invalid.illegal.string.identifier.yara"},
+        "4": {"name": "keyword.operator.assignment.yara"}
       },
       "patterns": [
         {"include": "#comments"},
@@ -165,12 +167,13 @@
     },
     "string-assignment-regex": {
       "name": "support.other.attribute-name.strings.yara",
-      "begin": "(\\$([0-9A-Z_a-z]+)?)\\s*(=)(?=\\s*/)",
+      "begin": "(\\$)([0-9A-Z_a-z]+\\b)?+\\s*+([^\\n\\s=][^=]*)?(=)(?=\\s*/)",
       "end": "(?=\\b(condition)\\b|\\$)",
       "beginCaptures": {
-        "1": {"name": "keyword.other.string.identifier.yara"},
-        "2": {"name": "keyword.other.string.identifier.name.yara"},
-        "3": {"name": "keyword.operator.assignment.yara"}
+        "1": {"name": "variable.language.string.identifier.yara"},
+        "2": {"name": "variable.other.string.identifier.yara"},
+        "3": {"name": "invalid.illegal.string.identifier.yara"},
+        "4": {"name": "keyword.operator.assignment.yara"}
       },
       "patterns": [
         {"include": "#comments"},
@@ -185,12 +188,13 @@
     },
     "string-assignment-hex": {
       "name": "support.other.attribute-name.strings.yara",
-      "begin": "(\\$([0-9A-Z_a-z]+\\b)?)\\s*(=)",
+      "begin": "(\\$)([0-9A-Z_a-z]+\\b)?+\\s*+([^\\n\\s=][^=]*)?(=)",
       "end": "(?=\\b(condition)\\b|\\$)",
       "beginCaptures": {
-        "1": {"name": "keyword.other.string.identifier.name.yara"},
-        "2": {"name": "keyword.other.string.identifier.yara"},
-        "3": {"name": "keyword.operator.assignment.yara"}
+        "1": {"name": "variable.language.string.identifier.yara"},
+        "2": {"name": "variable.other.string.identifier.yara"},
+        "3": {"name": "invalid.illegal.string.identifier.yara"},
+        "4": {"name": "keyword.operator.assignment.yara"}
       },
       "patterns": [
         {"include": "#comments"},
@@ -253,7 +257,7 @@
     },
     "hex-jump": {
       "name": "entity.name.jump.hex.yara",
-      "begin": "\\[",
+      "begin": "\\[\\s*(?=([1-9][0-9]*|[0-9]*\\s*-|[0-9]+\\s*-\\s*[0-9]*)\\s*\\])",
       "end": "\\]",
       "patterns": [
         {
@@ -279,7 +283,7 @@
       }
     },
     "base64-modifier": {
-      "begin": "\\b(base64)\\s*(\\()",
+      "begin": "\\b(base64)\\s*(\\()(?=\\s*\")",
       "end": "(\\))",
       "beginCaptures": {
         "1": {"name": "keyword.other.modifier.yara"},
@@ -300,7 +304,7 @@
         {"include": "#base64-modifier"},
         {
           "name": "keyword.other.modifier.yara", 
-          "match": "\\b(nocase|wide|ascii|xor|base64|base64wide|fullword|private)\\b"
+          "match": "\\b(nocase|wide|ascii|xor|base64|base64wide|fullword|private)\\b(?!\\()"
         },
         {"include": "#comments"},
         {"include": "#unmatched-characters"}
@@ -341,8 +345,28 @@
         {"include": "#string-identifiers"},
         {"include": "#booleans"},
         {
-          "name": "storage.type.keyword.yara", 
-          "match": "\\b(all|and|any|at|contains|endswith|entrypoint|filesize|for|icontains|iendswith|iequals|in|int16|int16be|int32|int32be|int8|int8be|istartswith|matches|none|not|of|or|startswith|them|uint16|uint16be|uint32|uint32be|uint8|uint8be|defined)\\b"
+          "name": "constant.numeric.keyword.yara", 
+          "match": "\\b(all|any|none|filesize)\\b"
+        },
+        {
+          "name": "constant.numeric.keyword.yara invalid.deprecated.keyword.yara", 
+          "match": "\\b(entrypoint)\\b"
+        },
+        {
+          "name": "variable.language.string.identifier.wildcard.yara", 
+          "match": "\\b(them)\\b"
+        },
+        {
+          "name": "keyword.other.yara", 
+          "match": "\\b(at|for|in|of)\\b"
+        },
+        {
+          "name": "support.function.other.yara", 
+          "match": "\\b((?:u?int)(?:8|16|32)(?:be)?)(?=\\s*(\\(|\n))"
+        },
+        {
+          "name": "variable.language.loop.variable.yara", 
+          "match": "([!@#$])(?![0-9A-Z_a-z])"
         },
         {"include": "#identifiers"},
         {"include": "#unmatched-characters"}
@@ -393,11 +417,11 @@
     },
     "relational-operators-text": {
       "name": "keyword.operator.comparison.yara",
-      "match": "\\b(contains|icontains|startswith|istartswith|endswith|iendswith|iequals)\\b"
+      "match": "\\b(contains|icontains|startswith|istartswith|endswith|iendswith|iequals)(?=\\s*\")"
     },
     "relational-operators-regexp": {
       "name": "keyword.operator.comparison.yara",
-      "match": "\\b(matches)\\b"
+      "match": "\\b(matches)(?=\\s*/)"
     },
     "rule-end": {
       "name": "punctuation.definition.rule.end.yara",
@@ -418,7 +442,12 @@
     },
     "string-identifiers": {
       "name": "variable.other.string_identifier.yara",
-      "match": "[!@#$][0-9A-Z_a-z]*"
+      "match": "([!@#$])([0-9A-Z_a-z]+|(?=[*]))([*]?)",
+      "captures": {
+        "1": {"name": "variable.language.string.identifier.yara"},
+        "2": {"name": "variable.other.string.identifier.yara"},
+        "3": {"name": "string.interpolated.string.identifier.yara"}
+      }
     },
     "regexp-strings": {
       "name": "string.regexp.yara",
@@ -565,10 +594,11 @@
       ]
     },
     "regexp-parentheses": {
-      "begin": "\\(",
-      "end": "(\\)|(?=\"))|((?=(?<!\\\\)\\n))",
+      "begin": "(\\()([+*?])?",
+      "end": "(\\)|(?=/))|((?=(?<!\\\\)\\n))",
       "beginCaptures": {
-        "0": {"name": "punctuation.parenthesis.begin.regexp support.other.parenthesis.regexp"}
+        "1": {"name": "punctuation.parenthesis.begin.regexp support.other.parenthesis.regexp"},
+        "2": {"name": "invalid.illegal.group.construct.regexp"}
         },
       "endCaptures": {
         "1": {"name": "punctuation.parenthesis.end.regexp support.other.parenthesis.regexp"},
@@ -644,7 +674,7 @@
           "name":"constant.numeric.hex.yara",
           "match": "\\b(0x)[0-9A-Fa-f]+\\b",
           "captures": {
-            "1": {"name": "storage.type.number.yara"}    
+            "1": {"name": "storage.modifier.number.yara"}    
           }
         },
         {
@@ -708,7 +738,6 @@
     [ "/", "/" ],
     [ "(", ")" ],
     [ "{", "}" ],
-    [ "[", "]" ],
-    [ "/*", "*/" ]
+    [ "[", "]" ]
   ]
 }

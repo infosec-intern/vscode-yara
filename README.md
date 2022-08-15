@@ -6,7 +6,7 @@ Language support for the YARA pattern matching language
 Check out the [project wiki](https://github.com/infosec-intern/vscode-yara/wiki) for more information
 
 ## Screenshot
-![Image as of 28 June 2021](images/28062021.PNG)
+![Image as of 2022 Aug 15](images/syntax_example_20220815.png)
 
 ## Features
 This extension provides many features common to code editors, such as
