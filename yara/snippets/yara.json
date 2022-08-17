@@ -1,85 +1,77 @@
 {
-    "Import": {
-        "prefix": "import",
-        "body": "import \"${1|pe,elf,cuckoo,magic,hash,math,dotnet,time,console|}\"",
-        "description": "Import a YARA module"
-    },
-    "for..of": {
-        "prefix": "for_of",
-        "body": [
-            "for ${1:any} of ${2:them} : (",
-             "\t${3:boolean_expression}",
-             ")"
-        ],
-        "description": "Apply the same condition to many strings"
-    },
-    "for..in": {
-        "prefix": "for_in",
-        "body": [
-            "for ${1:any i} in ( ${2:them} ) : (",
-            "\t${3:boolean_expression}",
-            ")"
-        ],
-        "description": "Loop over items"
-    },
-    "any": {
-        "prefix": "any",
-        "body": "any of ${them}",
-        "description": "String set keyword: any"
-    },
-    "all": {
-        "prefix": "all",
-        "body": "all of ${them}",
-        "description": "String set keyword: all"
-    },
-    "PE Header": {
-        "prefix": "header_pe",
-        "body": "uint16(0) == 0x5A4D ",
-        "description": "Generate a condition to check for a PE file header"
-    },
-    "ELF Header": {
-        "prefix": "header_elf",
-        "body": "uint32(0) == 0x464C457F ",
-        "description": "Generate a condition to check for an ELF file header"
-    },
-    "Mach-O Header": {
-        "prefix": "header_macho",
-        "body": "uint32(0) == 0xFEEDFACF ",
-        "description": "Generate a condition to check for a Mach-O file header"
-    },
-    "string": {
-        "prefix": "$s",
-        "body": [
-            "\\$s = \"${CLIPBOARD/([\\\"\\\\])/\\$1/g}\" ${1|ascii,wide|} ${2:fullword}"
-        ],
-        "description": "Generate a string with the escaped content of your clipboard"
-    },
-    "regex": {
-        "prefix": "$re",
-        "body": [
-            "\\$re = /${CLIPBOARD/([\\\\\/\\\\^\\\\$\\|(){}\\[\\]*+?\\\\.])|(\\n)|(\\t)|(\\r)/${1:+\\\\}${1}${2:+\\\\n}${3:+\\\\t}${4:+\\\\r}/g}/"
-        ],
-        "description": "Generate a regex string with the escaped content of your clipboard"
-    },
-    "pasteString": {
-        "prefix": "pasteString",
-        "body": [
-            "${CLIPBOARD/([\\\"\\\\])/\\$1/g}"
-            ],
-            "description": "Paste current clipboard escaped for yara strings"
-        },
-    "pasteRegex": {
-        "prefix": "pasteRegex",
-        "body": [
-            "${CLIPBOARD/([\\\\\/\\\\^\\\\$\\|(){}\\[\\]*+?\\\\.])|(\\n)|(\\t)|(\\r)/${1:+\\\\}${1}${2:+\\\\n}${3:+\\\\t}${4:+\\\\r}/g}"
-        ],
-        "description": "Paste current clipboard escaped for yara regex"
-    },
-    "hex": {
-        "prefix": "$c",
-        "body": [
-            "\\$c ={${CLIPBOARD/[\t]*(.+?)\\n/${1}\n\t\t\t  /g}}"
-        ],
-        "description": "Generate a hex-string with the content of your clipboard"
-    }
+  "Import": {
+    "prefix": "import",
+    "body": "import \"${1|pe,elf,cuckoo,magic,hash,math,dotnet,time,console|}\"",
+    "description": "Import a YARA module"
+  },
+  "for..of": {
+    "prefix": "for_of",
+    "body": ["for ${1:any} of ${2:them} : (", "\t${3:boolean_expression}", ")"],
+    "description": "Apply the same condition to many strings"
+  },
+  "for..in": {
+    "prefix": "for_in",
+    "body": [
+      "for ${1:any i} in ( ${2:them} ) : (",
+      "\t${3:boolean_expression}",
+      ")"
+    ],
+    "description": "Loop over items"
+  },
+  "any": {
+    "prefix": "any",
+    "body": "any of ${them}",
+    "description": "String set keyword: any"
+  },
+  "all": {
+    "prefix": "all",
+    "body": "all of ${them}",
+    "description": "String set keyword: all"
+  },
+  "PE Header": {
+    "prefix": "header_pe",
+    "body": "uint16(0) == 0x5A4D ",
+    "description": "Generate a condition to check for a PE file header"
+  },
+  "ELF Header": {
+    "prefix": "header_elf",
+    "body": "uint32(0) == 0x464C457F ",
+    "description": "Generate a condition to check for an ELF file header"
+  },
+  "Mach-O Header": {
+    "prefix": "header_macho",
+    "body": "uint32(0) == 0xFEEDFACF ",
+    "description": "Generate a condition to check for a Mach-O file header"
+  },
+  "string": {
+    "prefix": "$s",
+    "body": [
+      "\\$s = \"${CLIPBOARD/([\\\"\\\\])/\\$1/g}\" ${1|ascii,wide|} ${2:fullword}"
+    ],
+    "description": "Generate a string with the escaped content of your clipboard"
+  },
+  "regex": {
+    "prefix": "$re",
+    "body": [
+      "\\$re = /${CLIPBOARD/([\\\\/\\\\^\\\\$\\|(){}\\[\\]*+?\\\\.])|(\\n)|(\\t)|(\\r)/${1:+\\\\}${1}${2:+\\\\n}${3:+\\\\t}${4:+\\\\r}/g}/"
+    ],
+    "description": "Generate a regex string with the escaped content of your clipboard"
+  },
+  "pasteString": {
+    "prefix": "paste",
+    "body": ["${CLIPBOARD/([\\\"\\\\])/\\$1/g}"],
+    "description": "Paste current clipboard escaped for yara strings"
+  },
+  "pasteRegex": {
+    "prefix": "pasteRegex",
+    "body": [
+      "${CLIPBOARD/([\\\\/\\\\^\\\\$\\|(){}\\[\\]*+?\\\\.])|(\\n)|(\\t)|(\\r)/${1:+\\\\}${1}${2:+\\\\n}${3:+\\\\t}${4:+\\\\r}/g}"
+    ],
+    "description": "Paste current clipboard escaped for yara regex"
+  },
+  "hex": {
+    "prefix": "$c",
+    "body": ["\\$c ={${CLIPBOARD/[\t]*(.+?)\\n/${1}\n\t\t\t  /g}}"],
+    "description": "Generate a hex-string with the content of your clipboard"
+  }
 }
