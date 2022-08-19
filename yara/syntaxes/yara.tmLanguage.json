@@ -69,7 +69,7 @@
       "patterns": [
         {"include": "#reserved-identifiers"},
         {
-          "name": "entity.name.function.yara", 
+          "name": "entity.name.function.yara",
           "match": "\\b[A-Z_a-z][0-9A-Z_a-z]{0,127}\\b"
         },
         {"include": "#unmatched-characters"}
@@ -124,7 +124,7 @@
     "meta-value-string": {
       "name": "support.other.meta-name.strings.yara",
       "begin": "\\b([A-Z_a-z][0-9A-Z_a-z]{0,127})\\s*(=)\\s*(?=\")",
-      "end": "(?<=\")", 
+      "end": "(?<=\")",
       "beginCaptures": {
         "1": {"name": "entity.other.meta.identifier.yara"},
         "2": {"name": "keyword.operator.assignment.yara"}
@@ -180,7 +180,7 @@
         {"include": "#comments"},
         {"include": "#regexp-strings"},
         {
-          "name": "keyword.other.modifier.yara", 
+          "name": "keyword.other.modifier.yara",
           "match": "\\b(nocase|wide|ascii|fullword|private)\\b"
         },
         {"include": "#reserved-identifiers"},
@@ -201,7 +201,7 @@
         {"include": "#comments"},
         {"include": "#hex-string-value"},
         {
-          "name": "keyword.other.modifier.yara", 
+          "name": "keyword.other.modifier.yara",
           "match": "\\b(private)\\b"
         },
         {"include": "#reserved-identifiers"},
@@ -304,7 +304,7 @@
         {"include": "#xor-modifier"},
         {"include": "#base64-modifier"},
         {
-          "name": "keyword.other.modifier.yara", 
+          "name": "keyword.other.modifier.yara",
           "match": "\\b(nocase|wide|ascii|xor|base64|base64wide|fullword|private)\\b(?!\\()"
         },
         {"include": "#comments"},
@@ -343,30 +343,31 @@
         {"include": "#quoted-strings"},
         {"include": "#numbers"},
         {"include": "#separator"},
+        {"include": "#range-operator"},
         {"include": "#string-identifiers"},
         {"include": "#booleans"},
         {
-          "name": "constant.numeric.keyword.yara", 
+          "name": "constant.numeric.keyword.yara",
           "match": "\\b(all|any|none|filesize)\\b"
         },
         {
-          "name": "constant.numeric.keyword.yara invalid.deprecated.keyword.yara", 
+          "name": "constant.numeric.keyword.yara invalid.deprecated.keyword.yara",
           "match": "\\b(entrypoint)\\b"
         },
         {
-          "name": "variable.language.string.identifier.wildcard.yara", 
+          "name": "variable.language.string.identifier.wildcard.yara",
           "match": "\\b(them)\\b"
         },
         {
-          "name": "keyword.other.yara", 
+          "name": "keyword.other.yara",
           "match": "\\b(at|for|in|of)\\b"
         },
         {
-          "name": "support.function.other.yara", 
+          "name": "support.function.other.yara",
           "match": "\\b((?:u?int)(?:8|16|32)(?:be)?)(?=\\s*(\\(|\n))"
         },
         {
-          "name": "variable.language.loop.variable.yara", 
+          "name": "variable.language.loop.variable.yara",
           "match": "([!@#$])(?![0-9A-Z_a-z])"
         },
         {"include": "#identifiers"},
@@ -382,7 +383,7 @@
     },
     "struct-member-access": {
       "name": "meta.struct.access.yara",
-      "match": "\\.\\s*(?!\\.)"
+      "match": "(?!<\\.\\s*)\\.\\s*(?!\\.)"
     },
     "array-subscripting": {
       "name": "punctuation.definition.array.access.yara",
@@ -391,6 +392,10 @@
     "separator": {
       "name": "punctuation.separator.arguments.yara",
       "match": ","
+    },
+    "range-operator": {
+      "name": "keyword.operator.range.yara",
+      "match": "(?<!\\.)\\.\\.(?!\\.)"
     },
     "boolean-operators": {
       "name": "keyword.operator.logical.yara",
@@ -469,13 +474,13 @@
     "regexp-expression": {
       "patterns": [
         {
-          "include": "#regexp-base-expression"
+          "include": "#regexp-parentheses"
         },
         {
           "include": "#regexp-character-set"
         },
         {
-          "include": "#regexp-parentheses"
+          "include": "#regexp-base-expression"
         },
         {
           "name": "invalid.illegal.regexp.end.yara",
@@ -507,14 +512,20 @@
         },
         {
           "name": "keyword.operator.quantifier.regexp",
-          "match": "\\{([0-9]+|[0-9]+,([0-9]+)?|,[0-9]+)\\}"
+          "match": "\\{([0-9]+|[0-9]+,(?:[0-9]+)?|,[0-9]+)\\}",
+          "captures": {
+            "1": {"name": "constant.numeric.yara"}
+          }
         },
         {
           "include": "#regexp-escape-sequence"
         },
         {
-          "name": "constant.other.placeholder.regexp",
-          "match": "[\\x20!\"#%&+,\\-'0->@-Z\\\\_`a-z~]"
+          "name": "string.regexp.yara",
+          "match": "[\\x20!\"#%&+,\\-'0->@-Z\\\\_`a-z{}~]"
+        },
+        {
+          "include": "#unmatched-characters"
         }
       ]
     },
@@ -526,7 +537,7 @@
         {
           "name": "meta.character.set.regexp",
           "begin": "(\\[)(\\^)?(\\])?",
-          "end": "(\\]|(?=\"))|((?=(?<!\\\\)\\n))",
+          "end": "(\\]|(?=/))|([^\\]]*?(?=/|\\n))",
           "beginCaptures": {
             "1": {
               "name": "constant.other.set.regexp punctuation.character.set.begin.regexp"
@@ -565,8 +576,11 @@
           "match": "\\\\[.afnrt\\\\]"
         },
         {
-          "name": "constant.character.escape.yara",
-          "match": "\\\\x[0-9A-Fa-f]{2}"
+          "match": "(\\\\x[0-9A-Fa-f]{2})|(\\\\x.{2})",
+          "captures": {
+            "1": {"name": "constant.character.escape.regexp"},
+            "2": {"name": "invalid.illegal.character.escape.regex"}
+          }
         }
       ]
     },
@@ -577,8 +591,11 @@
           "match": "\\\\[.afnrt\\\\]"
         },
         {
-          "name": "constant.character.escape.regexp",
-          "match": "\\\\x[0-9A-Fa-f]{2}"
+          "match": "(\\\\x[0-9A-Fa-f]{2})|(\\\\x.{2})",
+          "captures": {
+            "1": {"name": "constant.character.escape.regexp"},
+            "2": {"name": "invalid.illegal.character.escape.regex"}
+          }
         },
         {
           "name": "constant.character.class.regexp",
@@ -590,13 +607,13 @@
         },
         {
           "name": "constant.character.escape.regexp",
-          "match": "\\\\(.)"    
+          "match": "\\\\(.)"
         }
       ]
     },
     "regexp-parentheses": {
       "begin": "(\\()([+*?])?",
-      "end": "(\\)|(?=/))|((?=(?<!\\\\)\\n))",
+      "end": "(\\)|(?=/))|([^\\)]*?(?=/|\\n))",
       "beginCaptures": {
         "1": {"name": "punctuation.parenthesis.begin.regexp support.other.parenthesis.regexp"},
         "2": {"name": "invalid.illegal.group.construct.regexp"}
@@ -612,7 +629,7 @@
     "quoted-strings": {
       "name": "string.quoted.double.yara",
       "begin": "(?<!\")(\")(?!\\n)",
-      "end": "(?<!\\\\)(\")|((?:\\\")?[^\"]*\\n)",
+      "end": "(\")|((?:\\\\\")?[^\"]*\\n)",
       "beginCaptures": {
         "1": {"name": "punctuation.definition.string.begin.yara"}
       },
@@ -626,11 +643,11 @@
           "match": "\\\\([nrt\\\\\"]|x[0-9A-Fa-f]{2})"
         },
         {
-          "name": "constant.other.placeholder.ascii.yara",
+          "name": "string.quoted.double.ascii.yara",
           "match": "[\\x20\\x21\\x23-\\x5B\\x5D-\\x7E]"
         },
         {
-          "name": "constant.other.placeholder.unicode.yara",
+          "name": "string.quoted.double.unicode.yara",
           "match": "[^\\x00-\\x7F]"
         },
         {
@@ -657,32 +674,32 @@
           "match": "\\\\([nrt\\\\\"]|x[0-9A-Fa-f]{2})"
         },
         {
-          "name": "constant.other.placeholder.yara",
+          "name": "string.double.quoted.ascii.yara",
           "match": "[\\x20\\x21\\x23-\\x5B\\x5D-\\x7E]"
         }
       ]
-    },    
+    },
     "integers": {
       "patterns": [
         {
           "name":"constant.numeric.dec.yara",
           "match": "\\b[0-9]+(KB|MB)?\\b",
           "captures": {
-            "1": {"name": "storage.type.number.postfix.yara"}    
+            "1": {"name": "storage.type.number.postfix.yara"}
           }
         },
         {
           "name":"constant.numeric.hex.yara",
           "match": "\\b(0x)[0-9A-Fa-f]+\\b",
           "captures": {
-            "1": {"name": "storage.modifier.number.yara"}    
+            "1": {"name": "storage.modifier.number.yara"}
           }
         },
         {
           "name":"constant.numeric.oct.yara",
           "match": "\\b(0o)([0-7]+)\\b",
           "captures": {
-            "1": {"name": "storage.type.number.yara"}    
+            "1": {"name": "storage.type.number.yara"}
           }
         }
       ]
