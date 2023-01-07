@@ -71,13 +71,13 @@ export class YaraHexStringHoverProvider implements vscode.HoverProvider {
                 const openParens: number = (fullTerm.match(/\(/g)||[]).length;
                 const closeParens: number = (fullTerm.match(/\)/g)||[]).length;
                 if (openParens > closeParens) {
-                    const errorMsg = 'YaraHexStringHoverProvider: Not a valid hex string. Expected ")"';
-                    if (debug) { log(errorMsg); }
+                    const errorMsg = 'Not a valid hex string. Expected ")"';
+                    if (debug) { log(`YaraHexStringHoverProvider: ${errorMsg}`); }
                     hover = new vscode.Hover(errorMsg, innerRange);
                 }
                 else if (openParens < closeParens) {
-                    const errorMsg = 'YaraHexStringHoverProvider: Not a valid hex string. Expected "("';
-                    if (debug) { log(errorMsg); }
+                    const errorMsg = 'Not a valid hex string. Expected "("';
+                    if (debug) { log(`YaraHexStringHoverProvider: ${errorMsg}`); }
                     hover = new vscode.Hover(errorMsg, innerRange);
                 }
                 else {
