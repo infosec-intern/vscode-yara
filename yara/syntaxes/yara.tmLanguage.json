@@ -708,10 +708,7 @@
         },
         {
           "name": "constant.numeric.hex.yara",
-          "match": "\\b(0x)[0-9A-Fa-f]+\\b",
-          "captures": {
-            "1": {"name": "storage.modifier.number.yara"}
-          }
+          "match": "\\b0x[0-9A-Fa-f]+\\b"
         },
         {
           "name": "constant.numeric.oct.yara",

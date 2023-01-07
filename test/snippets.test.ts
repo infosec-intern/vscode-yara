@@ -315,7 +315,7 @@ suite('Rule Snippet', function () {
             '\t\tauthor = "$2"',
             '\t\tdate = "${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}"',
             '\tstrings:',
-            '\t\t${3:name} = ${4|"string",/regex/,{ HEX \\}|}',
+            '\t\t\\$${3:name} = ${4|"string",/regex/,{ HEX \\}|}',
             '\tcondition:',
             '\t\t${5:any of them}',
             '\\}',
@@ -365,7 +365,7 @@ suite('Strings Snippet', function () {
         assert.equal(item.label, 'strings');
         assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
         assert.equal(item.detail, 'Generate a strings section (YARA)');
-        const expectedInsertText: vscode.SnippetString = new vscode.SnippetString('strings:\n\t\$${1:name} = "${2:string}"');
+        const expectedInsertText: vscode.SnippetString = new vscode.SnippetString('strings:\n\t$${1:name} = "${2:string}"');
         assert.deepEqual(item.insertText, expectedInsertText);
         const expectedDocs: vscode.MarkdownString = new vscode.MarkdownString('');
         expectedDocs.appendCodeblock('strings:\n\t$NAME = "STRING"');
@@ -382,7 +382,7 @@ suite('Strings Snippet', function () {
         assert.equal(item.label, 'strings');
         assert.equal(item.kind, vscode.CompletionItemKind.Snippet);
         assert.equal(item.detail, 'Generate a strings section (YARA)');
-        const expectedInsertText: vscode.SnippetString = new vscode.SnippetString('strings:\n\t\$${1:name} = ${2|"string",/regex/,{ HEX \\}|}');
+        const expectedInsertText: vscode.SnippetString = new vscode.SnippetString('strings:\n\t\\$${1:name} = ${2|"string",/regex/,{ HEX \\}|}');
         assert.deepEqual(item.insertText, expectedInsertText);
         const expectedDocs: vscode.MarkdownString = new vscode.MarkdownString('');
         expectedDocs.appendCodeblock('strings:\n\t$NAME = "STRING"');
