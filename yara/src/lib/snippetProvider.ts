@@ -105,6 +105,7 @@ function generateStringSnippet(snippet: vscode.SnippetString = new vscode.Snippe
     const tabs = '\t'.repeat(numTabs);
     snippet.appendText(`${tabs}strings:\n`);
     snippet.appendText(`${tabs}\t`);
+    // eslint-disable-next-line no-useless-escape
     snippet.appendPlaceholder('\$name');
     snippet.appendText(' = ');
     // TODO: Find a way to mix choices and placeholders, so user can just hit TAB to replace the value
@@ -143,6 +144,7 @@ export class YaraSnippetCompletionItemProvider implements vscode.CompletionItemP
         if (config.get('snippets.strings')) {
             const stringsItem: vscode.CompletionItem = new vscode.CompletionItem('strings', vscode.CompletionItemKind.Snippet);
             stringsItem.detail = 'Generate a strings section (YARA)';
+            // eslint-disable-next-line no-useless-escape
             stringsItem.insertText = new vscode.SnippetString('strings:\n\t\$${1:name} = "${2:string}"');
             stringsItem.documentation = new vscode.MarkdownString('');
             stringsItem.documentation.appendCodeblock('strings:\n\t$NAME = "STRING"');
