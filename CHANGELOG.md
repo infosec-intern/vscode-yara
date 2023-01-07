@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0] 2022-01-07
+* Merged "Stricter grammer" from @malvidin
+  * Fixes to string snippet identifiers
+  * Significantly improved regex group, hex strings, and condition keywords, among others
+* Merged "Icon for Yara-Language" from @humpalum
+  * A cool new icon for distinguishing yara from plaintext in the sidebar
+
 ## [2.0.0] 2022-03-03
 * Add web extension capability
   * Large changes required to switch Node.js dependencies such as `path` and `os` modules to VSCode API
