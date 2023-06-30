@@ -8,6 +8,7 @@ import { YaraDefinitionProvider } from './lib/definitionProvider';
 import { YaraReferenceProvider } from './lib/referenceProvider';
 import { YaraSnippetCompletionItemProvider } from './lib/snippetProvider';
 import { YaraHexStringHoverProvider } from './lib/hoverProvider';
+import { YaraDocumentSymbolProvider } from "./lib/symbolProvider";
 
 
 export function activate(context: vscode.ExtensionContext): void {
@@ -39,6 +40,9 @@ export function activate(context: vscode.ExtensionContext): void {
         }
     });
     context.subscriptions.push(configWatcher);
+    const symbolDisposable: vscode.Disposable = vscode.languages.registerDocumentSymbolProvider(YARA, new YaraDocumentSymbolProvider());
+    context.subscriptions.push(symbolDisposable);
+
     if (debug) { log('Registered configuration watcher'); }
 }
 
