@@ -125,6 +125,220 @@
         "windows_hidden": [],
         "windows_searched": []
     },
+    "net": {
+        "url": [
+            {"raw": "property"},
+            {"path": "property"},
+            {"query": "property"},
+            {"hostname": "property"},
+            {"new_url": "property"},
+            {"first_submission_date": "property"},
+            {"params": "dictionary"},
+            {"port": "property"},
+            {"trackers": []},
+            {"response_headers": "dictionary"},
+            {"number_of_response_headers": "property"},
+            {"response_code": "property"},
+            {"cookies": "dictionary"},
+            {"favicon": [
+                {"raw_md5": "property"},
+                {"dhash": "property"}
+            ]},
+            {"outgoing_links": "property"},
+            {"redirects": []},
+            {"html_title": "property"},
+            {"html_meta_tags": "property"},
+            {"tags": []},
+            {"analysis_stats": [
+                {"malicious": "property"},
+                {"suspicious": "property"},
+                {"undetected": "property"},
+                {"harmless": "property"},
+                {"timeout": "property"},
+                {"confirmed_timeout": "property"},
+                {"failure": "property"},
+                {"type_unsupported": "property"}
+            ]},
+            {"categories": "dictionary"},
+            {"signatures": "dictionary"},
+            {"downloaded_file": [
+                {"new_for_vt": "property"},
+                {"new_for_url": "property"},
+                {"new_for_domain": "property"},
+                {"new_for_ip": "property"},
+                {"sha256": "property"},
+                {"file_type": "property"},
+                {"analysis_stats": []},
+                {"signatures": "dictionary"}
+            ]},
+            {"communicating_file": [
+                {"new_for_vt": "property"},
+                {"new_for_url": "property"},
+                {"new_for_domain": "property"},
+                {"new_for_ip": "property"},
+                {"sha256": "property"},
+                {"file_type": "property"},
+                {"analysis_stats": []}
+            ]},
+            {"embedded_resources": []},
+            {"submitter": [
+                {"country": "property"},
+                {"city": "property"}
+            ]}
+        ],
+        "ip": [
+            {"raw": "property"},
+            {"new_ip": "property"},
+            {"whois": "dictionary"},
+            {"whois_raw": "property"},
+            {"new_whois": "property"},
+            {"reverse_lookup": "property"},
+            {"jarm": "property"},
+            {"https_certificate": [
+                {"thumbprint": "property"},
+                {"subject": [
+                    {"common_name": "property"},
+                    {"country": "property"},
+                    {"organization": "property"},
+                    {"organizational_unit": "property"},
+                    {"locality": "property"},
+                    {"state": "property"}
+                ]},
+                {"validity": [
+                    {"not_before": "property"},
+                    {"not_after": "property"}
+                ]},
+                {"subject_alternative_name": "property"},
+                {"signature": "property"},
+                {"serial_number": "property"},
+                {"issuer": [
+                    {"common_name": "property"},
+                    {"country": "property"},
+                    {"organization": "property"},
+                    {"organizational_unit": "property"},
+                    {"locality": "property"},
+                    {"state": "property"}
+                ]}
+            ]},
+            {"analysis_stats": [
+                {"malicious": "property"},
+                {"suspicious": "property"},
+                {"undetected": "property"},
+                {"harmless": "property"},
+                {"timeout": "property"},
+                {"confirmed_timeout": "property"},
+                {"failure": "property"},
+                {"type_unsupported": "property"}
+            ]},
+            {"signatures": []},
+            {"downloaded_file": [
+                {"new_for_vt": "property"},
+                {"new_for_url": "property"},
+                {"new_for_domain": "property"},
+                {"new_for_ip": "property"},
+                {"sha256": "property"},
+                {"file_type": "property"},
+                {"analysis_stats": []},
+                {"signatures": "dictionary"}
+            ]},
+            {"communicating_file": [
+                {"new_for_vt": "property"},
+                {"new_for_ip": "property"},
+                {"sha256": "property"},
+                {"file_type": "property"},
+                {"analysis_stats": []}
+            ]},
+            {"ip_as_owner": "property"},
+            {"ip_asn": "property"},
+            {"ip_country": "property"},
+            {"ip_as_int": "property"}
+        ],
+        "domain": [
+            {"raw": "property"},
+            {"root": "property"},
+            {"new_domain": "property"},
+            {"first_resolution": "property"},
+            {"new_resolution": "property"},
+            {"whois": "dictionary"},
+            {"whois_raw": "property"},
+            {"first_whois": "property"},
+            {"new_whois": "property"},
+            {"https_certificate": [
+                {"thumbprint": "property"},
+                {"subject": [
+                    {"common_name": "property"},
+                    {"country": "property"},
+                    {"organization": "property"},
+                    {"organizational_unit": "property"},
+                    {"locality": "property"},
+                    {"state": "property"}
+                ]},
+                {"validity": [
+                    {"not_before": "property"},
+                    {"not_after": "property"}
+                ]},
+                {"subject_alternative_name": "property"},
+                {"signature": "property"},
+                {"serial_number": "property"},
+                {"issuer": [
+                    {"common_name": "property"},
+                    {"country": "property"},
+                    {"organization": "property"},
+                    {"organizational_unit": "property"},
+                    {"locality": "property"},
+                    {"state": "property"}
+                ]}
+            ]},
+            {"jarm": "property"},
+            {"dns_records": [
+                {"value": "property"},
+                {"type": "property"},
+                {"dns_class": "property"},
+                {"ttl": "property"},
+                {"mname": "property"},
+                {"rname": "property"},
+                {"priority": "property"},
+                {"serial": "property"},
+                {"retry": "property"},
+                {"refresh": "property"},
+                {"expire": "property"},
+                {"minimum": "property"}
+            ]},
+            {"favicon": [
+                {"raw_md5": "property"},
+                {"dhash": "property"}
+            ]},
+            {"tags": []},
+            {"analysis_stats": [
+                {"malicious": "property"},
+                {"suspicious": "property"},
+                {"undetected": "property"},
+                {"harmless": "property"},
+                {"timeout": "property"},
+                {"confirmed_timeout": "property"},
+                {"failure": "property"},
+                {"type_unsupported": "property"}
+            ]},
+            {"categories": []},
+            {"signatures": []},
+            {"downloaded_file": [
+                {"new_for_vt": "property"},
+                {"new_for_domain": "property"},
+                {"sha256": "property"},
+                {"file_type": "property"},
+                {"analysis_stats": []},
+                {"signatures": "dictionary"}
+            ]},
+            {"communicating_file": [
+                {"new_for_vt": "property"},
+                {"new_for_domain": "property"},
+                {"sha256": "property"},
+                {"file_type": "property"},
+                {"analysis_stats": []},
+                {"signatures": "dictionary"}
+            ]}
+        ]
+    },
     "Http": {
         "Method": {
             "GET": "enum",
