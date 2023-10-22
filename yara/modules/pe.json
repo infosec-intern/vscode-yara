@@ -92,7 +92,7 @@
             "ordinal": "property"
         }
     },
-    "is_pe": "method",
+    "is_pe": "property",
     "is_dll": "method",
     "is_32bit": "method",
     "is_64bit": "method",
